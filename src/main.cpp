@@ -2,6 +2,7 @@
 #include "ByxVM/Test/ByxVMTest.h"
 #include "ByxLexer/Test/LexerTest.h"
 #include "ByxParser/Test/ParserTest.h"
+#include "ByxParser/ByxParser.h"
 
 using namespace std;
 

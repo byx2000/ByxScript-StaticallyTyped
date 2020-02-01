@@ -2,6 +2,11 @@
 
 using namespace std;
 
+std::string ToStringVisitor::getString() const
+{
+	return str;
+}
+
 void ToStringVisitor::visit(ProgramNode& node)
 {
 	str += "Program:\n";
@@ -134,7 +139,13 @@ void ToStringVisitor::visit(FunctionCallExprNode& node)
 	str += ")";
 }
 
-std::string ToStringVisitor::getString() const
+void ToStringVisitor::visit(IfNode& node)
 {
-	return str;
+	str += "if(";
+	node.cond->visit(*this);
+	str += ",";
+	node.tBranch->visit(*this);
+	str += ",";
+	node.fBranch->visit(*this);
+	str += ")";
 }

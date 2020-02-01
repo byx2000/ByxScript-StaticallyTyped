@@ -24,4 +24,5 @@ private:
 	virtual void visit(ReturnNode& node) override;
 	virtual void visit(FunctionCallStmtNode& node) override;
 	virtual void visit(FunctionCallExprNode& node) override;
+	virtual void visit(IfNode& node) override;
 };

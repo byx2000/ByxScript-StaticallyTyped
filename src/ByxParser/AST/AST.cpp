@@ -153,3 +153,14 @@ void FunctionCallExprNode::visit(ASTVisitor& visitor)
 {
 	visitor.visit(*this);
 }
+
+IfNode::IfNode(std::shared_ptr<Expression> cond, std::shared_ptr<Expression> tBranck, std::shared_ptr<Expression> fBranch, const Token& token)
+	: cond(cond), tBranch(tBranch), fBranch(fBranch)
+{
+	this->token = token;
+}
+
+void IfNode::visit(ASTVisitor& visitor)
+{
+	visitor.visit(*this);
+}

@@ -63,3 +63,8 @@ void ASTVisitor::visit(FunctionCallExprNode& node)
 {
 
 }
+
+void ASTVisitor::visit(IfNode& node)
+{
+
+}

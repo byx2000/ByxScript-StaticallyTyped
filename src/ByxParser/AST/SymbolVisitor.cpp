@@ -259,3 +259,10 @@ void SymbolVisitor::visit(FunctionCallExprNode& node)
 		node.exprs[i]->visit(*this);
 	}
 }
+
+void SymbolVisitor::visit(IfNode& node)
+{
+	node.cond->visit(*this);
+	node.tBranch->visit(*this);
+	node.fBranch->visit(*this);
+}
