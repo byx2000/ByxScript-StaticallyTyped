@@ -1,5 +1,5 @@
 #include "ByxLexer.h"
-#include "../ByxParser/Parser/ByxParser.h"
+#include "../ByxParser/ByxParser.h"
 
 #include <iostream>
 

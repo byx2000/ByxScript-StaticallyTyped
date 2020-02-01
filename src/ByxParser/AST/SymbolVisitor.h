@@ -1,8 +1,8 @@
 #pragma once
 
 #include "ASTVisitor.h"
-#include "../Scope/ScopeStack.h"
-#include "../../../Common/FunctionTable.h"
+#include "../ScopeStack.h"
+#include "../../Common/FunctionTable.h"
 
 class SymbolVisitor : public ASTVisitor
 {

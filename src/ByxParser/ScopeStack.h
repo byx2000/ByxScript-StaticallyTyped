@@ -1,7 +1,7 @@
 #pragma once
 
 #include "Scope.h"
-#include "../../../Common/DataType.h"
+#include "../Common/DataType.h"
 
 #include <vector>
 

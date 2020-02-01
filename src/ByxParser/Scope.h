@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../../Common/DataType.h"
-#include "../SymbolInfo.h"
+#include "../Common/DataType.h"
+#include "SymbolInfo.h"
 
 #include <map>
 

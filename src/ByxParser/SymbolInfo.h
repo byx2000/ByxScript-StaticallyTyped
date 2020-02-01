@@ -1,7 +1,7 @@
 #pragma once
 
 #include <string>
-#include "../../Common/DataType.h"
+#include "../Common/DataType.h"
 
 struct SymbolInfo
 {

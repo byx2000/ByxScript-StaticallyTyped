@@ -1,6 +1,6 @@
 #include "AST.h"
-#include "../Scope/ScopeStack.h"
-#include "../../../Common/Code.h"
+#include "../ScopeStack.h"
+#include "../../Common/Code.h"
 #include "ToStringVisitor.h"
 
 #include <iostream>

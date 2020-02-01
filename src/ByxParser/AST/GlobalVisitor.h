@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ASTVisitor.h"
-#include "../../../Common/Instruction.h"
+#include "../../Common/Instruction.h"
 
 #include <string>
 #include <map>

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../../Common/DataType.h"
+#include "../Common/DataType.h"
 
 struct FunctionInfo
 {

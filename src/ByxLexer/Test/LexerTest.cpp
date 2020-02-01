@@ -1,7 +1,7 @@
 #include "LexerTest.h"
 #include "../../ByxLexer/ByxLexer.h"
 #include "../../Common/TestUtil.h"
-#include "../../ByxParser/Parser/ByxParser.h"
+#include "../../ByxParser/ByxParser.h"
 
 #include <cassert>
 #include <iostream>

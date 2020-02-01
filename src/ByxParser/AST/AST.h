@@ -4,8 +4,8 @@
 #include <vector>
 #include <memory>
 
-#include "../../../Common/DataType.h"
-#include "../../../ByxLexer/Token.h"
+#include "../../Common/DataType.h"
+#include "../../ByxLexer/Token.h"
 #include "../SymbolInfo.h"
 #include "../FunctionInfo.h"
 

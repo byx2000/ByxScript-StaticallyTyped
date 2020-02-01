@@ -1,10 +1,10 @@
 #pragma once
 
 #include "AST/AST.h"
-#include "../../ByxLexer/ByxLexer.h"
-#include "../Parser/Scope/ScopeStack.h"
-#include "../../Common/Code.h"
-#include "../../Common/FunctionTable.h"
+#include "../ByxLexer/ByxLexer.h"
+#include "ScopeStack.h"
+#include "../Common/Code.h"
+#include "../Common/FunctionTable.h"
 #include "AST/SymbolVisitor.h"
 #include "FunctionInfo.h"
 

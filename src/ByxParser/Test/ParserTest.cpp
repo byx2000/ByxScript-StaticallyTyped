@@ -1,5 +1,5 @@
 #include "ParserTest.h"
-#include "../Parser/ByxParser.h"
+#include "../ByxParser.h"
 #include "../../Common/TestUtil.h"
 #include "../../ByxVM/VM/ByxVM.h"
 
