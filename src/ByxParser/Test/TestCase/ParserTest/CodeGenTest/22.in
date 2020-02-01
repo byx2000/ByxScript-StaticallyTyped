@@ -1,0 +1,35 @@
+function void main()
+{
+	int i = f1(); // 0
+	double x = f2(); // 1
+	
+	i = f3(20, 30);
+	x = f4(1.57, 3.14);
+	
+	int ia = 100; // 2
+	int ib = 200; // 3
+	double da = 0.5; // 4
+	double db = 1.5; // 5
+	i = f3(ia, ib);
+	x = f4(da, db);
+}
+
+function int f1()
+{
+	return 100;
+}
+
+function double f2()
+{
+	return 3.14;
+}
+
+function int f3(int a, int b)
+{
+	return a;
+}
+
+function double f4(double a, double b)
+{
+	return b;
+}

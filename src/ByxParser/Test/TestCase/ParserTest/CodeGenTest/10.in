@@ -1,0 +1,16 @@
+int g1 = 100;
+double g2 = 3.14;
+
+function void main()
+{
+	g1 = g2;
+	g2 = g1;
+	{
+		int g1 = 300;
+		g1 = 400;
+		double g2 = 1.57;
+		g2 = 0.5;
+	}
+	g1 = 400;
+	g2 = 1.5;
+}

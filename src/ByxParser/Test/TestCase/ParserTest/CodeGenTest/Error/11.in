@@ -1,0 +1,5 @@
+function void main()
+{
+	int i = 200;
+	int j = 300
+}

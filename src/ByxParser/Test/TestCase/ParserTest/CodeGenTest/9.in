@@ -1,0 +1,12 @@
+int g1 = 100; // 0
+int g2 = g1; // 1
+double g3 = 3.14; // 2
+
+function void main()
+{
+	
+}
+
+double g4 = g3; // 3
+int g5 = g2; // 4
+double g6 = g4; // 5

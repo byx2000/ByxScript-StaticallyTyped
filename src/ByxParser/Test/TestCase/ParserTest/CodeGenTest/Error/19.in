@@ -1,0 +1,8 @@
+int i = 100;
+int j = k;
+int k = 200;
+
+function void main()
+{
+	
+}

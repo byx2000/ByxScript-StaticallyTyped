@@ -1,0 +1,13 @@
+function int f(int a)
+{
+	int i = a;
+	return i;
+}
+
+function void main()
+{
+	int i = 100;
+	int j = 200;
+	int k = j;
+	fib(i);
+}

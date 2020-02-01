@@ -1,0 +1,20 @@
+3
+0 0
+0 5
+0 8
+
+2
+
+iconst 100
+igstore 0
+dconst 3.14
+dgstore 1
+ret
+
+igload 0
+ret
+ret
+
+dgload 1
+ret
+ret

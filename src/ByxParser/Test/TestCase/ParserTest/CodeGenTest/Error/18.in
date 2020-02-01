@@ -1,0 +1,7 @@
+int i = 100;
+double i = 3.14;
+
+function void main()
+{
+
+}

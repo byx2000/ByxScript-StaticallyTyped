@@ -1,0 +1,18 @@
+function void main()
+{
+	int i = 10;
+	int j;
+	double x = 3.14;
+	double y;
+	int k = i;
+	double z = y;
+	j = 300;
+	j = k;
+	y = 1.5;
+	z = x;
+	
+	int v1;
+	double height = 0.124;
+	v1 = height;
+	height = v1;
+}

@@ -1,0 +1,17 @@
+int g_i = 100;
+double g_x = 3.14;
+
+function int f()
+{
+	return g_i;
+}
+
+function double g()
+{
+	return g_x;
+}
+
+function void main()
+{
+	
+}

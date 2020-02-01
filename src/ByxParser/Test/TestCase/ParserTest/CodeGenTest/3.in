@@ -1,0 +1,23 @@
+function void main()
+{
+	int i = 10;
+	double x = 3.14;
+}
+
+function void f()
+{
+	int i = 100;
+	double x = 6.28;
+	int j;
+}
+
+function void g(int n)
+{
+	int i = n;
+	double y;
+}
+
+function void h(int a, double b)
+{
+	
+}

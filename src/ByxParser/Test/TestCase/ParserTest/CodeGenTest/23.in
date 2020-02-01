@@ -1,0 +1,14 @@
+int g1;
+
+function int f(int n)
+{
+	g1 = n;
+	return g1;
+}
+
+function void main()
+{
+	f(100);
+	int i = f(200);
+	int j = f(g1);
+}

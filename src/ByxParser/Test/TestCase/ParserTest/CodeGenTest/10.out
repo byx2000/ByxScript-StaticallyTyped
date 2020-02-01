@@ -1,0 +1,26 @@
+1
+2 0
+
+2
+
+iconst 100
+igstore 0
+dconst 3.14
+dgstore 1
+dgload 1
+igstore 0
+igload 0
+dgstore 1
+iconst 300
+istore 0
+iconst 400
+istore 0
+dconst 1.57
+dstore 1
+dconst 0.5
+dstore 1
+iconst 400
+igstore 0
+dconst 1.5
+dgstore 1
+ret

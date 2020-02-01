@@ -1,0 +1,8 @@
+int g_i = 100;
+double g_x = 3.14;
+
+function void main()
+{
+	g_i = 200;
+	g_x = 6.28;
+}

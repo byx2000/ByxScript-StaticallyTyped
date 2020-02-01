@@ -1,0 +1,34 @@
+1
+8 0
+
+0
+
+iconst 10
+istore 0
+iconst 0
+istore 1
+dconst 3.14
+dstore 2
+dconst 0
+dstore 3
+iload 0
+istore 4
+dload 3
+dstore 5
+iconst 300
+istore 1
+iload 4
+istore 1
+dconst 1.5
+dstore 3
+dload 2
+dstore 5
+iconst 0
+istore 6
+dconst 0.124
+dstore 7
+dload 7
+istore 6
+iload 6
+dstore 7
+ret

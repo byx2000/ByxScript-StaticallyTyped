@@ -1,0 +1,5 @@
+int i = 100;
+double x = 3.14;
+int i = 200;
+
+function void main() {}

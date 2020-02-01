@@ -1,0 +1,35 @@
+5
+0 10
+1 0
+1 5
+1 12
+1 17
+
+0
+
+iconst 12
+istore 0
+iload 0
+ret
+ret
+
+dconst 3.14
+dstore 0
+dload 0
+ret
+ret
+
+ret
+ret
+
+dconst 3.14
+dstore 0
+dload 0
+ret
+ret
+
+iconst 12
+istore 0
+iload 0
+ret
+ret

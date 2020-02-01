@@ -1,0 +1,55 @@
+6
+0 33
+0 0
+1 5
+1 13
+0 21
+0 28
+
+2
+
+iconst 100
+ret
+iconst 200
+ret
+ret
+
+istore 0
+iload 0
+ret
+iload 0
+ret
+iload 0
+ret
+ret
+
+dstore 0
+dload 0
+ret
+dload 0
+ret
+dload 0
+ret
+ret
+
+igload 0
+ret
+igload 0
+ret
+igload 0
+ret
+ret
+
+dgload 1
+ret
+dgload 1
+ret
+ret
+
+iconst 0
+igstore 0
+dconst 0
+dgstore 1
+ret
+ret
+ret 

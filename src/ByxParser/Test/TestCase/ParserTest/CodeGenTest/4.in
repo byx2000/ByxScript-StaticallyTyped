@@ -1,0 +1,32 @@
+/*
+	0 i
+	1 x
+	2 j
+	3 y
+	4 :i
+	5 :x
+	6 :z
+	7 :k
+	8 :v1
+	9 :d1
+*/
+
+function void main()
+{
+	int i = 100;
+	double x = 3.14;
+	int j = 50;
+	double y = 6.28;
+	
+	{
+		int i = j;
+		double x = y;
+		double z = x;
+		int k = i;
+	}
+	
+	{
+		int v1 = i;
+		double d1 = x;
+	}
+}

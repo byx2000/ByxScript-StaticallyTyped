@@ -1,0 +1,6 @@
+function void main()
+{
+	int i = g;
+}
+
+int g = 100;

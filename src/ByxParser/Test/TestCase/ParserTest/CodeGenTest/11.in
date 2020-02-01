@@ -1,0 +1,16 @@
+function void f()
+{
+	return;
+}
+
+function void main()
+{
+
+}
+
+function void g()
+{
+	return;
+	return;
+}
+

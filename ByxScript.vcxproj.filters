@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="源文件">
+      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+    </Filter>
+    <Filter Include="头文件">
+      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
+      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
+    </Filter>
+    <Filter Include="资源文件">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="头文件\ByxVM">
+      <UniqueIdentifier>{7fccbc89-f10c-4d46-b2bd-04d4502ddfaa}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ByxParser">
+      <UniqueIdentifier>{eec1730c-b0b9-425f-8a84-84c5e5530ba2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ByxVM">
+      <UniqueIdentifier>{48cf8178-3aae-4f41-8e7b-73f1303b039e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ByxParser">
+      <UniqueIdentifier>{6c63645b-22e8-4661-ab1c-e1a140394413}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ByxVM\Test">
+      <UniqueIdentifier>{8a175be7-3adf-42a3-88bb-7507894fb7d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ByxVM\Test">
+      <UniqueIdentifier>{5943973f-9e30-4d1f-80eb-5e46b8a7d487}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ByxVM\VM">
+      <UniqueIdentifier>{eba08687-e6ef-4f49-bc4b-e6d808756865}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ByxVM\VM">
+      <UniqueIdentifier>{352c5e31-9934-40c0-b860-72c73600e7e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\Common">
+      <UniqueIdentifier>{02d78d15-e8cf-459c-9d47-360ce59a37e7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\Common">
+      <UniqueIdentifier>{1df7817c-c4a7-4636-904e-1927fe8685c9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ByxParser\Lexer">
+      <UniqueIdentifier>{cd5af71c-9a2c-4e58-81b1-844bfe5afca1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ByxParser\Parser">
+      <UniqueIdentifier>{322282a0-263e-4c78-8528-c18f010bb043}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ByxParser\Test">
+      <UniqueIdentifier>{77ec78f8-7d3b-4087-80a4-a90747e7f954}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ByxParser\Lexer">
+      <UniqueIdentifier>{5b768808-eb8d-405c-be9f-3157a295b0d7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ByxParser\Parser">
+      <UniqueIdentifier>{8de4dd9a-0431-4c0a-9541-fc4e13be032a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ByxParser\Test">
+      <UniqueIdentifier>{fc212216-756a-419b-86a3-ebe1b6b58d07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ByxParser\Parser\AST">
+      <UniqueIdentifier>{ce5d3b2a-2ed8-43bc-9302-2651693bd9e4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="头文件\ByxParser\Parser\Scope">
+      <UniqueIdentifier>{b8560e06-5955-4cef-8941-d327e22b2e77}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ByxParser\Parser\AST">
+      <UniqueIdentifier>{7a680eb0-d0c4-4f50-a917-ba337e30384d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="源文件\ByxParser\Parser\Scope">
+      <UniqueIdentifier>{d3bec94f-db36-4fdc-9031-938e1aa9b819}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\ByxVM\VM\ByxVM.cpp">
+      <Filter>源文件\ByxVM\VM</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxVM\VM\CallStack.cpp">
+      <Filter>源文件\ByxVM\VM</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxVM\VM\OperandStack.cpp">
+      <Filter>源文件\ByxVM\VM</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxVM\VM\Value.cpp">
+      <Filter>源文件\ByxVM\VM</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxVM\Test\ByxVMTest.cpp">
+      <Filter>源文件\ByxVM\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Code.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\DataType.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\FunctionTable.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Instruction.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Opcode.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\TestUtil.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\main.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Lexer\ByxLexer.cpp">
+      <Filter>源文件\ByxParser\Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Lexer\CharStream.cpp">
+      <Filter>源文件\ByxParser\Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Lexer\LexerState.cpp">
+      <Filter>源文件\ByxParser\Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Lexer\Token.cpp">
+      <Filter>源文件\ByxParser\Lexer</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Test\LexerTest.cpp">
+      <Filter>源文件\ByxParser\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Test\ParserTest.cpp">
+      <Filter>源文件\ByxParser\Test</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Parser\AST\AST.cpp">
+      <Filter>源文件\ByxParser\Parser\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Parser\AST\ASTVisitor.cpp">
+      <Filter>源文件\ByxParser\Parser\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Parser\AST\CodeGenVisitor.cpp">
+      <Filter>源文件\ByxParser\Parser\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Parser\AST\GlobalVisitor.cpp">
+      <Filter>源文件\ByxParser\Parser\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Parser\AST\SymbolVisitor.cpp">
+      <Filter>源文件\ByxParser\Parser\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Parser\AST\ToStringVisitor.cpp">
+      <Filter>源文件\ByxParser\Parser\AST</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Parser\Scope\Scope.cpp">
+      <Filter>源文件\ByxParser\Parser\Scope</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Parser\Scope\ScopeStack.cpp">
+      <Filter>源文件\ByxParser\Parser\Scope</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Parser\ByxParser.cpp">
+      <Filter>源文件\ByxParser\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Parser\FunctionInfo.cpp">
+      <Filter>源文件\ByxParser\Parser</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxParser\Parser\SymbolInfo.cpp">
+      <Filter>源文件\ByxParser\Parser</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\ByxVM\VM\ByxVM.h">
+      <Filter>头文件\ByxVM\VM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxVM\VM\CallStack.h">
+      <Filter>头文件\ByxVM\VM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxVM\VM\OperandStack.h">
+      <Filter>头文件\ByxVM\VM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxVM\VM\Value.h">
+      <Filter>头文件\ByxVM\VM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxVM\Test\ByxVMTest.h">
+      <Filter>头文件\ByxVM\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Code.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\DataType.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\FunctionTable.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Instruction.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Opcode.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\TestUtil.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Lexer\ByxLexer.h">
+      <Filter>头文件\ByxParser\Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Lexer\CharStream.h">
+      <Filter>头文件\ByxParser\Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Lexer\LexerState.h">
+      <Filter>头文件\ByxParser\Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Lexer\Token.h">
+      <Filter>头文件\ByxParser\Lexer</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Test\LexerTest.h">
+      <Filter>头文件\ByxParser\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Test\ParserTest.h">
+      <Filter>头文件\ByxParser\Test</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Parser\AST\AST.h">
+      <Filter>头文件\ByxParser\Parser\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Parser\AST\ASTVisitor.h">
+      <Filter>头文件\ByxParser\Parser\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Parser\AST\CodeGenVisitor.h">
+      <Filter>头文件\ByxParser\Parser\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Parser\AST\GlobalVisitor.h">
+      <Filter>头文件\ByxParser\Parser\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Parser\AST\SymbolVisitor.h">
+      <Filter>头文件\ByxParser\Parser\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Parser\AST\ToStringVisitor.h">
+      <Filter>头文件\ByxParser\Parser\AST</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Parser\Scope\Scope.h">
+      <Filter>头文件\ByxParser\Parser\Scope</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Parser\Scope\ScopeStack.h">
+      <Filter>头文件\ByxParser\Parser\Scope</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Parser\ByxParser.h">
+      <Filter>头文件\ByxParser\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Parser\FunctionInfo.h">
+      <Filter>头文件\ByxParser\Parser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\Parser\SymbolInfo.h">
+      <Filter>头文件\ByxParser\Parser</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>
