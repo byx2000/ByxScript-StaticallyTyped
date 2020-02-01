@@ -4,6 +4,11 @@
 
 using namespace std;
 
+void ASTVisitor::visit(EmptyNode& node)
+{
+
+}
+
 void ASTVisitor::visit(ProgramNode& node)
 {
 

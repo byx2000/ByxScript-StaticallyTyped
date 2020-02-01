@@ -5,6 +5,7 @@
 class ASTVisitor
 {
 public:
+	virtual void visit(EmptyNode& node);
 	virtual void visit(ProgramNode& node);
 	virtual void visit(IntegerNode& node);
 	virtual void visit(DoubleNode& node);

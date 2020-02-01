@@ -22,6 +22,11 @@ int ASTNode::col() const
 	return token.col;
 }
 
+void EmptyNode::visit(ASTVisitor& visitor)
+{
+	visitor.visit(*this);
+}
+
 ProgramNode::ProgramNode(const std::vector<shared_ptr<ASTNode>>& stmts)
 	: stmts(stmts)
 {

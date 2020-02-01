@@ -409,6 +409,17 @@ shared_ptr<ASTNode> ByxParser::parseFunctionCallStmt()
 	return make_shared<FunctionCallStmtNode>(name, exprs, token);
 }
 
+std::shared_ptr<ASTNode> ByxParser::parseIf()
+{
+	// 读取if关键字
+	/*Token token = lexer.next();
+
+	// 读取左括号
+	lexer.read(TokenType::OpenBracket);*/
+
+	// 读取表达式
+}
+
 shared_ptr<Expression> ByxParser::parseExpr()
 {
 	return parseCmpExpr();

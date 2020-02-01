@@ -31,6 +31,13 @@ public:
 	DataType type;
 };
 
+// ø’”Ôæ‰
+class EmptyNode : public ASTNode
+{
+public:
+	virtual void visit(ASTVisitor& visitor) override;
+};
+
 // ≥Ã–Ú
 class ProgramNode : public ASTNode
 {
