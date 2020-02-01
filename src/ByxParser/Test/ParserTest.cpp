@@ -16,7 +16,7 @@ void ByxParserTest::Run()
 	int i = 1;
 	for (i = 1; i <= numCases; ++i)
 	{
-		string path = "src/ByxParser/Test/TestCase/ParserTest/CodeGenTest/";
+		string path = "src/ByxParser/Test/TestCase/CodeGenTest/";
 		CheckCase(path + to_string(i) + ".in", path + to_string(i) + ".out");
 		cout << i << " ";
 	}
@@ -26,7 +26,7 @@ void ByxParserTest::Run()
 	int numErrorCase = 25;
 	for (int i = 1; i <= numErrorCase; ++i)
 	{
-		string path = "src/ByxParser/Test/TestCase/ParserTest/CodeGenTest/Error/";
+		string path = "src/ByxParser/Test/TestCase/CodeGenTest/Error/";
 		CheckErrorCase(path + to_string(i) + ".in");
 		cout << i << " ";
 	}
