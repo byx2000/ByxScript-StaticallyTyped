@@ -1,7 +1,7 @@
 #pragma once
 
-#include "../../Common/Code.h"
-#include "../../Common/FunctionTable.h"
+#include "../Common/Code.h"
+#include "../Common/FunctionTable.h"
 #include "CallStack.h"
 #include "OperandStack.h"
 

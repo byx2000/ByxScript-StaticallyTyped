@@ -31,12 +31,6 @@
     <Filter Include="源文件\ByxVM\Test">
       <UniqueIdentifier>{5943973f-9e30-4d1f-80eb-5e46b8a7d487}</UniqueIdentifier>
     </Filter>
-    <Filter Include="头文件\ByxVM\VM">
-      <UniqueIdentifier>{eba08687-e6ef-4f49-bc4b-e6d808756865}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="源文件\ByxVM\VM">
-      <UniqueIdentifier>{352c5e31-9934-40c0-b860-72c73600e7e7}</UniqueIdentifier>
-    </Filter>
     <Filter Include="头文件\Common">
       <UniqueIdentifier>{02d78d15-e8cf-459c-9d47-360ce59a37e7}</UniqueIdentifier>
     </Filter>
@@ -69,18 +63,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\ByxVM\VM\ByxVM.cpp">
-      <Filter>源文件\ByxVM\VM</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ByxVM\VM\CallStack.cpp">
-      <Filter>源文件\ByxVM\VM</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ByxVM\VM\OperandStack.cpp">
-      <Filter>源文件\ByxVM\VM</Filter>
-    </ClCompile>
-    <ClCompile Include="src\ByxVM\VM\Value.cpp">
-      <Filter>源文件\ByxVM\VM</Filter>
-    </ClCompile>
     <ClCompile Include="src\ByxVM\Test\ByxVMTest.cpp">
       <Filter>源文件\ByxVM\Test</Filter>
     </ClCompile>
@@ -156,20 +138,20 @@
     <ClCompile Include="src\ByxParser\SymbolInfo.cpp">
       <Filter>源文件\ByxParser</Filter>
     </ClCompile>
+    <ClCompile Include="src\ByxVM\ByxVM.cpp">
+      <Filter>源文件\ByxVM</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxVM\CallStack.cpp">
+      <Filter>源文件\ByxVM</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxVM\OperandStack.cpp">
+      <Filter>源文件\ByxVM</Filter>
+    </ClCompile>
+    <ClCompile Include="src\ByxVM\Value.cpp">
+      <Filter>源文件\ByxVM</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ByxVM\VM\ByxVM.h">
-      <Filter>头文件\ByxVM\VM</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ByxVM\VM\CallStack.h">
-      <Filter>头文件\ByxVM\VM</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ByxVM\VM\OperandStack.h">
-      <Filter>头文件\ByxVM\VM</Filter>
-    </ClInclude>
-    <ClInclude Include="src\ByxVM\VM\Value.h">
-      <Filter>头文件\ByxVM\VM</Filter>
-    </ClInclude>
     <ClInclude Include="src\ByxVM\Test\ByxVMTest.h">
       <Filter>头文件\ByxVM\Test</Filter>
     </ClInclude>
@@ -241,6 +223,18 @@
     </ClInclude>
     <ClInclude Include="src\ByxParser\SymbolInfo.h">
       <Filter>头文件\ByxParser</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxVM\ByxVM.h">
+      <Filter>头文件\ByxVM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxVM\CallStack.h">
+      <Filter>头文件\ByxVM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxVM\OperandStack.h">
+      <Filter>头文件\ByxVM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxVM\Value.h">
+      <Filter>头文件\ByxVM</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

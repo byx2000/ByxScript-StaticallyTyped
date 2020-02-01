@@ -1,13 +1,11 @@
 #include "ByxVMTest.h"
 #include "../../Common/TestUtil.h"
-#include "../VM/ByxVM.h"
+#include "../ByxVM.h"
 
 #include <iostream>
 #include <cassert>
 
 using namespace std;
-
-
 
 void ByxVMTest::Run()
 {

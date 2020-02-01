@@ -1,7 +1,7 @@
 #include "ParserTest.h"
 #include "../ByxParser.h"
 #include "../../Common/TestUtil.h"
-#include "../../ByxVM/VM/ByxVM.h"
+#include "../../ByxVM/ByxVM.h"
 
 #include <string>
 #include <fstream>
