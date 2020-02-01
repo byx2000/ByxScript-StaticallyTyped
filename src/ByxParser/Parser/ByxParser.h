@@ -1,7 +1,7 @@
 #pragma once
 
 #include "AST/AST.h"
-#include "../Lexer/ByxLexer.h"
+#include "../../ByxLexer/ByxLexer.h"
 #include "../Parser/Scope/ScopeStack.h"
 #include "../../Common/Code.h"
 #include "../../Common/FunctionTable.h"

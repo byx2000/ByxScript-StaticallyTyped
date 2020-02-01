@@ -5,7 +5,7 @@
 #include <memory>
 
 #include "../../../Common/DataType.h"
-#include "../../Lexer/Token.h"
+#include "../../../ByxLexer/Token.h"
 #include "../SymbolInfo.h"
 #include "../FunctionInfo.h"
 

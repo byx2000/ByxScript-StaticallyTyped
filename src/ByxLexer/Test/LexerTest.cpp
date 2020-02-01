@@ -1,7 +1,7 @@
 #include "LexerTest.h"
-#include "../Lexer/ByxLexer.h"
+#include "../../ByxLexer/ByxLexer.h"
 #include "../../Common/TestUtil.h"
-#include "../Parser/ByxParser.h"
+#include "../../ByxParser/Parser/ByxParser.h"
 
 #include <cassert>
 #include <iostream>
@@ -16,8 +16,8 @@ void LexerTest::Run()
 	StopWatch watch;
 	watch.begin();
 
-	string in = "src\\ByxParser\\Test\\TestCase\\LexerTest\\Lexer_in.txt";
-	string out = "src\\ByxParser\\Test\\TestCase\\LexerTest\\Lexer_out.txt";
+	string in = "src\\ByxLexer\\Test\\TestCase\\Lexer_in.txt";
+	string out = "src\\ByxLexer\\Test\\TestCase\\Lexer_out.txt";
 	ifstream f1(in);
 	ifstream f2(out);
 

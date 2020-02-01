@@ -138,10 +138,11 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="src\ByxParser\Lexer\ByxLexer.cpp" />
-    <ClCompile Include="src\ByxParser\Lexer\CharStream.cpp" />
-    <ClCompile Include="src\ByxParser\Lexer\LexerState.cpp" />
-    <ClCompile Include="src\ByxParser\Lexer\Token.cpp" />
+    <ClCompile Include="src\ByxLexer\ByxLexer.cpp" />
+    <ClCompile Include="src\ByxLexer\CharStream.cpp" />
+    <ClCompile Include="src\ByxLexer\LexerState.cpp" />
+    <ClCompile Include="src\ByxLexer\Test\LexerTest.cpp" />
+    <ClCompile Include="src\ByxLexer\Token.cpp" />
     <ClCompile Include="src\ByxParser\Parser\AST\AST.cpp" />
     <ClCompile Include="src\ByxParser\Parser\AST\ASTVisitor.cpp" />
     <ClCompile Include="src\ByxParser\Parser\AST\CodeGenVisitor.cpp" />
@@ -153,7 +154,6 @@
     <ClCompile Include="src\ByxParser\Parser\Scope\Scope.cpp" />
     <ClCompile Include="src\ByxParser\Parser\Scope\ScopeStack.cpp" />
     <ClCompile Include="src\ByxParser\Parser\SymbolInfo.cpp" />
-    <ClCompile Include="src\ByxParser\Test\LexerTest.cpp" />
     <ClCompile Include="src\ByxParser\Test\ParserTest.cpp" />
     <ClCompile Include="src\ByxVM\Test\ByxVMTest.cpp" />
     <ClCompile Include="src\ByxVM\VM\ByxVM.cpp" />
@@ -169,10 +169,11 @@
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\ByxParser\Lexer\ByxLexer.h" />
-    <ClInclude Include="src\ByxParser\Lexer\CharStream.h" />
-    <ClInclude Include="src\ByxParser\Lexer\LexerState.h" />
-    <ClInclude Include="src\ByxParser\Lexer\Token.h" />
+    <ClInclude Include="src\ByxLexer\ByxLexer.h" />
+    <ClInclude Include="src\ByxLexer\CharStream.h" />
+    <ClInclude Include="src\ByxLexer\LexerState.h" />
+    <ClInclude Include="src\ByxLexer\Test\LexerTest.h" />
+    <ClInclude Include="src\ByxLexer\Token.h" />
     <ClInclude Include="src\ByxParser\Parser\AST\AST.h" />
     <ClInclude Include="src\ByxParser\Parser\AST\ASTVisitor.h" />
     <ClInclude Include="src\ByxParser\Parser\AST\CodeGenVisitor.h" />
@@ -184,7 +185,6 @@
     <ClInclude Include="src\ByxParser\Parser\Scope\Scope.h" />
     <ClInclude Include="src\ByxParser\Parser\Scope\ScopeStack.h" />
     <ClInclude Include="src\ByxParser\Parser\SymbolInfo.h" />
-    <ClInclude Include="src\ByxParser\Test\LexerTest.h" />
     <ClInclude Include="src\ByxParser\Test\ParserTest.h" />
     <ClInclude Include="src\ByxVM\Test\ByxVMTest.h" />
     <ClInclude Include="src\ByxVM\VM\ByxVM.h" />

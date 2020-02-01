@@ -1,6 +1,6 @@
 #include <iostream>
 #include "ByxVM/Test/ByxVMTest.h"
-#include "ByxParser/Test/LexerTest.h"
+#include "ByxLexer/Test/LexerTest.h"
 #include "ByxParser/Test/ParserTest.h"
 
 using namespace std;

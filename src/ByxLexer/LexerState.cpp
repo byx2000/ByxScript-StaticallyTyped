@@ -1,6 +1,6 @@
 #include "LexerState.h"
 #include "ByxLexer.h"
-#include "../Parser/ByxParser.h"
+#include "../ByxParser/Parser/ByxParser.h"
 
 #include <string>
 #include <iostream>
