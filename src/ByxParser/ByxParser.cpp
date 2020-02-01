@@ -158,6 +158,11 @@ shared_ptr<ASTNode> ByxParser::parseStatement()
 		{
 			return parseReturn();
 		}
+		// if
+		else if (token.val == "if")
+		{
+			return parseIf();
+		}
 		// 出错
 		else
 		{
@@ -412,12 +417,30 @@ shared_ptr<ASTNode> ByxParser::parseFunctionCallStmt()
 std::shared_ptr<ASTNode> ByxParser::parseIf()
 {
 	// 读取if关键字
-	/*Token token = lexer.next();
+	Token token = lexer.next();
 
 	// 读取左括号
-	lexer.read(TokenType::OpenBracket);*/
+	lexer.read(TokenType::OpenBracket);
 
 	// 读取表达式
+	shared_ptr<Expression> cond = parseExpr();
+
+	// 读取右括号
+	lexer.read(TokenType::CloseBracket);
+
+	// 读取true branch
+	shared_ptr<ASTNode> tBranch = parseStatement();
+
+	// 读取false branch
+	shared_ptr<ASTNode> fBranch = make_shared<EmptyNode>();
+	if (lexer.nextType() == TokenType::Keyword && lexer.nextVal() == "else")
+	{
+		lexer.next();
+		fBranch = parseStatement();
+	}
+
+	// 构造if节点
+	return make_shared<IfNode>(cond, tBranch, fBranch, token);
 }
 
 shared_ptr<Expression> ByxParser::parseExpr()

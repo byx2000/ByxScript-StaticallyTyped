@@ -1,6 +1,8 @@
 #include "SymbolVisitor.h"
 #include "../ByxParser.h"
 #include "../FunctionInfo.h"
+#include "ToStringVisitor.h"
+
 
 #include <iostream>
 

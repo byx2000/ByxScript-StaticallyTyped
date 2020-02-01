@@ -176,7 +176,7 @@ public:
 class IfNode : public ASTNode
 {
 public:
-	IfNode(std::shared_ptr<Expression> cond, std::shared_ptr<Expression> tBranck, std::shared_ptr<Expression> fBranch, const Token& token);
+	IfNode(std::shared_ptr<Expression> cond, std::shared_ptr<ASTNode> tBranch, std::shared_ptr<ASTNode> fBranch, const Token& token);
 	virtual void visit(ASTVisitor& visitor) override;
 
 	std::shared_ptr<Expression> cond;

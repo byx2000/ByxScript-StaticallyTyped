@@ -15,6 +15,7 @@ static set<string> keywords
     "double",
     "void",
     "if",
+    "else",
     "while",
     "for",
     "continue",
