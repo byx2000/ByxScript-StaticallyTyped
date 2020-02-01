@@ -1,0 +1,21 @@
+int g1 = 100;
+int g2 = g1;
+int g3 = g2;
+
+double g4 = 3.14;
+double g5 = g4;
+double g6 = g5;
+
+int g7 = 55;
+int g8 = 23.75;
+double g9 = 3;
+
+function void change()
+{
+	g7 = 45;
+}
+
+function void main()
+{
+	change();
+}

@@ -1,0 +1,28 @@
+function int f1()
+{
+	return 100;
+}
+
+function int f2()
+{
+	return f1();
+}
+
+function double f4()
+{
+	return f3();
+}
+
+function double f3()
+{
+	return 3.14;
+}
+
+int g1;
+double g2;
+
+function void main()
+{
+	g1 = f2();
+	g2 = f4();
+}

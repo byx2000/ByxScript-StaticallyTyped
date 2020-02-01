@@ -13,8 +13,7 @@ void ByxParserTest::Run()
 {
 	// 代码生成测试
 	int numCases = 23;
-	int i = 1;
-	for (i = 1; i <= numCases; ++i)
+	for (int i = 1; i <= numCases; ++i)
 	{
 		string path = "src/ByxParser/Test/TestCase/CodeGenTest/";
 		CheckCase(path + to_string(i) + ".in", path + to_string(i) + ".out");
@@ -28,6 +27,16 @@ void ByxParserTest::Run()
 	{
 		string path = "src/ByxParser/Test/TestCase/CodeGenTest/Error/";
 		CheckErrorCase(path + to_string(i) + ".in");
+		cout << i << " ";
+	}
+	cout << endl;
+
+	// 虚拟机测试
+	int numVMCase = 5;
+	for (int i = 1; i <= numVMCase; ++i)
+	{
+		string path = "src/ByxParser/Test/TestCase/VMTest/";
+		CheckVMCase(path + to_string(i) + ".in", path + to_string(i) + ".out");
 		cout << i << " ";
 	}
 	cout << endl;
@@ -164,7 +173,7 @@ void ByxParserTest::CheckVMCase(const std::string& in, const std::string& out)
 		string type;
 		while (fin >> type)
 		{
-			if (type == "int")
+			if (type == "i")
 			{
 				int val;
 				fin >> val;
@@ -175,7 +184,7 @@ void ByxParserTest::CheckVMCase(const std::string& in, const std::string& out)
 					exit(0);
 				}
 			}
-			else if (type == "double")
+			else if (type == "d")
 			{
 				double val;
 				fin >> val;
@@ -197,14 +206,20 @@ void ByxParserTest::CheckVMCase(const std::string& in, const std::string& out)
 	}
 	catch (ByxParser::ParseError err)
 	{
-
+		cout << "VM test failed at file: " << in << endl;
+		cout << err.getMsg() << endl;
+		exit(0);
 	}
 	catch (ByxVM::ByxVMError err)
 	{
-
+		cout << "VM test failed at file: " << in << endl;
+		cout << err.msg << endl;
+		exit(0);
 	}
 	catch (...)
 	{
-
+		cout << "VM test failed at file: " << in << endl;
+		cout << "Unknown error" << endl;
+		exit(0);
 	}
 }

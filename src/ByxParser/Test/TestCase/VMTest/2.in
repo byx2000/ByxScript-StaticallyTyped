@@ -1,0 +1,60 @@
+int g1;
+double g2;
+int g3;
+double g4;
+int g5;
+int g6;
+double g7;
+double g8;
+
+function int f1()
+{
+	return 100;
+}
+
+function double f2()
+{
+	return 3.14;
+}
+
+function int f3(int n)
+{
+	return n;
+}
+
+function double f4(double x)
+{
+	return x;
+}
+
+function int f5(int a, int b)
+{
+	return a;
+}
+
+function int f6(int a, int b)
+{
+	return b;
+}
+
+function double f7(double a, double b)
+{
+	return a;
+}
+
+function double f8(double a, double b)
+{
+	return b;
+}
+
+function void main()
+{
+	g1 = f1();
+	g2 = f2();
+	g3 = f3(27);
+	g4 = f4(2.345);
+	g5 = f5(39, 67);
+	g6 = f6(39, 67);
+	g7 = f7(1.23, 4.56);
+	g8 = f8(1.23, 4.56);
+}
