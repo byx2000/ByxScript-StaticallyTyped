@@ -23,7 +23,7 @@ int main()
 
 	try
 	{
-		ByxParser parser("function void main() { int i = 1 + 2 + 3; i = 45 + 66; }");
+		ByxParser parser("function void main() { int i = 1 + 2 - 3; i = 45 + 66; i = 6 - 7; }");
 		parser.parse();
 		cout << parser.getASTString() << endl;
 		//cout << parser.getCode().toString() << endl;

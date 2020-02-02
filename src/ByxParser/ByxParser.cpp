@@ -456,10 +456,17 @@ shared_ptr<Expression> ByxParser::parseCmpExpr()
 std::shared_ptr<Expression> ByxParser::parseArithExpr()
 {
 	shared_ptr<Expression> res = parseTerm();
-	while (lexer.nextType() == TokenType::Add)
+	while (lexer.nextType() == TokenType::Add || lexer.nextType() == TokenType::Sub)
 	{
 		Token token = lexer.next();
-		res = make_shared<BinaryOpNode>(BinaryOpNode::Add, res, parseTerm(), token);
+		if (token.type == TokenType::Add)
+		{
+			res = make_shared<BinaryOpNode>(BinaryOpNode::Add, res, parseTerm(), token);
+		}
+		else
+		{
+			res = make_shared<BinaryOpNode>(BinaryOpNode::Sub, res, parseTerm(), token);
+		}
 	}
 	return res;
 }
