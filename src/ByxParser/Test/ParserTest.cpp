@@ -35,7 +35,7 @@ void ByxParserTest::Run()
 	cout << endl;
 
 	// ÐéÄâ»ú²âÊÔ
-	int numVMCase = 10;
+	int numVMCase = 13;
 	for (int i = 1; i <= numVMCase; ++i)
 	{
 		string path = "src/ByxParser/Test/TestCase/VMTest/";
@@ -167,6 +167,12 @@ void ByxParserTest::CheckVMCase(const std::string& in, const std::string& out)
 		vm.exec();
 		vector<Value> globalVars = vm.getGlobalVars();
 
+		/*for (int i = 0; i < (int)globalVars.size(); ++i)
+		{
+			cout << globalVars[i].toString() << endl;
+		}
+		cout << endl;*/
+
 		ifstream fin(out);
 		if (!fin)
 		{
@@ -193,10 +199,10 @@ void ByxParserTest::CheckVMCase(const std::string& in, const std::string& out)
 			{
 				double val;
 				fin >> val;
-				if (val != globalVars[i].getDoubleVal())
+				if (fabs(val - globalVars[i].getDoubleVal()) > 1e-6)
 				{
 					cout << "Parser Test failed at file: " << in << endl;
-					cout << val << " " << globalVars[i].getIntVal() << endl;
+					cout << val << " " << globalVars[i].getDoubleVal() << endl;
 					exit(0);
 				}
 			}

@@ -1,0 +1,13 @@
+int g1;
+double g2;
+
+function void main()
+{
+	int i = 2 + 3 - 44;
+	i = i + 1;
+	g1 = i;
+	
+	double x = 2.5 - 6 + 37.4;
+	x = x - 12.3;
+	g2 = x;
+}

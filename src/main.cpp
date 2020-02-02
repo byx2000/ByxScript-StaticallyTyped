@@ -4,6 +4,7 @@
 #include "ByxLexer/Test/LexerTest.h"
 #include "ByxParser/Test/ParserTest.h"
 #include "ByxParser/ByxParser.h"
+#include "ByxVM/Value.h"
 
 using namespace std;
 
@@ -21,9 +22,9 @@ int main()
 	// ByxParserµ¥Ôª²âÊÔ
 	ByxParserTest::Run();
 
-	try
+	/*try
 	{
-		ByxParser parser("function void main() { int i = 5; int j = 8; int k = i + j; double x = 3.14; k = i + x; }");
+		ByxParser parser("double x = 3.56 + 2.16; function void main() { }");
 		parser.parse();
 		cout << parser.getASTString() << endl;
 		cout << parser.getCode().toString() << endl;
@@ -32,7 +33,7 @@ int main()
 	{
 		cout << err.getMsg() << endl;
 		cout << err.getRow() << " " << err.getCol() << endl;
-	}
+	}*/
 
 	return 0;
 }
