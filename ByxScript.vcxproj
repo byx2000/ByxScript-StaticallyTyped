@@ -152,7 +152,6 @@
     <ClCompile Include="src\ByxParser\AST\SymbolVisitor.cpp" />
     <ClCompile Include="src\ByxParser\AST\ToStringVisitor.cpp" />
     <ClCompile Include="src\ByxParser\ByxParser.cpp" />
-    <ClCompile Include="src\ByxParser\CodeSeg.cpp" />
     <ClCompile Include="src\ByxParser\FunctionInfo.cpp" />
     <ClCompile Include="src\ByxParser\Scope.cpp" />
     <ClCompile Include="src\ByxParser\ScopeStack.cpp" />
@@ -164,6 +163,7 @@
     <ClCompile Include="src\ByxVM\Test\ByxVMTest.cpp" />
     <ClCompile Include="src\ByxVM\Value.cpp" />
     <ClCompile Include="src\Common\Code.cpp" />
+    <ClCompile Include="src\Common\CodeSeg.cpp" />
     <ClCompile Include="src\Common\DataType.cpp" />
     <ClCompile Include="src\Common\FunctionTable.cpp" />
     <ClCompile Include="src\Common\Instruction.cpp" />
@@ -184,7 +184,6 @@
     <ClInclude Include="src\ByxParser\AST\SymbolVisitor.h" />
     <ClInclude Include="src\ByxParser\AST\ToStringVisitor.h" />
     <ClInclude Include="src\ByxParser\ByxParser.h" />
-    <ClInclude Include="src\ByxParser\CodeSeg.h" />
     <ClInclude Include="src\ByxParser\FunctionInfo.h" />
     <ClInclude Include="src\ByxParser\Scope.h" />
     <ClInclude Include="src\ByxParser\ScopeStack.h" />
@@ -196,6 +195,7 @@
     <ClInclude Include="src\ByxVM\Test\ByxVMTest.h" />
     <ClInclude Include="src\ByxVM\Value.h" />
     <ClInclude Include="src\Common\Code.h" />
+    <ClInclude Include="src\Common\CodeSeg.h" />
     <ClInclude Include="src\Common\DataType.h" />
     <ClInclude Include="src\Common\FunctionTable.h" />
     <ClInclude Include="src\Common\Instruction.h" />
