@@ -32,7 +32,7 @@ void ByxParserTest::Run()
 	cout << endl;
 
 	// ÐéÄâ»ú²âÊÔ
-	int numVMCase = 8;
+	int numVMCase = 10;
 	for (int i = 1; i <= numVMCase; ++i)
 	{
 		string path = "src/ByxParser/Test/TestCase/VMTest/";

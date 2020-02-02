@@ -330,6 +330,11 @@ void CodeGenVisitor::visit(IfNode& node)
 	CodeSeg fBranchCode = v3.getCodeSeg();
 
 	codeSeg.add(condCode);
+	if (node.cond->type == DataType::Double) // 特殊处理浮点数
+	{
+		codeSeg.add(Opcode::dconst, 0.0);
+		codeSeg.add(Opcode::dne);
+	}
 	codeSeg.add(Opcode::je, codeSeg.getSize() + tBranchCode.getSize() + 2);
 	codeSeg.add(tBranchCode);
 	codeSeg.add(Opcode::jmp, codeSeg.getSize() + fBranchCode.getSize() + 1);
