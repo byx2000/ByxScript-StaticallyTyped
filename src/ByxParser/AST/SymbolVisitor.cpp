@@ -274,3 +274,9 @@ void SymbolVisitor::visit(IfNode& node)
 	node.fBranch->visit(*this);
 	scopeStack.popScope();
 }
+
+void SymbolVisitor::visit(AddNode& node)
+{
+	node.lhs->visit(*this);
+	node.rhs->visit(*this);
+}

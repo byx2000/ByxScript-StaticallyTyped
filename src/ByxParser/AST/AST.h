@@ -28,6 +28,7 @@ public:
 class Expression : public ASTNode
 {
 public:
+	Expression();
 	DataType type;
 };
 
@@ -182,4 +183,13 @@ public:
 	std::shared_ptr<Expression> cond;
 	std::shared_ptr<ASTNode> tBranch;
 	std::shared_ptr<ASTNode> fBranch;
+};
+
+class AddNode : public Expression
+{
+public:
+	AddNode(std::shared_ptr<Expression> lhs, std::shared_ptr<Expression> rhs, const Token& token);
+	virtual void visit(ASTVisitor& visitor) override;
+
+	std::shared_ptr<Expression> lhs, rhs;
 };

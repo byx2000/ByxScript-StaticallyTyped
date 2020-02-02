@@ -22,6 +22,11 @@ int ASTNode::col() const
 	return token.col;
 }
 
+Expression::Expression()
+{
+	type = DataType::Unknown;
+}
+
 void EmptyNode::visit(ASTVisitor& visitor)
 {
 	visitor.visit(*this);
@@ -106,7 +111,6 @@ VarNode::VarNode(const std::string& name, const Token& token)
 	: name(name)
 {
 	this->token = token;
-	type = DataType::Unknown;
 }
 
 void VarNode::visit(ASTVisitor& visitor)
@@ -166,6 +170,17 @@ IfNode::IfNode(std::shared_ptr<Expression> cond, std::shared_ptr<ASTNode> tBranc
 }
 
 void IfNode::visit(ASTVisitor& visitor)
+{
+	visitor.visit(*this);
+}
+
+AddNode::AddNode(std::shared_ptr<Expression> lhs, std::shared_ptr<Expression> rhs, const Token& token)
+	: lhs(lhs), rhs(rhs)
+{
+
+}
+
+void AddNode::visit(ASTVisitor& visitor)
 {
 	visitor.visit(*this);
 }

@@ -26,7 +26,7 @@ int main()
 		ByxParser parser("function void main() { int i;  if (0) { i = 100; } else if (1) { i = 200; } }");
 		parser.parse();
 		cout << parser.getASTString() << endl;
-		cout << parser.getCode().toString() << endl;
+		//cout << parser.getCode().toString() << endl;
 	}
 	catch (ByxParser::ParseError err)
 	{

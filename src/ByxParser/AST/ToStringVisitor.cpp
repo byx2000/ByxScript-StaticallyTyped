@@ -149,3 +149,12 @@ void ToStringVisitor::visit(IfNode& node)
 	node.fBranch->visit(*this);
 	str += ")";
 }
+
+void ToStringVisitor::visit(AddNode& node)
+{
+	str += "+(";
+	node.lhs->visit(*this);
+	str += ",";
+	node.rhs->visit(*this);
+	str += ")";
+}

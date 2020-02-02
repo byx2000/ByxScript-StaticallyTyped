@@ -73,3 +73,8 @@ void ASTVisitor::visit(IfNode& node)
 {
 
 }
+
+void ASTVisitor::visit(AddNode& node)
+{
+
+}
