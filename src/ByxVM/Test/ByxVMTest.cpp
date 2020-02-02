@@ -9,6 +9,9 @@ using namespace std;
 
 void ByxVMTest::Run()
 {
+	StopWatch watch;
+	watch.begin();
+
 	CodeTest::Run();
 	FunctionTableTest::Run();
 	StackFrameTest::Run();
@@ -1453,7 +1456,8 @@ void ByxVMTest::Run()
 		ASSERT_EXCEPTION(ops.popInt());
 	}
 
-	cout << "ByxVM test passed." << endl;
+	watch.end();
+	cout << "ByxVM test passed. time: " << watch.duration() << "s" << endl;
 }
 
 void CodeTest::Run()
@@ -1494,7 +1498,7 @@ void CodeTest::Run()
 	ASSERT_EXCEPTION(code.setPC(-1));
 	ASSERT_EXCEPTION(code.setPC(100));
 
-	cout << "Code test passed." << endl;
+	//cout << "Code test passed." << endl;
 }
 
 void FunctionTableTest::Run()
@@ -1526,7 +1530,7 @@ void FunctionTableTest::Run()
 	ASSERT_EXCEPTION(funTable.setSpace(-1, 20));
 	ASSERT_EXCEPTION(funTable.setAddr(4, 30));
 
-	cout << "FunctionTable test passed." << endl;
+	//cout << "FunctionTable test passed." << endl;
 }
 
 void StackFrameTest::Run()
@@ -1552,7 +1556,7 @@ void StackFrameTest::Run()
 	ASSERT_EXCEPTION(frame.setDoubleVar(-1, 3.14));
 	ASSERT_EXCEPTION(frame.setDoubleVar(100, 3.14));
 
-	cout << "StackFrame test passed." << endl;
+	//cout << "StackFrame test passed." << endl;
 }
 
 void CallStackTest::Run()
@@ -1576,7 +1580,7 @@ void CallStackTest::Run()
 
 	ASSERT_EXCEPTION(call.pop());
 
-	cout << "CallStack test passed." << endl;
+	//cout << "CallStack test passed." << endl;
 }
 
 void OperandStackTest::Run()
@@ -1599,5 +1603,5 @@ void OperandStackTest::Run()
 	ASSERT_EXCEPTION(opStack.popInt());
 	ASSERT_EXCEPTION(opStack.popDouble());
 
-	cout << "OperandStack test passed." << endl;
+	//cout << "OperandStack test passed." << endl;
 }

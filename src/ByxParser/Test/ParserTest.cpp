@@ -11,6 +11,9 @@ using namespace std;
 
 void ByxParserTest::Run()
 {
+	StopWatch watch;
+	watch.begin();
+
 	// ´úÂëÉú³É²âÊÔ
 	int numCases = 23;
 	for (int i = 1; i <= numCases; ++i)
@@ -41,7 +44,8 @@ void ByxParserTest::Run()
 	}
 	cout << endl;
 
-	cout << "ByxParser test passed!" << endl;
+	watch.end();
+	cout << "ByxParser test passed! time: " << watch.duration() << endl;
 }
 
 void ByxParserTest::CheckCase(const string& in, const string& out)
