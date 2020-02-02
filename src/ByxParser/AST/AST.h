@@ -29,7 +29,7 @@ class Expression : public ASTNode
 {
 public:
 	Expression();
-	DataType type;
+	DataType dataType;
 };
 
 // ø’”Ôæ‰

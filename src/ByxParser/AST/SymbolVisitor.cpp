@@ -214,7 +214,7 @@ void SymbolVisitor::visit(VarNode& node)
 	{
 		SymbolInfo symbol = resolve(node.name, node.symbol.isGlobal);
 		node.symbol.index = symbol.index;
-		node.type = symbol.type;
+		node.dataType = symbol.type;
 	}
 	catch (...)
 	{

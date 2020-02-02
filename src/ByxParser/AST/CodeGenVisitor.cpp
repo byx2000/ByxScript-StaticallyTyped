@@ -141,7 +141,7 @@ void CodeGenVisitor::visit(CodeBlockNode& node)
 
 void CodeGenVisitor::visit(VarNode& node)
 {
-	if (node.type == DataType::Integer)
+	if (node.dataType == DataType::Integer)
 	{
 		if (node.symbol.isGlobal)
 		{
@@ -152,7 +152,7 @@ void CodeGenVisitor::visit(VarNode& node)
 			codeSeg.add(Opcode::iload, node.symbol.index);
 		}
 	}
-	else if (node.type == DataType::Double)
+	else if (node.dataType == DataType::Double)
 	{
 		if (node.symbol.isGlobal)
 		{
@@ -330,7 +330,7 @@ void CodeGenVisitor::visit(IfNode& node)
 	CodeSeg fBranchCode = v3.getCodeSeg();
 
 	codeSeg.add(condCode);
-	if (node.cond->type == DataType::Double) // 特殊处理浮点数
+	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
 	{
 		codeSeg.add(Opcode::dconst, 0.0);
 		codeSeg.add(Opcode::dne);

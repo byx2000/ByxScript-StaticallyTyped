@@ -24,7 +24,7 @@ int ASTNode::col() const
 
 Expression::Expression()
 {
-	type = DataType::Unknown;
+	dataType = DataType::Unknown;
 }
 
 void EmptyNode::visit(ASTVisitor& visitor)
@@ -56,7 +56,7 @@ void CodeBlockNode::visit(ASTVisitor& visitor)
 
 IntegerNode::IntegerNode(int val) : val(val)
 {
-	type = DataType::Integer;
+	dataType = DataType::Integer;
 }
 
 void IntegerNode::visit(ASTVisitor& visitor)
@@ -66,7 +66,7 @@ void IntegerNode::visit(ASTVisitor& visitor)
 
 DoubleNode::DoubleNode(double val) : val(val)
 {
-	type = DataType::Double;
+	dataType = DataType::Double;
 }
 
 void DoubleNode::visit(ASTVisitor& visitor)
@@ -155,7 +155,7 @@ FunctionCallExprNode::FunctionCallExprNode(const std::string& name, const std::v
 	: name(name), exprs(exprs)
 {
 	this->token = token;
-	type = DataType::Unknown;
+	dataType = DataType::Unknown;
 }
 
 void FunctionCallExprNode::visit(ASTVisitor& visitor)
