@@ -23,10 +23,10 @@ int main()
 
 	try
 	{
-		ByxParser parser("function void main() { int i = 1 + 2 - 3; i = 45 + 66; i = 6 - 7; }");
+		ByxParser parser("function void main() { int i = 5; int j = 8; int k = i + j; double x = 3.14; k = i + x; }");
 		parser.parse();
 		cout << parser.getASTString() << endl;
-		//cout << parser.getCode().toString() << endl;
+		cout << parser.getCode().toString() << endl;
 	}
 	catch (ByxParser::ParseError err)
 	{

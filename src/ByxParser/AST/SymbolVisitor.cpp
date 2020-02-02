@@ -279,4 +279,14 @@ void SymbolVisitor::visit(BinaryOpNode& node)
 {
 	node.lhs->visit(*this);
 	node.rhs->visit(*this);
+
+	// 记录表达式类型
+	if (node.lhs->dataType == DataType::Double || node.rhs->dataType == DataType::Double)
+	{
+		node.dataType = DataType::Double;
+	}
+	else
+	{
+		node.dataType = DataType::Integer;
+	}
 }

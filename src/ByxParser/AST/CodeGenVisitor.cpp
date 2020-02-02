@@ -340,3 +340,36 @@ void CodeGenVisitor::visit(IfNode& node)
 	codeSeg.add(Opcode::jmp, codeSeg.getSize() + fBranchCode.getSize() + 1);
 	codeSeg.add(fBranchCode);
 }
+
+void CodeGenVisitor::visit(BinaryOpNode& node)
+{
+	node.lhs->visit(*this);
+	node.rhs->visit(*this);
+
+	switch (node.opType)
+	{
+	case BinaryOpNode::Add:
+		if (node.dataType == DataType::Integer)
+		{
+			codeSeg.add(Opcode::iadd);
+		}
+		else if (node.dataType == DataType::Double)
+		{
+			codeSeg.add(Opcode::dadd);
+		}
+		break;
+	case BinaryOpNode::Sub:
+		if (node.dataType == DataType::Integer)
+		{
+			codeSeg.add(Opcode::isub);
+		}
+		else if (node.dataType == DataType::Double)
+		{
+			codeSeg.add(Opcode::dsub);
+		}
+		break;
+	default:
+		throw ByxParser::ParseError("Bad operator.", node.row(), node.col());
+		break;
+	}
+}

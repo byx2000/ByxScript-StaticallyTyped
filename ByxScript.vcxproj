@@ -151,7 +151,6 @@
     <ClCompile Include="src\ByxParser\AST\GlobalVisitor.cpp" />
     <ClCompile Include="src\ByxParser\AST\SymbolVisitor.cpp" />
     <ClCompile Include="src\ByxParser\AST\ToStringVisitor.cpp" />
-    <ClCompile Include="src\ByxParser\AST\TypeVisitor.cpp" />
     <ClCompile Include="src\ByxParser\ByxParser.cpp" />
     <ClCompile Include="src\ByxParser\FunctionInfo.cpp" />
     <ClCompile Include="src\ByxParser\Scope.cpp" />
@@ -184,7 +183,6 @@
     <ClInclude Include="src\ByxParser\AST\GlobalVisitor.h" />
     <ClInclude Include="src\ByxParser\AST\SymbolVisitor.h" />
     <ClInclude Include="src\ByxParser\AST\ToStringVisitor.h" />
-    <ClInclude Include="src\ByxParser\AST\TypeVisitor.h" />
     <ClInclude Include="src\ByxParser\ByxParser.h" />
     <ClInclude Include="src\ByxParser\FunctionInfo.h" />
     <ClInclude Include="src\ByxParser\Scope.h" />

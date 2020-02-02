@@ -60,7 +60,7 @@ ByxParser& ByxParser::parse()
 	// 构建抽象语法树
 	ast = parseProgram();
 
-	// 第一遍遍历：扫描函数、全局变量、局部变量等符号，并整理相关信息
+	// 第一遍遍历：扫描函数、全局变量、局部变量等符号，记录表达式类型，并整理相关信息
 	SymbolVisitor symbolVisitor;
 	ast->visit(symbolVisitor);
 	globalSpace = symbolVisitor.getGlobalSpace(); // 全局变量空间
