@@ -6,16 +6,24 @@
 
 using namespace std;
 
-CodeGenVisitor::CodeGenVisitor(ByxParser& parser)
-	: parser(parser)
+CodeGenVisitor::CodeGenVisitor(ByxParser& parser, const std::string& curFunctionName)
+	: parser(parser), curFunctionName(curFunctionName)
 {
 	inGlobleScope = false;
-	curFunctionName = "";
 }
 
 std::vector<Instruction> CodeGenVisitor::getCode()
 {
 	return insts;
+}
+
+void CodeGenVisitor::printCode(const std::vector<Instruction>& code)
+{
+	for (int i = 0; i < (int)code.size(); ++i)
+	{
+		cout << code[i].toString() << endl;
+	}
+	cout << endl;
 }
 
 void CodeGenVisitor::visit(ProgramNode& node)
@@ -73,6 +81,8 @@ void CodeGenVisitor::visit(FunctionDeclareNode& node)
 
 	// 添加ret指令（该处可能会生成重复的ret指令）
 	insts.push_back(Instruction(Opcode::ret));
+
+	curFunctionName = "";
 }
 
 void CodeGenVisitor::visit(IntegerNode& node)
@@ -305,5 +315,38 @@ void CodeGenVisitor::visit(FunctionCallExprNode& node)
 	else if (info.retType == DataType::Double)
 	{
 		insts.push_back(Instruction(Opcode::tod));
+	}
+}
+
+void CodeGenVisitor::visit(IfNode& node)
+{
+	CodeGenVisitor v1(parser, curFunctionName);
+	node.cond->visit(v1);
+	vector<Instruction> condCode = v1.getCode();
+	//printCode(condCode);
+
+	CodeGenVisitor v2(parser, curFunctionName);
+	node.tBranch->visit(v2);
+	vector<Instruction> tBranchCode = v2.getCode();
+	//printCode(tBranchCode);
+
+	CodeGenVisitor v3(parser, curFunctionName);
+	node.fBranch->visit(v3);
+	vector<Instruction> fBranchCode = v3.getCode();
+	//printCode(fBranchCode);
+
+	for (int i = 0; i < (int)condCode.size(); ++i)
+	{
+		insts.push_back(condCode[i]);
+	}
+	insts.push_back(Instruction(Opcode::je, (int)insts.size() + (int)tBranchCode.size() + 2));
+	for (int i = 0; i < (int)tBranchCode.size(); ++i)
+	{
+		insts.push_back(tBranchCode[i]);
+	}
+	insts.push_back(Instruction(Opcode::jmp, (int)insts.size() + (int)fBranchCode.size() + 1));
+	for (int i = 0; i < (int)fBranchCode.size(); ++i)
+	{
+		insts.push_back(fBranchCode[i]);
 	}
 }

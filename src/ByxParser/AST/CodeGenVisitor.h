@@ -10,7 +10,7 @@ class ByxParser;
 class CodeGenVisitor : public ASTVisitor
 {
 public:
-	CodeGenVisitor(ByxParser& parser);
+	CodeGenVisitor(ByxParser& parser, const std::string& curFunctionName = "");
 	std::vector<Instruction> getCode();
 
 private:
@@ -18,6 +18,8 @@ private:
 	std::vector<Instruction> insts;
 	bool inGlobleScope;
 	std::string curFunctionName;
+
+	void printCode(const std::vector<Instruction>& code);
 
 	virtual void visit(ProgramNode& node) override;
 	virtual void visit(FunctionDeclareNode& node) override;
@@ -31,4 +33,5 @@ private:
 	virtual void visit(ReturnNode& node) override;
 	virtual void visit(FunctionCallStmtNode& node) override;
 	virtual void visit(FunctionCallExprNode& node) override;
+	virtual void visit(IfNode& node) override;
 };

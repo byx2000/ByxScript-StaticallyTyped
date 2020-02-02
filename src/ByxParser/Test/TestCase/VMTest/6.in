@@ -1,0 +1,43 @@
+int g1;
+int g2;
+int g3;
+int g4;
+int g5 = 5000;
+int g6 = 325427;
+
+function void main()
+{
+	if (1)
+	{
+		g1 = 100;
+	}
+	else
+	{
+		g1 = 200;
+	}
+	
+	if (0)
+		g2 = 300;
+	else
+		g2 = 400;
+		
+	int i = 10;
+	if (i) g3 = i;
+	else { g3 = 20; }
+	
+	i = 0;
+	if (i) g4 = 3424;
+	else
+	{
+		int j = 1024;
+		g4 = 1024;
+	}
+	
+	if (10086)
+	{
+		g5 = 6000;
+	}
+	
+	if (0)
+		g6 = 32872;
+}

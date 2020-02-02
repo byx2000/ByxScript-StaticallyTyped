@@ -32,7 +32,7 @@ void ByxParserTest::Run()
 	cout << endl;
 
 	// ÐéÄâ»ú²âÊÔ
-	int numVMCase = 5;
+	int numVMCase = 8;
 	for (int i = 1; i <= numVMCase; ++i)
 	{
 		string path = "src/ByxParser/Test/TestCase/VMTest/";
@@ -158,6 +158,7 @@ void ByxParserTest::CheckVMCase(const std::string& in, const std::string& out)
 	{
 		ByxParser parser(program);
 		parser.parse();
+		//cout << parser.getCode().toString() << endl;
 		ByxVM vm(parser.getCode(), parser.getFunctionTable(), parser.getGlobalSpace());
 		vm.exec();
 		vector<Value> globalVars = vm.getGlobalVars();

@@ -265,6 +265,12 @@ void SymbolVisitor::visit(FunctionCallExprNode& node)
 void SymbolVisitor::visit(IfNode& node)
 {
 	node.cond->visit(*this);
+
+	scopeStack.pushScope();
 	node.tBranch->visit(*this);
+	scopeStack.popScope();
+
+	scopeStack.pushScope();
 	node.fBranch->visit(*this);
+	scopeStack.popScope();
 }
