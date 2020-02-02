@@ -196,3 +196,14 @@ public:
 	int opType;
 	std::shared_ptr<Expression> lhs, rhs;
 };
+
+// while”Ôæ‰
+class WhileNode : public ASTNode
+{
+public:
+	WhileNode(std::shared_ptr<Expression> cond, std::shared_ptr<ASTNode> body, const Token& token);
+	virtual void visit(ASTVisitor& visitor) override;
+
+	std::shared_ptr<Expression> cond;
+	std::shared_ptr<ASTNode> body;
+};

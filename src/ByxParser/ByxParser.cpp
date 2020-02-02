@@ -163,6 +163,11 @@ shared_ptr<ASTNode> ByxParser::parseStatement()
 		{
 			return parseIf();
 		}
+		// while
+		else if (token.val == "while")
+		{
+			return parseWhile();
+		}
 		// 出错
 		else
 		{
@@ -441,6 +446,27 @@ std::shared_ptr<ASTNode> ByxParser::parseIf()
 
 	// 构造if节点
 	return make_shared<IfNode>(cond, tBranch, fBranch, token);
+}
+
+std::shared_ptr<ASTNode> ByxParser::parseWhile()
+{
+	// 读取while关键字
+	Token token = lexer.next();
+
+	// 读取左括号
+	lexer.read(TokenType::OpenBracket);
+
+	// 读取条件表达式
+	shared_ptr<Expression> cond = parseExpr();
+
+	// 读取右括号
+	lexer.read(TokenType::CloseBracket);
+
+	// 读取循环体
+	shared_ptr<ASTNode> body = parseStatement();
+
+	// 构造while循环节点
+	return make_shared<WhileNode>(cond, body, token);
 }
 
 shared_ptr<Expression> ByxParser::parseExpr()

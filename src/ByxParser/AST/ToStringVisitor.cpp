@@ -161,3 +161,12 @@ void ToStringVisitor::visit(BinaryOpNode& node)
 	node.rhs->visit(*this);
 	str += ")";
 }
+
+void ToStringVisitor::visit(WhileNode& node)
+{
+	str += "while(";
+	node.cond->visit(*this);
+	str += ",";
+	node.body->visit(*this);
+	str += ")";
+}

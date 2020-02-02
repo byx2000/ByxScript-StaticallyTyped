@@ -78,3 +78,8 @@ void ASTVisitor::visit(BinaryOpNode& node)
 {
 
 }
+
+void ASTVisitor::visit(WhileNode& node)
+{
+
+}

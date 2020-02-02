@@ -290,3 +290,11 @@ void SymbolVisitor::visit(BinaryOpNode& node)
 		node.dataType = DataType::Integer;
 	}
 }
+
+void SymbolVisitor::visit(WhileNode& node)
+{
+	node.cond->visit(*this);
+	scopeStack.pushScope();
+	node.body->visit(*this);
+	scopeStack.popScope();
+}

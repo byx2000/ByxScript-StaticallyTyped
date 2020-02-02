@@ -184,3 +184,14 @@ void BinaryOpNode::visit(ASTVisitor& visitor)
 {
 	visitor.visit(*this);
 }
+
+WhileNode::WhileNode(std::shared_ptr<Expression> cond, std::shared_ptr<ASTNode> body, const Token& token)
+	: cond(cond), body(body)
+{
+	this->token = token;
+}
+
+void WhileNode::visit(ASTVisitor& visitor)
+{
+	visitor.visit(*this);
+}

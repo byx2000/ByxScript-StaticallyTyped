@@ -60,6 +60,7 @@ private:
 	std::shared_ptr<ASTNode> parseCodeBlock();
 	std::shared_ptr<ASTNode> parseFunctionCallStmt();
 	std::shared_ptr<ASTNode> parseIf();
+	std::shared_ptr<ASTNode> parseWhile();
 	std::shared_ptr<Expression> parseExpr();
 	std::shared_ptr<Expression> parseCmpExpr();
 	std::shared_ptr<Expression> parseArithExpr();
