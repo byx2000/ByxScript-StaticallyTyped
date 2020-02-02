@@ -150,9 +150,12 @@ void ToStringVisitor::visit(IfNode& node)
 	str += ")";
 }
 
-void ToStringVisitor::visit(AddNode& node)
+void ToStringVisitor::visit(BinaryOpNode& node)
 {
-	str += "+(";
+	string op[] = { "+", "-" };
+
+	str += op[node.opType];
+	str += "(";
 	node.lhs->visit(*this);
 	str += ",";
 	node.rhs->visit(*this);

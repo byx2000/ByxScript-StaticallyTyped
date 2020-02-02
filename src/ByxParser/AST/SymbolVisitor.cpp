@@ -275,7 +275,7 @@ void SymbolVisitor::visit(IfNode& node)
 	scopeStack.popScope();
 }
 
-void SymbolVisitor::visit(AddNode& node)
+void SymbolVisitor::visit(BinaryOpNode& node)
 {
 	node.lhs->visit(*this);
 	node.rhs->visit(*this);

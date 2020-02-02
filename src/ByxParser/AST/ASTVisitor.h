@@ -19,5 +19,5 @@ public:
 	virtual void visit(FunctionCallStmtNode& node);
 	virtual void visit(FunctionCallExprNode& node);
 	virtual void visit(IfNode& node);
-	virtual void visit(AddNode& node);
+	virtual void visit(BinaryOpNode& node);
 };

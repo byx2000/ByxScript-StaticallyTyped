@@ -74,7 +74,7 @@ void ASTVisitor::visit(IfNode& node)
 
 }
 
-void ASTVisitor::visit(AddNode& node)
+void ASTVisitor::visit(BinaryOpNode& node)
 {
 
 }

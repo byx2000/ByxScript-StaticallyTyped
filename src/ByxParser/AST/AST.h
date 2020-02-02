@@ -185,11 +185,14 @@ public:
 	std::shared_ptr<ASTNode> fBranch;
 };
 
-class AddNode : public Expression
+// 二元表达式
+class BinaryOpNode : public Expression
 {
 public:
-	AddNode(std::shared_ptr<Expression> lhs, std::shared_ptr<Expression> rhs, const Token& token);
+	BinaryOpNode(int opType, std::shared_ptr<Expression> lhs, std::shared_ptr<Expression> rhs, const Token& token);
 	virtual void visit(ASTVisitor& visitor) override;
 
+	enum { Add, Sub };
+	int opType;
 	std::shared_ptr<Expression> lhs, rhs;
 };

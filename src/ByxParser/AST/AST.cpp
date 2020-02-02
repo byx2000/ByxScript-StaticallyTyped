@@ -174,13 +174,13 @@ void IfNode::visit(ASTVisitor& visitor)
 	visitor.visit(*this);
 }
 
-AddNode::AddNode(std::shared_ptr<Expression> lhs, std::shared_ptr<Expression> rhs, const Token& token)
-	: lhs(lhs), rhs(rhs)
+BinaryOpNode::BinaryOpNode(int opType, std::shared_ptr<Expression> lhs, std::shared_ptr<Expression> rhs, const Token& token)
+	: opType(opType), lhs(lhs), rhs(rhs)
 {
-
+	this->token = token;
 }
 
-void AddNode::visit(ASTVisitor& visitor)
+void BinaryOpNode::visit(ASTVisitor& visitor)
 {
 	visitor.visit(*this);
 }

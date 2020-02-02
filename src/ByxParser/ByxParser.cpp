@@ -459,7 +459,7 @@ std::shared_ptr<Expression> ByxParser::parseArithExpr()
 	while (lexer.nextType() == TokenType::Add)
 	{
 		Token token = lexer.next();
-		res = make_shared<AddNode>(res, parseTerm(), token);
+		res = make_shared<BinaryOpNode>(BinaryOpNode::Add, res, parseTerm(), token);
 	}
 	return res;
 }
