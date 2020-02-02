@@ -75,7 +75,7 @@ ByxParser& ByxParser::parse()
 	// 第三遍遍历：生成所有代码
 	CodeGenVisitor codeGenVisitor(*this);
 	ast->visit(codeGenVisitor);
-	code.add(codeGenVisitor.getCode());
+	code = Code(codeGenVisitor.getCodeSeg());
 
 	//cout << code.toString() << endl;
 	//cout << functionTable.toString() << endl;

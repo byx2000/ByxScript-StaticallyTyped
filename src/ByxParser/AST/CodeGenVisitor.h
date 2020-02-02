@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ASTVisitor.h"
-#include "../../Common/Instruction.h"
+#include "../../Common/CodeSeg.h"
 
 #include <map>
 
@@ -11,11 +11,12 @@ class CodeGenVisitor : public ASTVisitor
 {
 public:
 	CodeGenVisitor(ByxParser& parser, const std::string& curFunctionName = "");
-	std::vector<Instruction> getCode();
+	CodeSeg getCodeSeg();
 
 private:
 	ByxParser& parser;
-	std::vector<Instruction> insts;
+	CodeSeg codeSeg;
+
 	bool inGlobleScope;
 	std::string curFunctionName;
 

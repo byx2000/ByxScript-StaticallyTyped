@@ -45,7 +45,7 @@ private:
 	Code code;
 
 	FunctionTable functionTable; // 函数表
-	std::vector<Instruction> initCode; // 初始化全局变量的代码
+	CodeSeg initCode; // 初始化全局变量的代码
 	std::map<std::string, FunctionInfo> functionInfo; // 函数信息
 
 	int globalSpace; // 全局变量空间大小

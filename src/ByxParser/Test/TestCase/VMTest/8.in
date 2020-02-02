@@ -5,7 +5,7 @@ int g4;
 
 function void main()
 {
-	/*if (0)
+	if (0)
 	{
 		g1 = 100;
 	}
@@ -25,10 +25,10 @@ function void main()
 	if (0) g2 = 100;
 	else if (0) g2 = 200;
 	else if (0) g2 = 300;
-	else g2 = 400;*/
+	else g2 = 400;
 	
 	if (0) g3 = 100;
 	else if (1) g3 = 200;
 	
-	//g4 = 1024;
+	g4 = 1024;
 }

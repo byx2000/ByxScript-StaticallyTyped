@@ -12,9 +12,9 @@ CodeGenVisitor::CodeGenVisitor(ByxParser& parser, const std::string& curFunction
 	inGlobleScope = false;
 }
 
-std::vector<Instruction> CodeGenVisitor::getCode()
+CodeSeg CodeGenVisitor::getCodeSeg()
 {
-	return insts;
+	return codeSeg;
 }
 
 void CodeGenVisitor::printCode(const std::vector<Instruction>& code)
@@ -39,7 +39,7 @@ void CodeGenVisitor::visit(FunctionDeclareNode& node)
 {
 	inGlobleScope = false;
 	curFunctionName = node.name;
-	int instCount = insts.size();
+	int instCount = codeSeg.getSize();
 
 
 	// 获取函数索引
@@ -47,15 +47,12 @@ void CodeGenVisitor::visit(FunctionDeclareNode& node)
 	int index = info.index;
 
 	// 设置函数起始地址
-	parser.functionTable.setAddr(index, insts.size());
+	parser.functionTable.setAddr(index, instCount);
 
 	// 为main函数添加全局变量初始化代码
 	if (node.name == "main")
 	{
-		for (int i = 0; i < (int)parser.initCode.size(); ++i)
-		{
-			insts.push_back(parser.initCode[i]);
-		}
+		codeSeg.add(parser.initCode);
 	}
 
 	// 处理参数
@@ -64,11 +61,11 @@ void CodeGenVisitor::visit(FunctionDeclareNode& node)
 	{
 		if (node.paramType[i] == DataType::Integer)
 		{
-			insts.push_back(Instruction(Opcode::istore, cnt));
+			codeSeg.add(Opcode::istore, cnt);
 		}
 		else if (node.paramType[i] == DataType::Double)
 		{
-			insts.push_back(Instruction(Opcode::dstore, cnt));
+			codeSeg.add(Opcode::dstore, cnt);
 		}
 		cnt++;
 	}
@@ -80,19 +77,19 @@ void CodeGenVisitor::visit(FunctionDeclareNode& node)
 	}
 
 	// 添加ret指令（该处可能会生成重复的ret指令）
-	insts.push_back(Instruction(Opcode::ret));
+	codeSeg.add(Opcode::ret);
 
 	curFunctionName = "";
 }
 
 void CodeGenVisitor::visit(IntegerNode& node)
 {
-	insts.push_back(Instruction(Opcode::iconst, node.val));
+	codeSeg.add(Opcode::iconst, node.val);
 }
 
 void CodeGenVisitor::visit(DoubleNode& node)
 {
-	insts.push_back(Instruction(Opcode::dconst, node.val));
+	codeSeg.add(Opcode::dconst, node.val);
 }
 
 void CodeGenVisitor::visit(IntDeclareNode& node)
@@ -106,11 +103,11 @@ void CodeGenVisitor::visit(IntDeclareNode& node)
 	node.expr->visit(*this);
 	if (node.symbol.isGlobal)
 	{
-		insts.push_back(Instruction(Opcode::igstore, node.symbol.index));
+		codeSeg.add(Opcode::igstore, node.symbol.index);
 	}
 	else
 	{
-		insts.push_back(Instruction(Opcode::istore, node.symbol.index));
+		codeSeg.add(Opcode::istore, node.symbol.index);
 	}
 }
 
@@ -125,11 +122,11 @@ void CodeGenVisitor::visit(DoubleDeclareNode& node)
 	node.expr->visit(*this);
 	if (node.symbol.isGlobal)
 	{
-		insts.push_back(Instruction(Opcode::dgstore, node.symbol.index));
+		codeSeg.add(Opcode::dgstore, node.symbol.index);
 	}
 	else
 	{
-		insts.push_back(Instruction(Opcode::dstore, node.symbol.index));
+		codeSeg.add(Opcode::dstore, node.symbol.index);
 	}
 }
 
@@ -148,22 +145,22 @@ void CodeGenVisitor::visit(VarNode& node)
 	{
 		if (node.symbol.isGlobal)
 		{
-			insts.push_back(Instruction(Opcode::igload, node.symbol.index));
+			codeSeg.add(Opcode::igload, node.symbol.index);
 		}
 		else
 		{
-			insts.push_back(Instruction(Opcode::iload, node.symbol.index));
+			codeSeg.add(Opcode::iload, node.symbol.index);
 		}
 	}
 	else if (node.type == DataType::Double)
 	{
 		if (node.symbol.isGlobal)
 		{
-			insts.push_back(Instruction(Opcode::dgload, node.symbol.index));
+			codeSeg.add(Opcode::dgload, node.symbol.index);
 		}
 		else
 		{
-			insts.push_back(Instruction(Opcode::dload, node.symbol.index));
+			codeSeg.add(Opcode::dload, node.symbol.index);
 		}
 	}
 }
@@ -178,11 +175,11 @@ void CodeGenVisitor::visit(VarAssignNode& node)
 	{
 		if (node.symbol.type == DataType::Integer)
 		{
-			insts.push_back(Instruction(Opcode::igstore, node.symbol.index));
+			codeSeg.add(Opcode::igstore, node.symbol.index);
 		}
 		else if (node.symbol.type == DataType::Double)
 		{
-			insts.push_back(Instruction(Opcode::dgstore, node.symbol.index));
+			codeSeg.add(Opcode::dgstore, node.symbol.index);
 		}
 	}
 	// 局部变量
@@ -190,11 +187,11 @@ void CodeGenVisitor::visit(VarAssignNode& node)
 	{
 		if (node.symbol.type == DataType::Integer)
 		{
-			insts.push_back(Instruction(Opcode::istore, node.symbol.index));
+			codeSeg.add(Opcode::istore, node.symbol.index);
 		}
 		else if (node.symbol.type == DataType::Double)
 		{
-			insts.push_back(Instruction(Opcode::dstore, node.symbol.index));
+			codeSeg.add(Opcode::dstore, node.symbol.index);
 		}
 	}
 }
@@ -227,7 +224,7 @@ void CodeGenVisitor::visit(ReturnNode& node)
 		}
 		else
 		{
-			insts.push_back(Instruction(Opcode::ret));
+			codeSeg.add(Opcode::ret);
 		}
 	}
 	else
@@ -239,7 +236,7 @@ void CodeGenVisitor::visit(ReturnNode& node)
 		else
 		{
 			node.expr->visit(*this);
-			insts.push_back(Instruction(Opcode::ret));
+			codeSeg.add(Opcode::ret);
 		}
 	}
 }
@@ -268,10 +265,10 @@ void CodeGenVisitor::visit(FunctionCallStmtNode& node)
 	}
 
 	// 生成调用函数代码
-	insts.push_back(Instruction(Opcode::call, info.index));
+	codeSeg.add(Opcode::call, info.index);
 	if (info.retType != DataType::Void)
 	{
-		insts.push_back(Instruction(Opcode::pop));
+		codeSeg.add(Opcode::pop);
 	}
 }
 
@@ -305,16 +302,16 @@ void CodeGenVisitor::visit(FunctionCallExprNode& node)
 	}
 
 	// 生成调用函数代码
-	insts.push_back(Instruction(Opcode::call, info.index));
+	codeSeg.add(Opcode::call, info.index);
 
 	// 根据返回值类型进行类型转换
 	if (info.retType == DataType::Integer)
 	{
-		insts.push_back(Instruction(Opcode::toi));
+		codeSeg.add(Opcode::toi);
 	}
 	else if (info.retType == DataType::Double)
 	{
-		insts.push_back(Instruction(Opcode::tod));
+		codeSeg.add(Opcode::tod);
 	}
 }
 
@@ -322,31 +319,19 @@ void CodeGenVisitor::visit(IfNode& node)
 {
 	CodeGenVisitor v1(parser, curFunctionName);
 	node.cond->visit(v1);
-	vector<Instruction> condCode = v1.getCode();
-	//printCode(condCode);
+	CodeSeg condCode = v1.getCodeSeg();
 
 	CodeGenVisitor v2(parser, curFunctionName);
 	node.tBranch->visit(v2);
-	vector<Instruction> tBranchCode = v2.getCode();
-	//printCode(tBranchCode);
+	CodeSeg tBranchCode = v2.getCodeSeg();
 
 	CodeGenVisitor v3(parser, curFunctionName);
 	node.fBranch->visit(v3);
-	vector<Instruction> fBranchCode = v3.getCode();
-	//printCode(fBranchCode);
+	CodeSeg fBranchCode = v3.getCodeSeg();
 
-	for (int i = 0; i < (int)condCode.size(); ++i)
-	{
-		insts.push_back(condCode[i]);
-	}
-	insts.push_back(Instruction(Opcode::je, (int)insts.size() + (int)tBranchCode.size() + 2));
-	for (int i = 0; i < (int)tBranchCode.size(); ++i)
-	{
-		insts.push_back(tBranchCode[i]);
-	}
-	insts.push_back(Instruction(Opcode::jmp, (int)insts.size() + (int)fBranchCode.size() + 1));
-	for (int i = 0; i < (int)fBranchCode.size(); ++i)
-	{
-		insts.push_back(fBranchCode[i]);
-	}
+	codeSeg.add(condCode);
+	codeSeg.add(Opcode::je, codeSeg.getSize() + tBranchCode.getSize() + 2);
+	codeSeg.add(tBranchCode);
+	codeSeg.add(Opcode::jmp, codeSeg.getSize() + fBranchCode.getSize() + 1);
+	codeSeg.add(fBranchCode);
 }

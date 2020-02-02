@@ -12,6 +12,12 @@ Code::Code(const std::vector<Instruction>& insts)
 	
 }
 
+Code::Code(const CodeSeg& seg)
+{
+	insts = seg.getInsts();
+	PC = 0;
+}
+
 void Code::add(Opcode op)
 {
 	insts.push_back(Instruction(op));
@@ -32,13 +38,13 @@ void Code::add(const Instruction& inst)
 	insts.push_back(inst);
 }
 
-void Code::add(const std::vector<Instruction>& v)
+/*void Code::add(const std::vector<Instruction>& v)
 {
 	for (int i = 0; i < (int)v.size(); ++i)
 	{
 		insts.push_back(v[i]);
 	}
-}
+}*/
 
 Instruction& Code::getNextInst()
 {

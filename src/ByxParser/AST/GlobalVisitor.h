@@ -1,7 +1,7 @@
 #pragma once
 
 #include "ASTVisitor.h"
-#include "../../Common/Instruction.h"
+#include "../../Common/CodeSeg.h"
 
 #include <string>
 #include <map>
@@ -12,13 +12,13 @@ class GlobalVisitor : public ASTVisitor
 {
 public:
 	GlobalVisitor(ByxParser& parser);
-	std::vector<Instruction> getInitCode();
+	CodeSeg getInitCode();
 
 private:	
 	ByxParser& parser;
 	int funcIndex;
 	int varIndex;
-	std::vector<Instruction> initCode;
+	CodeSeg initCode;
 
 	virtual void visit(ProgramNode& node) override;
 	virtual void visit(IntDeclareNode& node) override;

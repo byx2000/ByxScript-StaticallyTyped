@@ -15,13 +15,13 @@ int main()
 	// ByxVM单元测试
 	ByxVMTest::Run();
 
-	// Lexer单元测试
+	// ByxLexer单元测试
 	LexerTest::Run();
 
 	// ByxParser单元测试
 	ByxParserTest::Run();
 
-	try
+	/*try
 	{
 		ByxParser parser("function void main() { int i;  if (0) { i = 100; } else if (1) { i = 200; } }");
 		parser.parse();
@@ -32,7 +32,7 @@ int main()
 	{
 		cout << err.getMsg() << endl;
 		cout << err.getRow() << " " << err.getCol() << endl;
-	}
+	}*/
 
 	return 0;
 }

@@ -17,16 +17,31 @@ void CodeSeg::add(Opcode op, double p)
 	insts.push_back(Instruction(op, p));
 }
 
+void CodeSeg::add(const Instruction& inst)
+{
+	insts.push_back(inst);
+}
+
 void CodeSeg::add(CodeSeg& seg)
 {
-	seg.redirect(insts.size());
+	seg.relocation(insts.size());
 	for (int i = 0; i < (int)seg.insts.size(); ++i)
 	{
 		insts.push_back(seg.insts[i]);
 	}
 }
 
-void CodeSeg::redirect(int base)
+std::vector<Instruction> CodeSeg::getInsts() const
+{
+	return insts;
+}
+
+int CodeSeg::getSize() const
+{
+	return insts.size();
+}
+
+void CodeSeg::relocation(int base)
 {
 	for (int i = 0; i < (int)insts.size(); ++i)
 	{

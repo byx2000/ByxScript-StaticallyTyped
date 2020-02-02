@@ -11,7 +11,7 @@ GlobalVisitor::GlobalVisitor(ByxParser& parser)
 	varIndex = 0;
 }
 
-std::vector<Instruction> GlobalVisitor::getInitCode()
+CodeSeg GlobalVisitor::getInitCode()
 {
 	return initCode;
 }
@@ -28,22 +28,14 @@ void GlobalVisitor::visit(IntDeclareNode& node)
 {
 	CodeGenVisitor visitor(parser);
 	node.visit(visitor);
-
-	vector<Instruction> v = visitor.getCode();
-	for (int i = 0; i < (int)v.size(); ++i)
-	{
-		initCode.push_back(v[i]);
-	}
+	CodeSeg seg = visitor.getCodeSeg();
+	initCode.add(seg);
 }
 
 void GlobalVisitor::visit(DoubleDeclareNode& node)
 {	
 	CodeGenVisitor visitor(parser);
 	node.visit(visitor);
-
-	vector<Instruction> v = visitor.getCode();
-	for (int i = 0; i < (int)v.size(); ++i)
-	{
-		initCode.push_back(v[i]);
-	}
+	CodeSeg seg = visitor.getCodeSeg();
+	initCode.add(seg);
 }
