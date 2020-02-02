@@ -473,7 +473,20 @@ std::shared_ptr<Expression> ByxParser::parseArithExpr()
 
 shared_ptr<Expression> ByxParser::parseTerm()
 {
-	return parseFactor();
+	shared_ptr<Expression> res = parseFactor();
+	while (lexer.nextType() == TokenType::Mul || lexer.nextType() == TokenType::Div)
+	{
+		Token token = lexer.next();
+		if (token.type == TokenType::Mul)
+		{
+			res = make_shared<BinaryOpNode>(BinaryOpNode::Mul, res, parseFactor(), token);
+		}
+		else
+		{
+			res = make_shared<BinaryOpNode>(BinaryOpNode::Div, res, parseFactor(), token);
+		}
+	}
+	return res;
 }
 
 shared_ptr<Expression> ByxParser::parseFactor()
@@ -486,6 +499,12 @@ shared_ptr<Expression> ByxParser::parseFactor()
 	else if (token.type == TokenType::Double) // 浮点型常量
 	{
 		return make_shared<DoubleNode>(StrToDouble(token.val));
+	}
+	else if (token.type == TokenType::OpenBracket) // 括号表达式
+	{
+		shared_ptr<Expression> res = parseExpr();
+		lexer.read(TokenType::CloseBracket);
+		return res;
 	}
 	else if (token.type == TokenType::Ident) // 变量或函数调用
 	{

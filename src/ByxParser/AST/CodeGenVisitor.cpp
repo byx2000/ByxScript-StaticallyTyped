@@ -368,6 +368,26 @@ void CodeGenVisitor::visit(BinaryOpNode& node)
 			codeSeg.add(Opcode::dsub);
 		}
 		break;
+	case BinaryOpNode::Mul:
+		if (node.dataType == DataType::Integer)
+		{
+			codeSeg.add(Opcode::imul);
+		}
+		else if (node.dataType == DataType::Double)
+		{
+			codeSeg.add(Opcode::dmul);
+		}
+		break;
+	case BinaryOpNode::Div:
+		if (node.dataType == DataType::Integer)
+		{
+			codeSeg.add(Opcode::idiv);
+		}
+		else if (node.dataType == DataType::Double)
+		{
+			codeSeg.add(Opcode::ddiv);
+		}
+		break;
 	default:
 		throw ByxParser::ParseError("Bad operator.", node.row(), node.col());
 		break;
