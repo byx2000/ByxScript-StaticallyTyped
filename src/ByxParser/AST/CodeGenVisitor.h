@@ -36,4 +36,5 @@ private:
 	virtual void visit(FunctionCallExprNode& node) override;
 	virtual void visit(IfNode& node) override;
 	virtual void visit(BinaryOpNode& node) override;
+	virtual void visit(WhileNode& node) override;
 };

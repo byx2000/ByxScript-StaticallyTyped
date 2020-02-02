@@ -14,6 +14,7 @@ public:
 	void add(CodeSeg& seg);
 	std::vector<Instruction> getInsts() const;
 	int getSize() const;
+	std::string toString() const;
 
 private:
 	std::vector<Instruction> insts;

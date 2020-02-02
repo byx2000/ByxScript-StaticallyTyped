@@ -41,6 +41,19 @@ int CodeSeg::getSize() const
 	return insts.size();
 }
 
+std::string CodeSeg::toString() const
+{
+	string s;
+	for (int i = 0; i < (int)insts.size(); ++i)
+	{
+		s += to_string(i);
+		s += "\t";
+		s += insts[i].toString();
+		s += "\n";
+	}
+	return s;
+}
+
 void CodeSeg::relocation(int base)
 {
 	for (int i = 0; i < (int)insts.size(); ++i)

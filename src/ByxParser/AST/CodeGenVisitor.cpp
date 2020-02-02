@@ -136,6 +136,10 @@ void CodeGenVisitor::visit(CodeBlockNode& node)
 	for (int i = 0; i < (int)node.stmts.size(); ++i)
 	{
 		node.stmts[i]->visit(*this);
+		/*CodeGenVisitor v(parser, curFunctionName);
+		node.stmts[i]->visit(v);
+		CodeSeg seg = v.getCodeSeg();
+		codeSeg.add(seg);*/
 	}
 }
 
@@ -392,4 +396,32 @@ void CodeGenVisitor::visit(BinaryOpNode& node)
 		throw ByxParser::ParseError("Bad operator.", node.row(), node.col());
 		break;
 	}
+}
+
+void CodeGenVisitor::visit(WhileNode& node)
+{
+	CodeGenVisitor v1(parser, curFunctionName);
+	node.cond->visit(v1);
+	CodeSeg condCode = v1.getCodeSeg();
+
+	CodeGenVisitor v2(parser, curFunctionName);
+	node.body->visit(v2);
+	CodeSeg bodyCode = v2.getCodeSeg();
+
+	/*cout << "cond:" << endl;
+	cout << condCode.toString() << endl;
+	cout << "body:" << endl;
+	cout << bodyCode.toString() << endl;*/
+
+	int addr = codeSeg.getSize();
+
+	codeSeg.add(condCode);
+	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
+	{
+		codeSeg.add(Opcode::dconst, 0.0);
+		codeSeg.add(Opcode::dne);
+	}
+	codeSeg.add(Opcode::je, codeSeg.getSize() + bodyCode.getSize() + 2);
+	codeSeg.add(bodyCode);
+	codeSeg.add(Opcode::jmp, addr);
 }
