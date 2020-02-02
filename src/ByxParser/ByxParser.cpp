@@ -450,7 +450,18 @@ shared_ptr<Expression> ByxParser::parseExpr()
 
 shared_ptr<Expression> ByxParser::parseCmpExpr()
 {
-	return parseTerm();
+	return parseArithExpr();
+}
+
+std::shared_ptr<Expression> ByxParser::parseArithExpr()
+{
+	shared_ptr<Expression> res = parseTerm();
+	while (lexer.nextType() == TokenType::Add)
+	{
+		Token token = lexer.next();
+		res = make_shared<AddNode>(res, parseTerm(), token);
+	}
+	return res;
 }
 
 shared_ptr<Expression> ByxParser::parseTerm()

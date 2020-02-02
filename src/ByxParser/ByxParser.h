@@ -62,6 +62,7 @@ private:
 	std::shared_ptr<ASTNode> parseIf();
 	std::shared_ptr<Expression> parseExpr();
 	std::shared_ptr<Expression> parseCmpExpr();
+	std::shared_ptr<Expression> parseArithExpr();
 	std::shared_ptr<Expression> parseTerm();
 	std::shared_ptr<Expression> parseFactor();
 	std::shared_ptr<Expression> parseFunctionCallExpr();
