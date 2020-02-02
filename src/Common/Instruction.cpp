@@ -37,6 +37,16 @@ double Instruction::getDoubleParam() const
 	return dVal;
 }
 
+void Instruction::setIntParam(int p)
+{
+	iVal = p;
+}
+
+void Instruction::setDoubleParam(double p)
+{
+	dVal = p;
+}
+
 std::string Instruction::toString() const
 {
 	string s = GetOpcodeSymbol(op);

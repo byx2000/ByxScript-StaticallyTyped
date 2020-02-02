@@ -150,6 +150,9 @@
     <ClCompile Include="src\ByxVM\Value.cpp">
       <Filter>源文件\ByxVM</Filter>
     </ClCompile>
+    <ClCompile Include="src\ByxParser\CodeSeg.cpp">
+      <Filter>源文件\ByxParser</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\ByxVM\Test\ByxVMTest.h">
@@ -235,6 +238,9 @@
     </ClInclude>
     <ClInclude Include="src\ByxVM\Value.h">
       <Filter>头文件\ByxVM</Filter>
+    </ClInclude>
+    <ClInclude Include="src\ByxParser\CodeSeg.h">
+      <Filter>头文件\ByxParser</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

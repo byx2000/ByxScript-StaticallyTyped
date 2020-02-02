@@ -11,6 +11,8 @@ public:
 	Opcode getOp() const; // 获取操作码
 	int getIntParam() const; // 获取整数参数
 	double getDoubleParam() const; // 获取浮点数参数
+	void setIntParam(int p); // 设置整数参数
+	void setDoubleParam(double p); // 设置浮点数参数
 
 	std::string toString() const;
 
