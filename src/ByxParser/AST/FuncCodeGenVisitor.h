@@ -2,27 +2,22 @@
 
 #include "ASTVisitor.h"
 #include "../../Common/CodeSeg.h"
-
-#include <map>
+#include "../FunctionInfo.h"
 
 class ByxParser;
 
-class CodeGenVisitor : public ASTVisitor
+class FuncCodeGenVisitor : public ASTVisitor
 {
 public:
-	CodeGenVisitor(ByxParser& parser, const std::string& curFunctionName = "");
-	CodeSeg getCodeSeg();
+	FuncCodeGenVisitor(ByxParser& parser, const FunctionInfo& info = FunctionInfo());
+	CodeSeg getCode() const;
 
 private:
 	ByxParser& parser;
+	FunctionInfo info;
+	std::string funcName;
 	CodeSeg codeSeg;
 
-	bool inGlobleScope;
-	std::string curFunctionName;
-
-	void printCode(const std::vector<Instruction>& code);
-
-	virtual void visit(ProgramNode& node) override;
 	virtual void visit(FunctionDeclareNode& node) override;
 	virtual void visit(IntegerNode& node) override;
 	virtual void visit(DoubleNode& node) override;

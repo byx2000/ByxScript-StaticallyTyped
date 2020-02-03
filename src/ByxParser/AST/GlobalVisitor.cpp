@@ -1,6 +1,6 @@
 #include "GlobalVisitor.h"
 #include "../ByxParser.h"
-#include "CodeGenVisitor.h"
+#include "FuncCodeGenVisitor.h"
 
 using namespace std;
 
@@ -26,16 +26,26 @@ void GlobalVisitor::visit(ProgramNode& node)
 
 void GlobalVisitor::visit(IntDeclareNode& node)
 {
-	CodeGenVisitor visitor(parser);
+	/*CodeGenVisitor visitor(parser);
 	node.visit(visitor);
 	CodeSeg seg = visitor.getCodeSeg();
+	initCode.add(seg);*/
+
+	FuncCodeGenVisitor visitor(parser);
+	node.visit(visitor);
+	CodeSeg seg = visitor.getCode();
 	initCode.add(seg);
 }
 
 void GlobalVisitor::visit(DoubleDeclareNode& node)
 {	
-	CodeGenVisitor visitor(parser);
+	/*CodeGenVisitor visitor(parser);
 	node.visit(visitor);
 	CodeSeg seg = visitor.getCodeSeg();
+	initCode.add(seg);*/
+
+	FuncCodeGenVisitor visitor(parser);
+	node.visit(visitor);
+	CodeSeg seg = visitor.getCode();
 	initCode.add(seg);
 }

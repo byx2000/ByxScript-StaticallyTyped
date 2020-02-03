@@ -1,53 +1,24 @@
-#include "CodeGenVisitor.h"
+#include "FuncCodeGenVisitor.h"
 #include "../ByxParser.h"
-#include "../FunctionInfo.h"
-
-#include <iostream>
 
 using namespace std;
 
-CodeGenVisitor::CodeGenVisitor(ByxParser& parser, const std::string& curFunctionName)
-	: parser(parser), curFunctionName(curFunctionName)
+FuncCodeGenVisitor::FuncCodeGenVisitor(ByxParser& parser, const FunctionInfo& info)
+	: parser(parser), info(info)
 {
-	inGlobleScope = false;
+
 }
 
-CodeSeg CodeGenVisitor::getCodeSeg()
+CodeSeg FuncCodeGenVisitor::getCode() const
 {
 	return codeSeg;
 }
 
-void CodeGenVisitor::printCode(const std::vector<Instruction>& code)
+void FuncCodeGenVisitor::visit(FunctionDeclareNode& node)
 {
-	for (int i = 0; i < (int)code.size(); ++i)
-	{
-		cout << code[i].toString() << endl;
-	}
-	cout << endl;
-}
-
-void CodeGenVisitor::visit(ProgramNode& node)
-{
-	for (int i = 0; i < (int)node.stmts.size(); ++i)
-	{
-		inGlobleScope = true;
-		node.stmts[i]->visit(*this);
-	}
-}
-
-void CodeGenVisitor::visit(FunctionDeclareNode& node)
-{
-	inGlobleScope = false;
-	curFunctionName = node.name;
-	int instCount = codeSeg.getSize();
-
-
-	// 获取函数索引
-	FunctionInfo info = parser.functionInfo[node.name];
-	int index = info.index;
-
-	// 设置函数起始地址
-	parser.functionTable.setAddr(index, instCount);
+	// 获取函数信息
+	info = parser.functionInfo[node.name];
+	funcName = node.name;
 
 	// 为main函数添加全局变量初始化代码
 	if (node.name == "main")
@@ -55,7 +26,7 @@ void CodeGenVisitor::visit(FunctionDeclareNode& node)
 		codeSeg.add(parser.initCode);
 	}
 
-	// 处理参数
+	// 生成参数读取指令
 	int cnt = 0;
 	for (int i = 0; i < (int)node.paramName.size(); ++i)
 	{
@@ -78,28 +49,20 @@ void CodeGenVisitor::visit(FunctionDeclareNode& node)
 
 	// 添加ret指令（该处可能会生成重复的ret指令）
 	codeSeg.add(Opcode::ret);
-
-	curFunctionName = "";
 }
 
-void CodeGenVisitor::visit(IntegerNode& node)
+void FuncCodeGenVisitor::visit(IntegerNode& node)
 {
 	codeSeg.add(Opcode::iconst, node.val);
 }
 
-void CodeGenVisitor::visit(DoubleNode& node)
+void FuncCodeGenVisitor::visit(DoubleNode& node)
 {
 	codeSeg.add(Opcode::dconst, node.val);
 }
 
-void CodeGenVisitor::visit(IntDeclareNode& node)
+void FuncCodeGenVisitor::visit(IntDeclareNode& node)
 {
-	// 跳过全局变量声明
-	if (inGlobleScope)
-	{
-		return;
-	}
-
 	node.expr->visit(*this);
 	if (node.symbol.isGlobal)
 	{
@@ -111,14 +74,8 @@ void CodeGenVisitor::visit(IntDeclareNode& node)
 	}
 }
 
-void CodeGenVisitor::visit(DoubleDeclareNode& node)
+void FuncCodeGenVisitor::visit(DoubleDeclareNode& node)
 {
-	// 跳过全局变量声明
-	if (inGlobleScope)
-	{
-		return;
-	}
-
 	node.expr->visit(*this);
 	if (node.symbol.isGlobal)
 	{
@@ -130,20 +87,15 @@ void CodeGenVisitor::visit(DoubleDeclareNode& node)
 	}
 }
 
-void CodeGenVisitor::visit(CodeBlockNode& node)
+void FuncCodeGenVisitor::visit(CodeBlockNode& node)
 {
-	// 生成代码
 	for (int i = 0; i < (int)node.stmts.size(); ++i)
 	{
 		node.stmts[i]->visit(*this);
-		/*CodeGenVisitor v(parser, curFunctionName);
-		node.stmts[i]->visit(v);
-		CodeSeg seg = v.getCodeSeg();
-		codeSeg.add(seg);*/
 	}
 }
 
-void CodeGenVisitor::visit(VarNode& node)
+void FuncCodeGenVisitor::visit(VarNode& node)
 {
 	if (node.dataType == DataType::Integer)
 	{
@@ -169,7 +121,7 @@ void CodeGenVisitor::visit(VarNode& node)
 	}
 }
 
-void CodeGenVisitor::visit(VarAssignNode& node)
+void FuncCodeGenVisitor::visit(VarAssignNode& node)
 {
 	// 生成赋值表达式代码
 	node.expr->visit(*this);
@@ -200,31 +152,17 @@ void CodeGenVisitor::visit(VarAssignNode& node)
 	}
 }
 
-void CodeGenVisitor::visit(ReturnNode& node)
+void FuncCodeGenVisitor::visit(ReturnNode& node)
 {
-	// return语句不在函数内
-	if (curFunctionName == "")
-	{
-		throw ByxParser::ParseError("Return statement must be in a function.", node.row(), node.col());
-	}
-
-	// 函数不存在
-	if (parser.functionInfo.count(curFunctionName) == 0)
-	{
-		throw ByxParser::ParseError(string("Function '") + curFunctionName + "' does not exist.", node.row(), node.col());
-	}
-
-
 	// 获取函数返回值信息
-	FunctionInfo info = parser.functionInfo[curFunctionName];
 	DataType retType = info.retType;
 
 	// 生成代码
 	if (retType == DataType::Void)
 	{
-		if (node.hasExpr)
+		if (node.hasExpr) // 返回值类型不匹配
 		{
-			throw ByxParser::ParseError(string("Function '") + curFunctionName + "' cannot return value.", node.row(), node.col());
+			throw ByxParser::ParseError(string("Function '") + funcName + "' cannot return value.", node.row(), node.col());
 		}
 		else
 		{
@@ -233,9 +171,9 @@ void CodeGenVisitor::visit(ReturnNode& node)
 	}
 	else
 	{
-		if (!node.hasExpr)
+		if (!node.hasExpr) // 返回值类型不匹配
 		{
-			throw ByxParser::ParseError(string("Function '") + curFunctionName + "'must return a value.", node.row(), node.col());
+			throw ByxParser::ParseError(string("Function '") + funcName + "'must return a value.", node.row(), node.col());
 		}
 		else
 		{
@@ -245,7 +183,7 @@ void CodeGenVisitor::visit(ReturnNode& node)
 	}
 }
 
-void CodeGenVisitor::visit(FunctionCallStmtNode& node)
+void FuncCodeGenVisitor::visit(FunctionCallStmtNode& node)
 {
 	// 函数未定义
 	if (parser.functionInfo.count(node.name) == 0)
@@ -253,11 +191,11 @@ void CodeGenVisitor::visit(FunctionCallStmtNode& node)
 		throw ByxParser::ParseError(string("Undefined function: ") + node.name + ".", node.row(), node.col());
 	}
 
-	// 获取函数信息
-	FunctionInfo info = parser.functionInfo[node.name];
-	
+	// 获取调用函数信息
+	FunctionInfo callInfo = parser.functionInfo[node.name];
+
 	// 参数个数不匹配
-	if (info.paramCount != node.exprs.size())
+	if (callInfo.paramCount != node.exprs.size())
 	{
 		throw ByxParser::ParseError(string("The count of parameters incorrect when call function ") + node.name + ".", node.row(), node.col());
 	}
@@ -269,14 +207,14 @@ void CodeGenVisitor::visit(FunctionCallStmtNode& node)
 	}
 
 	// 生成调用函数代码
-	codeSeg.add(Opcode::call, info.index);
-	if (info.retType != DataType::Void)
+	codeSeg.add(Opcode::call, callInfo.index);
+	if (callInfo.retType != DataType::Void)
 	{
 		codeSeg.add(Opcode::pop);
 	}
 }
 
-void CodeGenVisitor::visit(FunctionCallExprNode& node)
+void FuncCodeGenVisitor::visit(FunctionCallExprNode& node)
 {
 	// 函数未定义
 	if (parser.functionInfo.count(node.name) == 0)
@@ -284,17 +222,17 @@ void CodeGenVisitor::visit(FunctionCallExprNode& node)
 		throw ByxParser::ParseError(string("Undefined function: ") + node.name + ".", node.row(), node.col());
 	}
 
-	// 获取函数信息
-	FunctionInfo info = parser.functionInfo[node.name];
+	// 获取调用函数信息
+	FunctionInfo callInfo = parser.functionInfo[node.name];
 
 	// 函数无返回值
-	if (info.retType == DataType::Void)
+	if (callInfo.retType == DataType::Void)
 	{
 		throw ByxParser::ParseError(string("Function '") + node.name + "' has no return type.", node.row(), node.col());
 	}
 
 	// 参数个数不匹配
-	if (info.paramCount != node.exprs.size())
+	if (callInfo.paramCount != node.exprs.size())
 	{
 		throw ByxParser::ParseError(string("The count of parameters incorrect when call function ") + node.name + ".", node.row(), node.col());
 	}
@@ -306,32 +244,32 @@ void CodeGenVisitor::visit(FunctionCallExprNode& node)
 	}
 
 	// 生成调用函数代码
-	codeSeg.add(Opcode::call, info.index);
+	codeSeg.add(Opcode::call, callInfo.index);
 
 	// 根据返回值类型进行类型转换
-	if (info.retType == DataType::Integer)
+	if (callInfo.retType == DataType::Integer)
 	{
 		codeSeg.add(Opcode::toi);
 	}
-	else if (info.retType == DataType::Double)
+	else if (callInfo.retType == DataType::Double)
 	{
 		codeSeg.add(Opcode::tod);
 	}
 }
 
-void CodeGenVisitor::visit(IfNode& node)
+void FuncCodeGenVisitor::visit(IfNode& node)
 {
-	CodeGenVisitor v1(parser, curFunctionName);
+	FuncCodeGenVisitor v1(parser, info);
 	node.cond->visit(v1);
-	CodeSeg condCode = v1.getCodeSeg();
+	CodeSeg condCode = v1.getCode();
 
-	CodeGenVisitor v2(parser, curFunctionName);
+	FuncCodeGenVisitor v2(parser, info);
 	node.tBranch->visit(v2);
-	CodeSeg tBranchCode = v2.getCodeSeg();
+	CodeSeg tBranchCode = v2.getCode();
 
-	CodeGenVisitor v3(parser, curFunctionName);
+	FuncCodeGenVisitor v3(parser, info);
 	node.fBranch->visit(v3);
-	CodeSeg fBranchCode = v3.getCodeSeg();
+	CodeSeg fBranchCode = v3.getCode();
 
 	codeSeg.add(condCode);
 	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
@@ -345,7 +283,7 @@ void CodeGenVisitor::visit(IfNode& node)
 	codeSeg.add(fBranchCode);
 }
 
-void CodeGenVisitor::visit(BinaryOpNode& node)
+void FuncCodeGenVisitor::visit(BinaryOpNode& node)
 {
 	node.lhs->visit(*this);
 	node.rhs->visit(*this);
@@ -398,20 +336,15 @@ void CodeGenVisitor::visit(BinaryOpNode& node)
 	}
 }
 
-void CodeGenVisitor::visit(WhileNode& node)
+void FuncCodeGenVisitor::visit(WhileNode& node)
 {
-	CodeGenVisitor v1(parser, curFunctionName);
+	FuncCodeGenVisitor v1(parser, info);
 	node.cond->visit(v1);
-	CodeSeg condCode = v1.getCodeSeg();
+	CodeSeg condCode = v1.getCode();
 
-	CodeGenVisitor v2(parser, curFunctionName);
+	FuncCodeGenVisitor v2(parser, info);
 	node.body->visit(v2);
-	CodeSeg bodyCode = v2.getCodeSeg();
-
-	/*cout << "cond:" << endl;
-	cout << condCode.toString() << endl;
-	cout << "body:" << endl;
-	cout << bodyCode.toString() << endl;*/
+	CodeSeg bodyCode = v2.getCode();
 
 	int addr = codeSeg.getSize();
 

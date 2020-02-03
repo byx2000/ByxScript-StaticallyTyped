@@ -1,7 +1,7 @@
 #include "ByxParser.h"
 #include "AST/GlobalVisitor.h"
-#include "AST/CodeGenVisitor.h"
 #include "AST/ToStringVisitor.h"
+#include "AST/FuncCombVisitor.h"
 
 #include <sstream>
 #include <iostream>
@@ -73,9 +73,14 @@ ByxParser& ByxParser::parse()
 	initCode = globalVisitor.getInitCode();
 
 	// 第三遍遍历：生成所有代码
-	CodeGenVisitor codeGenVisitor(*this);
+	/*CodeGenVisitor codeGenVisitor(*this);
 	ast->visit(codeGenVisitor);
-	code = Code(codeGenVisitor.getCodeSeg());
+	code = Code(codeGenVisitor.getCodeSeg());*/
+
+	FuncCombVisitor funcCombVisitor(*this);
+	ast->visit(funcCombVisitor);
+	CodeSeg codeSeg = funcCombVisitor.getCode();
+	code = Code(codeSeg);
 
 	//cout << code.toString() << endl;
 	//cout << functionTable.toString() << endl;

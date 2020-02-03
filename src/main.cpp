@@ -25,10 +25,11 @@ int main()
 	/*cout << endl;
 	try
 	{
-		ByxParser parser("function void main() { while (6 - 6) {} }");
+		ByxParser parser("function void f() { int i = 100; }  function void main() { int i = 200; }");
 		parser.parse();
 		cout << parser.getASTString() << endl;
 		cout << parser.getCode().toString() << endl;
+		cout << parser.getFunctionTable().toString() << endl;
 	}
 	catch (ByxParser::ParseError err)
 	{
