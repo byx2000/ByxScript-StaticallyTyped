@@ -17,6 +17,8 @@ private:
 	FunctionInfo info;
 	std::string funcName;
 	CodeSeg codeSeg;
+	int ifNestedDepth;
+	int whileNestedDepth;
 
 	virtual void visit(FunctionDeclareNode& node) override;
 	virtual void visit(IntegerNode& node) override;

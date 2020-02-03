@@ -1,12 +1,15 @@
 #include "FuncCodeGenVisitor.h"
 #include "../ByxParser.h"
 
+#include <iostream>
+
 using namespace std;
 
 FuncCodeGenVisitor::FuncCodeGenVisitor(ByxParser& parser, const FunctionInfo& info)
 	: parser(parser), info(info)
 {
-
+	ifNestedDepth = 0;
+	whileNestedDepth = 0;
 }
 
 CodeSeg FuncCodeGenVisitor::getCode() const
@@ -259,7 +262,7 @@ void FuncCodeGenVisitor::visit(FunctionCallExprNode& node)
 
 void FuncCodeGenVisitor::visit(IfNode& node)
 {
-	FuncCodeGenVisitor v1(parser, info);
+	/*FuncCodeGenVisitor v1(parser, info);
 	node.cond->visit(v1);
 	CodeSeg condCode = v1.getCode();
 
@@ -280,7 +283,39 @@ void FuncCodeGenVisitor::visit(IfNode& node)
 	codeSeg.add(Opcode::je, codeSeg.getSize() + tBranchCode.getSize() + 2);
 	codeSeg.add(tBranchCode);
 	codeSeg.add(Opcode::jmp, codeSeg.getSize() + fBranchCode.getSize() + 1);
-	codeSeg.add(fBranchCode);
+	codeSeg.add(fBranchCode);*/
+
+	ifNestedDepth++;
+	string label1 = string("false_start") + to_string(ifNestedDepth);
+	string label2 = string("if_end") + to_string(ifNestedDepth);
+
+	// 生成条件表达式代码
+	node.cond->visit(*this);
+	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
+	{
+		codeSeg.add(Opcode::dconst, 0.0);
+		codeSeg.add(Opcode::dne);
+	}
+
+	// 若条件为假，则跳转到false分支
+	codeSeg.addJumpLabel(Opcode::je, label1);
+
+	// 生成true分支代码
+	node.tBranch->visit(*this);
+
+	// 执行完true分支后，跳转到if语句结束
+	codeSeg.addJumpLabel(Opcode::jmp, label2);
+
+	// 设置false分支起始地址
+	codeSeg.setJumpLabel(label1, codeSeg.getSize());
+
+	//生成false分支代码
+	node.fBranch->visit(*this);
+
+	// 设置if语句结束地址
+	codeSeg.setJumpLabel(label2, codeSeg.getSize());
+
+	ifNestedDepth--;
 }
 
 void FuncCodeGenVisitor::visit(BinaryOpNode& node)
@@ -398,7 +433,7 @@ void FuncCodeGenVisitor::visit(BinaryOpNode& node)
 
 void FuncCodeGenVisitor::visit(WhileNode& node)
 {
-	FuncCodeGenVisitor v1(parser, info);
+	/*FuncCodeGenVisitor v1(parser, info);
 	node.cond->visit(v1);
 	CodeSeg condCode = v1.getCode();
 
@@ -416,5 +451,34 @@ void FuncCodeGenVisitor::visit(WhileNode& node)
 	}
 	codeSeg.add(Opcode::je, codeSeg.getSize() + bodyCode.getSize() + 2);
 	codeSeg.add(bodyCode);
+	codeSeg.add(Opcode::jmp, addr);*/
+
+	whileNestedDepth++;
+
+	string label = string("while_") + to_string(whileNestedDepth);
+
+	// 保存条件判断起始地址
+	int addr = codeSeg.getSize();
+
+	// 生成条件表达式代码
+	node.cond->visit(*this);
+	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
+	{
+		codeSeg.add(Opcode::dconst, 0.0);
+		codeSeg.add(Opcode::dne);
+	}
+
+	// 若条件为假，则跳转到循环结束
+	codeSeg.addJumpLabel(Opcode::je, label);
+
+	// 生成循环体代码
+	node.body->visit(*this);
+
+	// 循环体执行完后，跳转回条件判断
 	codeSeg.add(Opcode::jmp, addr);
+
+	// 设置循环结束地址
+	codeSeg.setJumpLabel(label, codeSeg.getSize());
+
+	whileNestedDepth--;
 }

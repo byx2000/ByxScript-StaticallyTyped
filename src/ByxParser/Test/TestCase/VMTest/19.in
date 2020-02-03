@@ -2,6 +2,8 @@ int g1;
 int g2;
 int g3;
 double g4;
+int g5;
+int g6;
 
 function void main()
 {
@@ -50,4 +52,42 @@ function void main()
 		i = i + 1;
 	}
 	g4 = s1;
+	
+	i = 1;
+	s = 0;
+	while (i < 20)
+	{
+		int j = 1;
+		while (j < 30)
+		{
+			int k = 1;
+			while (k <= 5)
+			{
+				s = s + i * j * k;
+				k = k + 1;
+			}
+			j = j + 2;
+		}
+		i = i + 1;
+	}
+	g5 = s;
+	
+	i = 1;
+	s = 0;
+	while (i < 20)
+	{
+		int j = 1;
+		while (j < 30)
+		{
+			int k = 1;
+			while (k <= 5)
+			{
+				s = s + i * j * k;
+				k = k + 1;
+			}
+			j = j + 2;
+		}
+		i = i + 1;
+	}
+	g6 = s;
 }

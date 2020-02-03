@@ -38,6 +38,27 @@ void CodeSeg::add(const CodeSeg& seg)
 	}
 }
 
+void CodeSeg::addJumpLabel(Opcode op, const std::string& label)
+{
+	if (op == Opcode::jmp || op == Opcode::jl || op == Opcode::jle ||
+		op == Opcode::jg || op == Opcode::jge || op == Opcode::je ||
+		op == Opcode::jne)
+	{
+		labelIndex[label] = insts.size();
+		insts.push_back(Instruction(op, 0));
+	}
+}
+
+void CodeSeg::setJumpLabel(const std::string& label, int addr)
+{
+	if (labelIndex.count(label) > 0)
+	{
+		int index = labelIndex[label];
+		labelIndex.erase(label);
+		insts[index].setIntParam(addr);
+	}
+}
+
 std::vector<Instruction> CodeSeg::getInsts() const
 {
 	return insts;

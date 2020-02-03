@@ -1,0 +1,71 @@
+int g1;
+int g2;
+int g3;
+int g4;
+int g5;
+int g6;
+
+function int fib(int n)
+{
+	if (n != 1)
+	{
+		if (n != 2)
+		{
+			return fib(n - 1) + fib(n - 2);
+		}
+		else
+		{
+			return 1;
+		}
+	}
+	else
+	{
+		return 1;
+	}
+}
+
+function int f(int n)
+{
+	if (n == 1)
+	{
+		if (n == 2)
+		{
+			return 1;
+		}
+		else
+		{
+			return 2;
+		}
+	}
+	else
+	{
+		if (n == 3)
+		{
+			return 3;
+		}
+		else
+		{
+			return 4;
+		}
+	}
+}
+
+function void g(int n)
+{
+	if (n < 255)
+	{
+		g6 = 568723;
+		return;
+	}
+	g6 = 272829;
+}
+
+function void main()
+{
+	g1 = fib(25);
+	g2 = f(1);
+	g3 = f(2);
+	g4 = f(3);
+	g5 = f(4);
+	g(123);
+}
