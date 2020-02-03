@@ -480,5 +480,19 @@ void FuncCodeGenVisitor::visit(WhileNode& node)
 	// 设置循环结束地址
 	codeSeg.setJumpLabel(label, codeSeg.getSize());
 
+	// 设置break语句跳转目标
+	codeSeg.setJumpLabel(string("break_") + to_string(whileNestedDepth), codeSeg.getSize());
+
 	whileNestedDepth--;
+}
+
+void FuncCodeGenVisitor::visit(BreakNode& node)
+{
+	// 不在循环语句内
+	if (whileNestedDepth == 0)
+	{
+		throw ByxParser::ParseError("Break statement must be in a loop.", node.row(), node.col());
+	}
+
+	codeSeg.addJumpLabel(Opcode::jmp, string("break_") + to_string(whileNestedDepth));
 }

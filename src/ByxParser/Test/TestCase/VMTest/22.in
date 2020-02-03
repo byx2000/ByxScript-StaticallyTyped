@@ -1,0 +1,53 @@
+int g1;
+int g2;
+int g3;
+int g4;
+int g5;
+
+function void main()
+{
+	int i = 1;
+	int s = 0;
+	while (i <= 1000)
+	{
+		if (i == 101)
+		{
+			break;
+		}
+		s = s + i;
+		i = i + 1;
+	}
+	g1 = i;
+	g2 = s;
+	
+	while (1)
+	{
+		while (1)
+		{
+			break;
+			g3 = 2312;
+		}
+		g3 = 3782;
+		break;
+		g4 = 2222;
+	}
+	g4 = 2527;
+	
+	i = 1;
+	s = 0;
+	while (i <= 50)
+    {
+        int j = i * 2;
+        while (j <= 1000)
+        {
+            if ((j / 34) * 34 == j)
+            {
+                break;
+            }
+            s = s + i * i * j + j;
+            j = j + 1;
+        }
+        i = i + 1;
+    }
+	g5 = s;
+}
