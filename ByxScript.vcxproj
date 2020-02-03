@@ -161,7 +161,6 @@
     <ClCompile Include="src\ByxVM\CallStack.cpp" />
     <ClCompile Include="src\ByxVM\OperandStack.cpp" />
     <ClCompile Include="src\ByxVM\Test\ByxVMTest.cpp" />
-    <ClCompile Include="src\ByxVM\Value.cpp" />
     <ClCompile Include="src\Common\Code.cpp" />
     <ClCompile Include="src\Common\CodeSeg.cpp" />
     <ClCompile Include="src\Common\DataType.cpp" />
@@ -169,6 +168,7 @@
     <ClCompile Include="src\Common\Instruction.cpp" />
     <ClCompile Include="src\Common\Opcode.cpp" />
     <ClCompile Include="src\Common\TestUtil.cpp" />
+    <ClCompile Include="src\Common\Value.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -193,7 +193,6 @@
     <ClInclude Include="src\ByxVM\CallStack.h" />
     <ClInclude Include="src\ByxVM\OperandStack.h" />
     <ClInclude Include="src\ByxVM\Test\ByxVMTest.h" />
-    <ClInclude Include="src\ByxVM\Value.h" />
     <ClInclude Include="src\Common\Code.h" />
     <ClInclude Include="src\Common\CodeSeg.h" />
     <ClInclude Include="src\Common\DataType.h" />
@@ -201,6 +200,7 @@
     <ClInclude Include="src\Common\Instruction.h" />
     <ClInclude Include="src\Common\Opcode.h" />
     <ClInclude Include="src\Common\TestUtil.h" />
+    <ClInclude Include="src\Common\Value.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -147,10 +147,10 @@
     <ClCompile Include="src\ByxVM\OperandStack.cpp">
       <Filter>源文件\ByxVM</Filter>
     </ClCompile>
-    <ClCompile Include="src\ByxVM\Value.cpp">
-      <Filter>源文件\ByxVM</Filter>
-    </ClCompile>
     <ClCompile Include="src\Common\CodeSeg.cpp">
+      <Filter>源文件\Common</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Common\Value.cpp">
       <Filter>源文件\Common</Filter>
     </ClCompile>
   </ItemGroup>
@@ -236,10 +236,10 @@
     <ClInclude Include="src\ByxVM\OperandStack.h">
       <Filter>头文件\ByxVM</Filter>
     </ClInclude>
-    <ClInclude Include="src\ByxVM\Value.h">
-      <Filter>头文件\ByxVM</Filter>
-    </ClInclude>
     <ClInclude Include="src\Common\CodeSeg.h">
+      <Filter>头文件\Common</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Common\Value.h">
       <Filter>头文件\Common</Filter>
     </ClInclude>
   </ItemGroup>

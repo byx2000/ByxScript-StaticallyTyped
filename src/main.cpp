@@ -4,7 +4,7 @@
 #include "ByxLexer/Test/LexerTest.h"
 #include "ByxParser/Test/ParserTest.h"
 #include "ByxParser/ByxParser.h"
-#include "ByxVM/Value.h"
+#include "Common/Value.h"
 
 using namespace std;
 

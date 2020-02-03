@@ -1,7 +1,7 @@
 #pragma once
 
 #include "../Common/FunctionTable.h"
-#include "Value.h"
+#include "../Common/Value.h"
 
 #include <stack>
 
