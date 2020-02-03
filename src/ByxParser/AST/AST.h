@@ -192,7 +192,7 @@ public:
 	BinaryOpNode(int opType, std::shared_ptr<Expression> lhs, std::shared_ptr<Expression> rhs, const Token& token);
 	virtual void visit(ASTVisitor& visitor) override;
 
-	enum { Add, Sub, Mul, Div };
+	enum { Add, Sub, Mul, Div, Equ, NotEqu, Larger, Less, LargerEqu, LessEqu };
 	int opType;
 	std::shared_ptr<Expression> lhs, rhs;
 };

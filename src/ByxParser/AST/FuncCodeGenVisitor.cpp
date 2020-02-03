@@ -330,6 +330,66 @@ void FuncCodeGenVisitor::visit(BinaryOpNode& node)
 			codeSeg.add(Opcode::ddiv);
 		}
 		break;
+	case BinaryOpNode::Equ:
+		if (node.dataType == DataType::Integer)
+		{
+			codeSeg.add(Opcode::ie);
+		}
+		else if (node.dataType == DataType::Double)
+		{
+			codeSeg.add(Opcode::de);
+		}
+		break;
+	case BinaryOpNode::NotEqu:
+		if (node.dataType == DataType::Integer)
+		{
+			codeSeg.add(Opcode::ine);
+		}
+		else if (node.dataType == DataType::Double)
+		{
+			codeSeg.add(Opcode::dne);
+		}
+		break;
+	case BinaryOpNode::Larger:
+		if (node.dataType == DataType::Integer)
+		{
+			codeSeg.add(Opcode::ig);
+		}
+		else if (node.dataType == DataType::Double)
+		{
+			codeSeg.add(Opcode::dg);
+		}
+		break;
+	case BinaryOpNode::Less:
+		if (node.dataType == DataType::Integer)
+		{
+			codeSeg.add(Opcode::il);
+		}
+		else if (node.dataType == DataType::Double)
+		{
+			codeSeg.add(Opcode::dl);
+		}
+		break;
+	case BinaryOpNode::LargerEqu:
+		if (node.dataType == DataType::Integer)
+		{
+			codeSeg.add(Opcode::ige);
+		}
+		else if (node.dataType == DataType::Double)
+		{
+			codeSeg.add(Opcode::dge);
+		}
+		break;
+	case BinaryOpNode::LessEqu:
+		if (node.dataType == DataType::Integer)
+		{
+			codeSeg.add(Opcode::ile);
+		}
+		else if (node.dataType == DataType::Double)
+		{
+			codeSeg.add(Opcode::dle);
+		}
+		break;
 	default:
 		throw ByxParser::ParseError("Bad operator.", node.row(), node.col());
 		break;

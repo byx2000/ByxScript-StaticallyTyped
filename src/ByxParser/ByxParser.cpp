@@ -481,7 +481,41 @@ shared_ptr<Expression> ByxParser::parseExpr()
 
 shared_ptr<Expression> ByxParser::parseCmpExpr()
 {
-	return parseArithExpr();
+	shared_ptr<Expression> res = parseArithExpr();
+	if (lexer.nextType() == TokenType::Equal)
+	{
+		Token token = lexer.next();
+		return make_shared<BinaryOpNode>(BinaryOpNode::Equ, res, parseArithExpr(), token);
+	}
+	else if (lexer.nextType() == TokenType::NotEqual)
+	{
+		Token token = lexer.next();
+		return make_shared<BinaryOpNode>(BinaryOpNode::NotEqu, res, parseArithExpr(), token);
+	}
+	else if (lexer.nextType() == TokenType::LargerThan)
+	{
+		Token token = lexer.next();
+		return make_shared<BinaryOpNode>(BinaryOpNode::Larger, res, parseArithExpr(), token);
+	}
+	else if (lexer.nextType() == TokenType::LessThan)
+	{
+		Token token = lexer.next();
+		return make_shared<BinaryOpNode>(BinaryOpNode::Less, res, parseArithExpr(), token);
+	}
+	else if (lexer.nextType() == TokenType::LargerEqualThan)
+	{
+		Token token = lexer.next();
+		return make_shared<BinaryOpNode>(BinaryOpNode::LargerEqu, res, parseArithExpr(), token);
+	}
+	else if (lexer.nextType() == TokenType::LessEqualThan)
+	{
+		Token token = lexer.next();
+		return make_shared<BinaryOpNode>(BinaryOpNode::LessEqu, res, parseArithExpr(), token);
+	}
+	else
+	{
+		return res;
+	}
 }
 
 std::shared_ptr<Expression> ByxParser::parseArithExpr()
