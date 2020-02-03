@@ -173,6 +173,13 @@ shared_ptr<ASTNode> ByxParser::parseStatement()
 		{
 			return parseWhile();
 		}
+		// break
+		else if (token.val == "break")
+		{
+			Token t = lexer.next();
+			lexer.read(TokenType::Semicolon);
+			return make_shared<BreakNode>(t);
+		}
 		// ³ö´í
 		else
 		{
