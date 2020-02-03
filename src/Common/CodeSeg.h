@@ -11,12 +11,11 @@ public:
 	void add(Opcode op, int p);
 	void add(Opcode op, double p);
 	void add(const Instruction& inst);
-	void add(CodeSeg& seg);
+	void add(const CodeSeg& seg);
 	std::vector<Instruction> getInsts() const;
 	int getSize() const;
 	std::string toString() const;
 
 private:
 	std::vector<Instruction> insts;
-	void relocation(int base); // ÷ÿ∂®Œª
 };

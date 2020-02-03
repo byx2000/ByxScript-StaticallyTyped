@@ -22,12 +22,19 @@ void CodeSeg::add(const Instruction& inst)
 	insts.push_back(inst);
 }
 
-void CodeSeg::add(CodeSeg& seg)
+void CodeSeg::add(const CodeSeg& seg)
 {
-	seg.relocation(insts.size());
+	int base = insts.size();
 	for (int i = 0; i < (int)seg.insts.size(); ++i)
 	{
 		insts.push_back(seg.insts[i]);
+		Opcode op = seg.insts[i].getOp();
+		if (op == Opcode::jmp || op == Opcode::jl || op == Opcode::jle ||
+			op == Opcode::jg || op == Opcode::jge || op == Opcode::je ||
+			op == Opcode::jne)
+		{
+			insts[insts.size() - 1].setIntParam(seg.insts[i].getIntParam() + base);
+		}
 	}
 }
 
@@ -52,18 +59,4 @@ std::string CodeSeg::toString() const
 		s += "\n";
 	}
 	return s;
-}
-
-void CodeSeg::relocation(int base)
-{
-	for (int i = 0; i < (int)insts.size(); ++i)
-	{
-		Opcode op = insts[i].getOp();
-		if (op == Opcode::jmp || op == Opcode::jl || op == Opcode::jle ||
-			op == Opcode::jg || op == Opcode::jge || op == Opcode::je ||
-			op == Opcode::jne)
-		{
-			insts[i].setIntParam(insts[i].getIntParam() + base);
-		}
-	}
 }
