@@ -1,0 +1,53 @@
+int g1;
+int g2;
+int g3;
+double g4;
+
+function void main()
+{
+	int i = 1;
+	int s = 0;
+	while (i <= 100)
+	{
+		s = s + i;
+		i = i + 1;
+	}
+	g1 = s;
+	
+	i = 27;
+	s = 0;
+	while (i <= 3627)
+	{
+		s = s + i;
+		i = i + 2;
+	}
+	g2 = s;
+	
+	i = 1;
+	s = 0;
+	while (i < 20)
+	{
+		int j = 1;
+		while (j < 30)
+		{
+			int k = 1;
+			while (k <= 5)
+			{
+				s = s + i * j * k;
+				k = k + 1;
+			}
+			j = j + 2;
+		}
+		i = i + 1;
+	}
+	g3 = s;
+	
+	i = 1;
+	double s1 = 0.0;
+	while (i <= 100)
+	{
+		s1 = s1 + 1 / i;
+		i = i + 1;
+	}
+	g4 = s1;
+}

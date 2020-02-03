@@ -1,0 +1,84 @@
+int g1;
+int g2;
+int g3;
+int g4;
+int g5;
+int g6;
+int g7;
+double g8;
+double g9;
+double g10;
+double g11;
+double g12;
+
+function int factorial(int n)
+{
+	if (n == 0) return 1;
+	return n * factorial(n - 1);
+}
+
+function int fib(int n)
+{
+	if (n == 1)
+	{
+		return 1;
+	}
+	else if (n == 2)
+	{
+		return 1;
+	}
+	else
+	{
+		return fib(n - 1) + fib(n - 2);
+	}
+}
+
+function double Harmonic(int n)
+{
+	int i = 1;
+	double s = 0;
+	while (i <= n)
+	{
+		s = s + 1.0 / i;
+		i = i + 1;
+	}
+	return s;
+}
+
+function double sqrt(double x)
+{
+	double left = 0;
+	double right = x;
+	while (right - left > 0.000001)
+	{
+		double mid = (left + right) / 2;
+		if (mid * mid < x)
+		{
+			left = mid;
+		}
+		else
+		{
+			right = mid;
+		}
+	}
+	return left;
+}
+
+function void main()
+{
+	g1 = factorial(10);
+	g2 = factorial(0);
+	g3 = factorial(5);
+	
+	g4 = fib(1);
+	g5 = fib(2);
+	g6 = fib(3);
+	g7 = fib(23);
+	
+	g8 = Harmonic(100);
+	g9 = Harmonic(1000);
+	
+	g10 = sqrt(2);
+	g11 = sqrt(100);
+	g12 = sqrt(237576);
+}
