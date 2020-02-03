@@ -170,3 +170,8 @@ void ToStringVisitor::visit(WhileNode& node)
 	node.body->visit(*this);
 	str += ")";
 }
+
+void ToStringVisitor::visit(BreakNode& node)
+{
+	str += "break";
+}

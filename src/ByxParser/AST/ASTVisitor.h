@@ -21,4 +21,5 @@ public:
 	virtual void visit(IfNode& node);
 	virtual void visit(BinaryOpNode& node);
 	virtual void visit(WhileNode& node);
+	virtual void visit(BreakNode& node);
 };

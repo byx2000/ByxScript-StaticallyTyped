@@ -83,3 +83,8 @@ void ASTVisitor::visit(WhileNode& node)
 {
 
 }
+
+void ASTVisitor::visit(BreakNode& node)
+{
+
+}

@@ -195,3 +195,13 @@ void WhileNode::visit(ASTVisitor& visitor)
 {
 	visitor.visit(*this);
 }
+
+BreakNode::BreakNode(const Token& token)
+{
+	this->token = token;
+}
+
+void BreakNode::visit(ASTVisitor& visitor)
+{
+	visitor.visit(*this);
+}

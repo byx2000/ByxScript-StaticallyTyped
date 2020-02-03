@@ -207,3 +207,11 @@ public:
 	std::shared_ptr<Expression> cond;
 	std::shared_ptr<ASTNode> body;
 };
+
+// break”Ôæ‰
+class BreakNode : public ASTNode
+{
+public:
+	BreakNode(const Token& token);
+	virtual void visit(ASTVisitor& visitor) override;
+};
