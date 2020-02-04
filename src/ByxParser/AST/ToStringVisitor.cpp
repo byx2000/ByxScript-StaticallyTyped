@@ -175,3 +175,8 @@ void ToStringVisitor::visit(BreakNode& node)
 {
 	str += "break";
 }
+
+void ToStringVisitor::visit(ContinueNode& node)
+{
+	str += "continue";
+}

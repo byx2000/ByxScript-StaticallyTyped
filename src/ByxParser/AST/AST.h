@@ -215,3 +215,11 @@ public:
 	BreakNode(const Token& token);
 	virtual void visit(ASTVisitor& visitor) override;
 };
+
+// continue”Ôæ‰
+class ContinueNode : public ASTNode
+{
+public:
+	ContinueNode(const Token& token);
+	virtual void visit(ASTVisitor& visitor) override;
+};

@@ -205,3 +205,13 @@ void BreakNode::visit(ASTVisitor& visitor)
 {
 	visitor.visit(*this);
 }
+
+ContinueNode::ContinueNode(const Token& token)
+{
+	this->token = token;
+}
+
+void ContinueNode::visit(ASTVisitor& visitor)
+{
+	visitor.visit(*this);
+}
