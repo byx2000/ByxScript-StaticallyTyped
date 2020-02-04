@@ -390,6 +390,9 @@ void FuncCodeGenVisitor::visit(BinaryOpNode& node)
 			codeSeg.add(Opcode::ddiv);
 		}
 		break;
+	case BinaryOpNode::Rem:
+		codeSeg.add(Opcode::rem);
+		break;
 	case BinaryOpNode::Equ:
 		if (node.dataType == DataType::Integer)
 		{

@@ -25,7 +25,7 @@ void ByxParserTest::Run()
 	cout << endl;
 
 	// ´úÂëÉú³ÉÒì³£²âÊÔ
-	int numErrorCase = 35;
+	int numErrorCase = 37;
 	for (int i = 1; i <= numErrorCase; ++i)
 	{
 		string path = "src/ByxParser/Test/TestCase/CodeGenTest/Error/";
@@ -35,7 +35,7 @@ void ByxParserTest::Run()
 	cout << endl;
 
 	// ÐéÄâ»ú²âÊÔ
-	int numVMCase = 24;
+	int numVMCase = 25;
 	for (int i = 1; i <= numVMCase; ++i)
 	{
 		string path = "src/ByxParser/Test/TestCase/VMTest/";

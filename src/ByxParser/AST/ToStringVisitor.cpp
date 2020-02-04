@@ -152,7 +152,7 @@ void ToStringVisitor::visit(IfNode& node)
 
 void ToStringVisitor::visit(BinaryOpNode& node)
 {
-	string op[] = { "+", "-", "*", "/", "==", "!= ", ">", "<", ">=", "<=" };
+	string op[] = { "+", "-", "*", "/", "%", "==", "!= ", ">", "<", ">=", "<=" };
 
 	str += op[node.opType];
 	str += "(";

@@ -283,6 +283,12 @@ void SymbolVisitor::visit(BinaryOpNode& node)
 	// 记录表达式类型
 	if (node.lhs->dataType == DataType::Double || node.rhs->dataType == DataType::Double)
 	{
+		// 取余运算不能作用于浮点数
+		if (node.opType == BinaryOpNode::Rem)
+		{
+			throw ByxParser::ParseError("Remainder cannot operate in double.", node.row(), node.col());
+		}
+
 		node.dataType = DataType::Double;
 	}
 	else

@@ -1,0 +1,63 @@
+int g1;
+int g2;
+int g3;
+int g4;
+int g5;
+int g6;
+
+function void main()
+{
+	int i = 1;
+	int s1 = 0;
+	int s2 = 0;
+	while (i <= 100)
+	{
+		if (i % 2 == 0)
+		{
+			s1 = s1 + i;
+		}
+		else
+		{
+			s2 = s2 + i;
+		}		
+		i = i + 1;
+	}
+	g1 = s1;
+	g2 = s2;
+	
+	i = 1;
+	s1 = 0;
+	s2 = 0;
+	while (i <= 1000)
+	{
+		if (i % 17 == 0)
+		{
+			s1 = s1 + i;
+		}
+		else
+		{
+			s2 = s2 + i;
+		}		
+		i = i + 1;
+	}
+	g3 = s1;
+	g4 = s2;
+	
+	i = 3453;
+	s1 = 0;
+	s2 = 0;
+	while (i <= 7382)
+	{
+		if (i % 73 == 0)
+		{
+			s1 = s1 + i;
+		}
+		else
+		{
+			s2 = s2 + i;
+		}		
+		i = i + 1;
+	}
+	g5 = s1;
+	g6 = s2;
+}

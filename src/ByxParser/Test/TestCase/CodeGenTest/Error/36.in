@@ -1,0 +1,4 @@
+function void main()
+{
+	int i = 32.5 % 67;
+}

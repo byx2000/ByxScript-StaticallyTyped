@@ -553,16 +553,20 @@ std::shared_ptr<Expression> ByxParser::parseArithExpr()
 shared_ptr<Expression> ByxParser::parseTerm()
 {
 	shared_ptr<Expression> res = parseFactor();
-	while (lexer.nextType() == TokenType::Mul || lexer.nextType() == TokenType::Div)
+	while (lexer.nextType() == TokenType::Mul || lexer.nextType() == TokenType::Div || lexer.nextType() == TokenType::Rem)
 	{
 		Token token = lexer.next();
 		if (token.type == TokenType::Mul)
 		{
 			res = make_shared<BinaryOpNode>(BinaryOpNode::Mul, res, parseFactor(), token);
 		}
-		else
+		else if (token.type == TokenType::Div)
 		{
 			res = make_shared<BinaryOpNode>(BinaryOpNode::Div, res, parseFactor(), token);
+		}
+		else
+		{
+			res = make_shared<BinaryOpNode>(BinaryOpNode::Rem, res, parseFactor(), token);
 		}
 	}
 	return res;
