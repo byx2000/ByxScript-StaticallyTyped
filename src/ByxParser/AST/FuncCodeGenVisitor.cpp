@@ -8,7 +8,6 @@ using namespace std;
 FuncCodeGenVisitor::FuncCodeGenVisitor(ByxParser& parser, const FunctionInfo& info)
 	: parser(parser), info(info)
 {
-	breakStmtIndex = -1;
 	inLoop = false;
 }
 
@@ -511,8 +510,10 @@ void FuncCodeGenVisitor::visit(WhileNode& node)
 
 	whileNestedDepth--;*/
 
-	int oldBreakStmtIndex = breakStmtIndex;
+	vector<int> oldBreakStmtIndex = breakStmtIndex;
+	breakStmtIndex.clear();
 	bool oldInLoop = inLoop;
+
 	inLoop = true;
 
 	// 保存条件判断起始地址
@@ -539,11 +540,11 @@ void FuncCodeGenVisitor::visit(WhileNode& node)
 	codeSeg.setIntParam(index, codeSeg.getSize());
 
 	// 若有break语句，则设置break语句跳转目标
-	if (breakStmtIndex != -1)
+	for (int i = 0; i < (int)breakStmtIndex.size(); ++i)
 	{
-		codeSeg.setIntParam(breakStmtIndex, codeSeg.getSize());
-		breakStmtIndex = oldBreakStmtIndex;
+		codeSeg.setIntParam(breakStmtIndex[i], codeSeg.getSize());
 	}
+	breakStmtIndex = oldBreakStmtIndex;
 
 	inLoop = oldInLoop;
 }
@@ -556,6 +557,10 @@ void FuncCodeGenVisitor::visit(BreakNode& node)
 		throw ByxParser::ParseError("Break statement must be in a loop.", node.row(), node.col());
 	}
 
-	//codeSeg.addJumpLabel(Opcode::jmp, string("break_") + to_string(whileNestedDepth));
-	breakStmtIndex = codeSeg.add(Opcode::jmp, 0);
+	int index = codeSeg.add(Opcode::jmp, 0);
+	breakStmtIndex.push_back(index);
+}
+
+void FuncCodeGenVisitor::visit(ContinueNode& node)
+{
 }

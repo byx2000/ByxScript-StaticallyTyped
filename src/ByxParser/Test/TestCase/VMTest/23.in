@@ -1,5 +1,6 @@
 int g1;
 int g2;
+int g3;
 
 function int IsPrime(int n)
 {
@@ -60,4 +61,27 @@ function void main()
         i = i + 1;
     }
 	g2 = s;
+	
+	s = 0;
+	int x = 1;
+	while (x < 1000)
+	{
+	    int i = x;
+		while (i <= 100)
+		{
+			if (18 == i)
+			{
+				break;
+			}
+			else if (27 == i)
+			{
+				break;
+			}
+
+			s = s + i;
+			i = i + 1;
+		}
+		x = x + 1;
+	}
+	g3 = s;
 }
