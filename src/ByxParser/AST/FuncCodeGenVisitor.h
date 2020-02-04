@@ -19,6 +19,8 @@ private:
 	CodeSeg codeSeg;
 	int ifNestedDepth;
 	int whileNestedDepth;
+	int breakStmtIndex;
+	bool inLoop;
 
 	virtual void visit(FunctionDeclareNode& node) override;
 	virtual void visit(IntegerNode& node) override;

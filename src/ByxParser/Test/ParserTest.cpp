@@ -25,7 +25,7 @@ void ByxParserTest::Run()
 	cout << endl;
 
 	// 代码生成异常测试
-	int numErrorCase = 25;
+	int numErrorCase = 30;
 	for (int i = 1; i <= numErrorCase; ++i)
 	{
 		string path = "src/ByxParser/Test/TestCase/CodeGenTest/Error/";

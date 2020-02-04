@@ -2,24 +2,28 @@
 
 using namespace std;
 
-void CodeSeg::add(Opcode op)
+int CodeSeg::add(Opcode op)
 {
 	insts.push_back(Instruction(op));
+	return insts.size() - 1;
 }
 
-void CodeSeg::add(Opcode op, int p)
+int CodeSeg::add(Opcode op, int p)
 {
 	insts.push_back(Instruction(op, p));
+	return insts.size() - 1;
 }
 
-void CodeSeg::add(Opcode op, double p)
+int CodeSeg::add(Opcode op, double p)
 {
 	insts.push_back(Instruction(op, p));
+	return insts.size() - 1;
 }
 
-void CodeSeg::add(const Instruction& inst)
+int CodeSeg::add(const Instruction& inst)
 {
 	insts.push_back(inst);
+	return insts.size() - 1;
 }
 
 void CodeSeg::add(const CodeSeg& seg)
@@ -36,6 +40,11 @@ void CodeSeg::add(const CodeSeg& seg)
 			insts[insts.size() - 1].setIntParam(seg.insts[i].getIntParam() + base);
 		}
 	}
+}
+
+void CodeSeg::setIntParam(int index, int p)
+{
+	insts[index].setIntParam(p);
 }
 
 void CodeSeg::addJumpLabel(Opcode op, const std::string& label)

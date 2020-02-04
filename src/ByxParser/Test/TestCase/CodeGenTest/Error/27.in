@@ -1,0 +1,10 @@
+function int f()
+{
+	break;
+	return 123;
+}
+
+function void main()
+{
+	f();
+}

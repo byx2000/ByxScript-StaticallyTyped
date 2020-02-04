@@ -1,0 +1,12 @@
+function void main()
+{
+	int n = 234;
+	if (n < 123)
+	{
+		break;
+	}
+	else
+	{
+		
+	}
+}

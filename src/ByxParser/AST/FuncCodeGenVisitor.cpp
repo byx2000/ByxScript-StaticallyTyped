@@ -10,6 +10,8 @@ FuncCodeGenVisitor::FuncCodeGenVisitor(ByxParser& parser, const FunctionInfo& in
 {
 	ifNestedDepth = 0;
 	whileNestedDepth = 0;
+	breakStmtIndex = -1;
+	inLoop = false;
 }
 
 CodeSeg FuncCodeGenVisitor::getCode() const
@@ -285,7 +287,7 @@ void FuncCodeGenVisitor::visit(IfNode& node)
 	codeSeg.add(Opcode::jmp, codeSeg.getSize() + fBranchCode.getSize() + 1);
 	codeSeg.add(fBranchCode);*/
 
-	ifNestedDepth++;
+	/*ifNestedDepth++;
 	string label1 = string("false_start") + to_string(ifNestedDepth);
 	string label2 = string("if_end") + to_string(ifNestedDepth);
 
@@ -315,7 +317,33 @@ void FuncCodeGenVisitor::visit(IfNode& node)
 	// 设置if语句结束地址
 	codeSeg.setJumpLabel(label2, codeSeg.getSize());
 
-	ifNestedDepth--;
+	ifNestedDepth--;*/
+
+	// 生成条件表达式代码
+	node.cond->visit(*this);
+	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
+	{
+		codeSeg.add(Opcode::dconst, 0.0);
+		codeSeg.add(Opcode::dne);
+	}
+
+	// 若条件为假，则跳转到false分支（跳转目标待定）
+	int index1 = codeSeg.add(Opcode::je, 0);
+
+	// 生成true分支代码
+	node.tBranch->visit(*this);
+
+	// 执行完true分支后，跳转到if语句结束（跳转目标待定）
+	int index2 = codeSeg.add(Opcode::jmp, 0);
+
+	// 设置跳转目标1
+	codeSeg.setIntParam(index1, codeSeg.getSize());
+
+	//生成false分支代码
+	node.fBranch->visit(*this);
+
+	// 设置跳转目标2
+	codeSeg.setIntParam(index2, codeSeg.getSize());
 }
 
 void FuncCodeGenVisitor::visit(BinaryOpNode& node)
@@ -453,7 +481,7 @@ void FuncCodeGenVisitor::visit(WhileNode& node)
 	codeSeg.add(bodyCode);
 	codeSeg.add(Opcode::jmp, addr);*/
 
-	whileNestedDepth++;
+	/*whileNestedDepth++;
 
 	string label = string("while_") + to_string(whileNestedDepth);
 
@@ -483,16 +511,53 @@ void FuncCodeGenVisitor::visit(WhileNode& node)
 	// 设置break语句跳转目标
 	codeSeg.setJumpLabel(string("break_") + to_string(whileNestedDepth), codeSeg.getSize());
 
-	whileNestedDepth--;
+	whileNestedDepth--;*/
+
+	int oldBreakStmtIndex = breakStmtIndex;
+	bool oldInLoop = inLoop;
+	inLoop = true;
+
+	// 保存条件判断起始地址
+	int addr = codeSeg.getSize();
+
+	// 生成条件表达式代码
+	node.cond->visit(*this);
+	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
+	{
+		codeSeg.add(Opcode::dconst, 0.0);
+		codeSeg.add(Opcode::dne);
+	}
+
+	// 若条件为假，则跳转到循环结束（目标待定）
+	int index = codeSeg.add(Opcode::je, 0);
+
+	// 生成循环体代码
+	node.body->visit(*this);
+
+	// 循环体执行完后，跳转回条件判断
+	codeSeg.add(Opcode::jmp, addr);
+
+	// 设置跳转目标
+	codeSeg.setIntParam(index, codeSeg.getSize());
+
+	// 若有break语句，则设置break语句跳转目标
+	if (breakStmtIndex != -1)
+	{
+		codeSeg.setIntParam(breakStmtIndex, codeSeg.getSize());
+		breakStmtIndex = oldBreakStmtIndex;
+	}
+
+	inLoop = oldInLoop;
 }
 
 void FuncCodeGenVisitor::visit(BreakNode& node)
 {
 	// 不在循环语句内
-	if (whileNestedDepth == 0)
+	if (!inLoop)
 	{
 		throw ByxParser::ParseError("Break statement must be in a loop.", node.row(), node.col());
 	}
 
-	codeSeg.addJumpLabel(Opcode::jmp, string("break_") + to_string(whileNestedDepth));
+	//codeSeg.addJumpLabel(Opcode::jmp, string("break_") + to_string(whileNestedDepth));
+	breakStmtIndex = codeSeg.add(Opcode::jmp, 0);
 }

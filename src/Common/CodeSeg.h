@@ -8,11 +8,12 @@
 class CodeSeg
 {
 public:
-	void add(Opcode op);
-	void add(Opcode op, int p);
-	void add(Opcode op, double p);
-	void add(const Instruction& inst);
+	int add(Opcode op);
+	int add(Opcode op, int p);
+	int add(Opcode op, double p);
+	int add(const Instruction& inst);
 	void add(const CodeSeg& seg);
+	void setIntParam(int index, int p);
 	void addJumpLabel(Opcode op, const std::string& label);
 	void setJumpLabel(const std::string& label, int addr);
 	std::vector<Instruction> getInsts() const;
