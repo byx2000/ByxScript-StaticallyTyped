@@ -12,6 +12,7 @@ static string Symbols[] =
 	"isub",
 	"imul",
 	"idiv",
+	"rem",
 	"icmp",
 	"ig",
 	"ige",

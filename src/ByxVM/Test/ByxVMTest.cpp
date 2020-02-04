@@ -1456,6 +1456,45 @@ void ByxVMTest::Run()
 		ASSERT_EXCEPTION(ops.popInt());
 	}
 
+	// rem
+	{
+		Code code;
+		code.add(Opcode::iconst, 3);
+		code.add(Opcode::iconst, 10);
+		code.add(Opcode::rem);
+		code.add(Opcode::istore, 0);
+		code.add(Opcode::iconst, 10);
+		code.add(Opcode::iconst, 3);
+		code.add(Opcode::rem);
+		code.add(Opcode::istore, 1);
+		code.add(Opcode::iload, 0);
+		code.add(Opcode::iload, 1);
+
+		FunctionTable table;
+		table.add(2, 0);
+
+		ByxVM vm(code, table, 0);
+		vm.exec();
+		OperandStack ops = vm.getOpStack();
+
+		ASSERT(ops.popInt() == 1);
+		ASSERT(ops.popInt() == 3);
+	}
+
+	// rem“Ï≥£
+	{
+		Code code;
+		code.add(Opcode::iconst, 3);
+		code.add(Opcode::iconst, 0);
+		code.add(Opcode::rem);
+
+		FunctionTable table;
+		table.add(0, 0);
+
+		ByxVM vm(code, table, 0);
+		ASSERT_EXCEPTION(vm.exec());
+	}
+
 	watch.end();
 	cout << "ByxVM test passed. time: " << watch.duration() << "s" << endl;
 }

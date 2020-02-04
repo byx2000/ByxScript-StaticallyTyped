@@ -84,6 +84,17 @@ void ByxVM::exec()
 			operandStack.pushInt(a / b);
 			break;
 		}
+		case Opcode::rem: // 取余
+		{
+			int b = operandStack.popInt();
+			int a = operandStack.popInt();
+			if (b == 0)
+			{
+				throw ByxVMError("Remainder cannot be zero.");
+			}
+			operandStack.pushInt(a % b);
+			break;
+		}
 		case Opcode::icmp: // 整数比较
 		{
 			int b = operandStack.popInt();

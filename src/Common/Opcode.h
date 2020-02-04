@@ -12,6 +12,7 @@ enum class Opcode
 	isub,
 	imul,
 	idiv,
+	rem, // ШЁгр
 	icmp,
 	ig,
 	ige,
