@@ -180,6 +180,13 @@ shared_ptr<ASTNode> ByxParser::parseStatement()
 			lexer.read(TokenType::Semicolon);
 			return make_shared<BreakNode>(t);
 		}
+		// continue
+		else if (token.val == "continue")
+		{
+			Token t = lexer.next();
+			lexer.read(TokenType::Semicolon);
+			return make_shared<ContinueNode>(t);
+		}
 		// ³ö´í
 		else
 		{
