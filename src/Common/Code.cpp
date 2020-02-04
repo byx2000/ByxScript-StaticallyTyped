@@ -4,8 +4,6 @@
 
 using namespace std;
 
-
-
 Code::Code(const std::vector<Instruction>& insts)
 	: insts(insts), PC(0)
 {
@@ -37,14 +35,6 @@ void Code::add(const Instruction& inst)
 {
 	insts.push_back(inst);
 }
-
-/*void Code::add(const std::vector<Instruction>& v)
-{
-	for (int i = 0; i < (int)v.size(); ++i)
-	{
-		insts.push_back(v[i]);
-	}
-}*/
 
 Instruction& Code::getNextInst()
 {
@@ -81,24 +71,6 @@ int Code::getCount() const
 std::vector<Instruction> Code::getInsts() const
 {
 	return insts;
-}
-
-void Code::clear()
-{
-	insts.clear();
-	PC = 0;
-}
-
-Instruction Code::getLastInst() const
-{
-	if (insts.size() > 0)
-	{
-		return insts.back();
-	}
-	else
-	{
-		return Instruction(Opcode::halt);
-	}
 }
 
 std::string Code::toString() const
