@@ -1,0 +1,82 @@
+int g1;
+int g2;
+int g3;
+
+function int remain(int n, int m)
+{
+	return n - n / m * m;
+}
+
+function void main()
+{
+	int i = 1;
+	int s = 0;
+	while (i <= 100)
+	{	
+		if (i / 3 * 3 != i)
+		{
+			i = i + 1;
+			continue;
+		}
+		s = s + i;
+		i = i + 1;
+	}
+	g1 = s;
+	
+	i = 2347;
+	s = 0;
+	while (i <= 9321)
+	{	
+		if (remain(i, 17) == 0)
+		{
+			i = i + 23;
+			continue;
+		}
+		else if (remain(i, 23) == 0)
+		{
+			i = i + 17;
+			continue;
+		}
+		
+		s = s + i;
+		i = i + 1;
+	}
+	g2 = s;
+	
+	i = 23;
+	s = 0;
+	while (i <= 654)
+	{
+		if (remain(i, 2) == 0)
+        {
+            int j = 0;
+            while (j <= i)
+            {
+                if (remain(j, 5) == 0)
+                {
+                    j = j + 4;
+                    continue;
+                }
+                s = s + j;
+                j = j + 2;
+            }
+        }
+        else
+        {
+            int j = 1;
+            while (j <= i)
+            {
+                if (remain(j, 7) == 0)
+                {
+                    j = j + 3;
+                    continue;
+                }
+                s = s + i + j;
+                j = j + 2;
+            }
+        }
+
+        i = i + 1;
+	}
+	g3 = s;
+}

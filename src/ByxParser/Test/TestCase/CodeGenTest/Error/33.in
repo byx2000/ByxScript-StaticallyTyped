@@ -1,0 +1,10 @@
+function void main()
+{
+	int v = 788;
+	{
+		int i = 100;
+		continue;
+		double x = 3.14;
+	}
+	int u = 7657;
+}

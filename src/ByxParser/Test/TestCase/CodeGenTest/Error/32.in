@@ -1,0 +1,9 @@
+function void f()
+{
+	continue;
+}
+
+function void main()
+{
+	
+}

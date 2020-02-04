@@ -512,6 +512,8 @@ void FuncCodeGenVisitor::visit(WhileNode& node)
 
 	vector<int> oldBreakStmtIndex = breakStmtIndex;
 	breakStmtIndex.clear();
+	vector<int> oldContinueBreakStmtIndex = continueStmtIndex;
+	continueStmtIndex.clear();
 	bool oldInLoop = inLoop;
 
 	inLoop = true;
@@ -546,12 +548,19 @@ void FuncCodeGenVisitor::visit(WhileNode& node)
 	}
 	breakStmtIndex = oldBreakStmtIndex;
 
+	// 若有continue语句，则设置continue语句跳转目标
+	for (int i = 0; i < (int)continueStmtIndex.size(); ++i)
+	{
+		codeSeg.setIntParam(continueStmtIndex[i], addr);
+	}
+	continueStmtIndex = oldContinueBreakStmtIndex;
+
 	inLoop = oldInLoop;
 }
 
 void FuncCodeGenVisitor::visit(BreakNode& node)
 {
-	// 不在循环语句内
+	// 不在循环内
 	if (!inLoop)
 	{
 		throw ByxParser::ParseError("Break statement must be in a loop.", node.row(), node.col());
@@ -563,4 +572,12 @@ void FuncCodeGenVisitor::visit(BreakNode& node)
 
 void FuncCodeGenVisitor::visit(ContinueNode& node)
 {
+	// 不在循环内
+	if (!inLoop)
+	{
+		throw ByxParser::ParseError("Break statement must be in a loop.", node.row(), node.col());
+	}
+
+	int index = codeSeg.add(Opcode::jmp, 0);
+	continueStmtIndex.push_back(index);
 }
