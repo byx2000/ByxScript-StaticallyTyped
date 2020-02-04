@@ -17,8 +17,6 @@ private:
 	FunctionInfo info;
 	std::string funcName;
 	CodeSeg codeSeg;
-	int ifNestedDepth;
-	int whileNestedDepth;
 	int breakStmtIndex;
 	bool inLoop;
 

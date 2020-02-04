@@ -1,0 +1,63 @@
+int g1;
+int g2;
+
+function int IsPrime(int n)
+{
+	if (n == 1) return 0;
+
+	int i = 2;
+	while (i < n)
+	{
+		if (n / i * i == n)
+			return 0;
+		i = i + 1;
+	}
+	return 1;
+}
+
+function void main()
+{
+	int i = 1;
+    int s = 0;
+    while (i <= 1000)
+    {
+        if ((i / 17) * 17 != i)
+        {
+            int j = 1;
+            while (j < i)
+            {
+                s = s + i * j / 23 - i;
+                j = j + 2;
+                if (j / 353 * 353 == j)
+                {
+                    break;
+                }
+            }
+        }
+        else
+        {
+            int j = 1;
+            while (j <= i)
+            {
+                s = s - i * j / 13 - i;
+                j = j + 1;
+                if (j / 689 * 689 == j)
+                {
+                    break;
+                }
+            }
+        }
+        i = i + 1;
+    }
+	g1 = s;
+	
+	i = 1;
+    s = 0;
+    while (i <= 1000)
+    {
+        if (IsPrime(i))
+            s = s + i;
+        i = i + 1;
+    }
+	g2 = s;
+}

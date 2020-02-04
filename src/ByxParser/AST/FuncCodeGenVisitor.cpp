@@ -8,8 +8,6 @@ using namespace std;
 FuncCodeGenVisitor::FuncCodeGenVisitor(ByxParser& parser, const FunctionInfo& info)
 	: parser(parser), info(info)
 {
-	ifNestedDepth = 0;
-	whileNestedDepth = 0;
 	breakStmtIndex = -1;
 	inLoop = false;
 }
