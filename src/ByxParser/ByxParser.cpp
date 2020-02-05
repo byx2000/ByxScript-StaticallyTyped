@@ -603,6 +603,14 @@ shared_ptr<Expression> ByxParser::parseFactor()
 		lexer.read(TokenType::CloseBracket);
 		return res;
 	}
+	else if (token.type == TokenType::Add) // 正号
+	{
+		return make_shared<UnaryOpNode>(UnaryOpNode::Pos, parseFactor(), token);
+	}
+	else if (token.type == TokenType::Sub) // 负号
+	{
+		return make_shared<UnaryOpNode>(UnaryOpNode::Neg, parseFactor(), token);
+	}
 	else if (token.type == TokenType::Ident) // 变量或函数调用
 	{
 		if (lexer.nextType() == TokenType::OpenBracket) // 函数调用
