@@ -453,6 +453,10 @@ void FuncCodeGenVisitor::visit(BinaryOpNode& node)
 			codeSeg.add(Opcode::dle);
 		}
 		break;
+	case BinaryOpNode::And:
+		break;
+	case BinaryOpNode::Or:
+		break;
 	default:
 		throw ByxParser::ParseError("Bad operator.", node.row(), node.col());
 		break;

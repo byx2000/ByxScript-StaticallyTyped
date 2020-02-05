@@ -490,7 +490,21 @@ std::shared_ptr<ASTNode> ByxParser::parseWhile()
 
 shared_ptr<Expression> ByxParser::parseExpr()
 {
-	return parseCmpExpr();
+	//return parseCmpExpr();
+	shared_ptr<Expression> res = parseCmpExpr();
+	while (lexer.nextType() == TokenType::And || lexer.nextType() == TokenType::Or)
+	{
+		Token token = lexer.next();
+		if (token.type == TokenType::And)
+		{
+			res = make_shared<BinaryOpNode>(BinaryOpNode::And, res, parseCmpExpr(), token);
+		}
+		else
+		{
+			res = make_shared<BinaryOpNode>(BinaryOpNode::Or, res, parseCmpExpr(), token);
+		}
+	}
+	return res;
 }
 
 shared_ptr<Expression> ByxParser::parseCmpExpr()
