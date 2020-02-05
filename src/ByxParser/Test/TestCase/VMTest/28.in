@@ -1,0 +1,20 @@
+int g1 = -12;
+int g2 = -6 + 30;
+int g3 = +2 + 1;
+int g4 = +6 - 30;
+int g5 = (-2) + 1;
+int g6 = (-6) + 30;
+int g7 = (+2) + 1;
+int g8 = (+6) - 30;
+int g9 = -(6 + 3);
+int g10 = +(6 + 3);
+
+double g11 = -3.14;
+double g12 = -2.7 + 6.63;
+double g13 = -1-2-3;
+double g14 = +35.7;
+
+function void main()
+{
+	
+}

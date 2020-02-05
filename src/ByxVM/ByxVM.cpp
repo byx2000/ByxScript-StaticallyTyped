@@ -468,16 +468,16 @@ void ByxVM::exec()
 		}
 		case Opcode::land: // 逻辑与
 		{
-			int b = operandStack.popInt();
-			int a = operandStack.popInt();
-			operandStack.pushInt(a && b);
+			Value b = operandStack.popInt();
+			Value a = operandStack.popInt();
+			operandStack.pushInt(!a.isZero() && !b.isZero());
 			break;
 		}
 		case Opcode::lor:
 		{
-			int b = operandStack.popInt();
-			int a = operandStack.popInt();
-			operandStack.pushInt(a || b);
+			Value b = operandStack.popInt();
+			Value a = operandStack.popInt();
+			operandStack.pushInt(!a.isZero() || !b.isZero());
 			break;
 		}
 		default: // 未识别的指令

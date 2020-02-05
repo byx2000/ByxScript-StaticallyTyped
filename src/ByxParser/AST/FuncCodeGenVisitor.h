@@ -37,4 +37,5 @@ private:
 	virtual void visit(WhileNode& node) override;
 	virtual void visit(BreakNode& node) override;
 	virtual void visit(ContinueNode& node) override;
+	virtual void visit(UnaryOpNode& node) override;
 };

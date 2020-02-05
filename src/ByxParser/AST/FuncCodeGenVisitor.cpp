@@ -496,3 +496,27 @@ void FuncCodeGenVisitor::visit(ContinueNode& node)
 	int index = codeSeg.add(Opcode::jmp, 0);
 	continueStmtIndex.push_back(index);
 }
+
+void FuncCodeGenVisitor::visit(UnaryOpNode& node)
+{
+	node.expr->visit(*this);
+
+	switch (node.opType)
+	{
+	case UnaryOpNode::Pos:
+		break;
+	case UnaryOpNode::Neg:
+		if (node.dataType == DataType::Integer)
+		{
+			codeSeg.add(Opcode::ineg);
+		}
+		else if (node.dataType == DataType::Double)
+		{
+			codeSeg.add(Opcode::dneg);
+		}
+		break;
+	default:
+		throw ByxParser::ParseError("Bad operator.", node.row(), node.col());
+		break;
+	}
+}
