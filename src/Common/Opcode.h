@@ -60,6 +60,9 @@ enum class Opcode
 	toi, // 强制转换成整数
 	tod, // 强制转换成浮点数
 	pop, // 弹出栈顶操作数
+	land, // 逻辑与
+	lor, // 逻辑或
+
 };
 
 std::string GetOpcodeSymbol(Opcode op);

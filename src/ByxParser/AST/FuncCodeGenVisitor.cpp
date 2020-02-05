@@ -454,7 +454,13 @@ void FuncCodeGenVisitor::visit(BinaryOpNode& node)
 		}
 		break;
 	case BinaryOpNode::And:
+	{
+		/*node.lhs->visit(*this);
+		int index = codeSeg.add(Opcode::je, 0);
+		node.rhs->visit(*this);
+		codeSeg.add(Opcode::iand);*/
 		break;
+	}
 	case BinaryOpNode::Or:
 		break;
 	default:

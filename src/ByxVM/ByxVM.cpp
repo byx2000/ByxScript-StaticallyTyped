@@ -454,6 +454,20 @@ void ByxVM::exec()
 			operandStack.pop();
 			break;
 		}
+		case Opcode::land: // 逻辑与
+		{
+			int b = operandStack.popInt();
+			int a = operandStack.popInt();
+			operandStack.pushInt(a && b);
+			break;
+		}
+		case Opcode::lor:
+		{
+			int b = operandStack.popInt();
+			int a = operandStack.popInt();
+			operandStack.pushInt(a || b);
+			break;
+		}
 		default: // 未识别的指令
 			throw ByxVMError("Illegal instruction: " + GetOpcodeSymbol(op) + ".");
 			break;

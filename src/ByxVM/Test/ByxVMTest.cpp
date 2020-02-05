@@ -1495,6 +1495,80 @@ void ByxVMTest::Run()
 		ASSERT_EXCEPTION(vm.exec());
 	}
 
+	// land
+	{
+		Code code;
+		code.add(Opcode::iconst, 0);
+		code.add(Opcode::iconst, 0);
+		code.add(Opcode::land);
+		code.add(Opcode::istore, 0);
+		code.add(Opcode::iconst, 1);
+		code.add(Opcode::iconst, 0);
+		code.add(Opcode::land);
+		code.add(Opcode::istore, 1);
+		code.add(Opcode::iconst, 1);
+		code.add(Opcode::iconst, 0);
+		code.add(Opcode::land);
+		code.add(Opcode::istore, 2);
+		code.add(Opcode::iconst, 1);
+		code.add(Opcode::iconst, 1);
+		code.add(Opcode::land);
+		code.add(Opcode::istore, 3);
+		code.add(Opcode::iload, 3);
+		code.add(Opcode::iload, 2);
+		code.add(Opcode::iload, 1);
+		code.add(Opcode::iload, 0);
+
+		FunctionTable table;
+		table.add(4, 0);
+
+		ByxVM vm(code, table, 0);
+		vm.exec();
+		OperandStack ops = vm.getOpStack();
+
+		ASSERT(ops.popInt() == 0);
+		ASSERT(ops.popInt() == 0);
+		ASSERT(ops.popInt() == 0);
+		ASSERT(ops.popInt() == 1);
+	}
+
+	// lor
+	{
+		Code code;
+		code.add(Opcode::iconst, 0);
+		code.add(Opcode::iconst, 0);
+		code.add(Opcode::lor);
+		code.add(Opcode::istore, 0);
+		code.add(Opcode::iconst, 1);
+		code.add(Opcode::iconst, 0);
+		code.add(Opcode::lor);
+		code.add(Opcode::istore, 1);
+		code.add(Opcode::iconst, 1);
+		code.add(Opcode::iconst, 0);
+		code.add(Opcode::lor);
+		code.add(Opcode::istore, 2);
+		code.add(Opcode::iconst, 1);
+		code.add(Opcode::iconst, 1);
+		code.add(Opcode::lor);
+		code.add(Opcode::istore, 3);
+		code.add(Opcode::iload, 3);
+		code.add(Opcode::iload, 2);
+		code.add(Opcode::iload, 1);
+		code.add(Opcode::iload, 0);
+
+		FunctionTable table;
+		table.add(4, 0);
+
+		ByxVM vm(code, table, 0);
+		vm.exec();
+		OperandStack ops = vm.getOpStack();
+
+		ASSERT(ops.popInt() == 0);
+		ASSERT(ops.popInt() == 1);
+		ASSERT(ops.popInt() == 1);
+		ASSERT(ops.popInt() == 1);
+	}
+
 	watch.end();
 	cout << "ByxVM test passed. time: " << watch.duration() << "s" << endl;
 }
