@@ -16,6 +16,12 @@ CodeSeg FuncCodeGenVisitor::getCode() const
 	return codeSeg;
 }
 
+void FuncCodeGenVisitor::genDoubleLogicCode()
+{
+	codeSeg.add(Opcode::dconst, 0.0);
+	codeSeg.add(Opcode::dne);
+}
+
 void FuncCodeGenVisitor::visit(FunctionDeclareNode& node)
 {
 	// 获取函数信息
@@ -320,8 +326,9 @@ void FuncCodeGenVisitor::visit(IfNode& node)
 	node.cond->visit(*this);
 	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
 	{
-		codeSeg.add(Opcode::dconst, 0.0);
-		codeSeg.add(Opcode::dne);
+		//codeSeg.add(Opcode::dconst, 0.0);
+		//codeSeg.add(Opcode::dne);
+		genDoubleLogicCode();
 	}
 
 	// 若条件为假，则跳转到false分支（跳转目标待定）
@@ -345,8 +352,11 @@ void FuncCodeGenVisitor::visit(IfNode& node)
 
 void FuncCodeGenVisitor::visit(BinaryOpNode& node)
 {
-	node.lhs->visit(*this);
-	node.rhs->visit(*this);
+	if (node.opType != BinaryOpNode::And && node.opType != BinaryOpNode::Or)
+	{
+		node.lhs->visit(*this);
+		node.rhs->visit(*this);
+	}
 
 	switch (node.opType)
 	{
@@ -455,14 +465,52 @@ void FuncCodeGenVisitor::visit(BinaryOpNode& node)
 		break;
 	case BinaryOpNode::And:
 	{
-		/*node.lhs->visit(*this);
-		int index = codeSeg.add(Opcode::je, 0);
+		node.lhs->visit(*this);
+		if (node.lhs->dataType == DataType::Double) // 特殊处理浮点数
+		{
+			genDoubleLogicCode();
+		}
+		int index1 = codeSeg.add(Opcode::je, 0);
+		codeSeg.add(Opcode::iconst, 1);
+
 		node.rhs->visit(*this);
-		codeSeg.add(Opcode::iand);*/
+		if (node.rhs->dataType == DataType::Double) // 特殊处理浮点数
+		{
+			genDoubleLogicCode();
+		}
+		codeSeg.add(Opcode::land);
+		int index2 = codeSeg.add(Opcode::jmp, 0);
+
+		codeSeg.setIntParam(index1, codeSeg.getSize());
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.setIntParam(index2, codeSeg.getSize());
+
 		break;
 	}
 	case BinaryOpNode::Or:
+	{
+		node.lhs->visit(*this);
+		if (node.lhs->dataType == DataType::Double) // 特殊处理浮点数
+		{
+			genDoubleLogicCode();
+		}
+		int index1 = codeSeg.add(Opcode::jne, 0);
+		codeSeg.add(Opcode::iconst, 0);
+
+		node.rhs->visit(*this);
+		if (node.rhs->dataType == DataType::Double) // 特殊处理浮点数
+		{
+			genDoubleLogicCode();
+		}
+		codeSeg.add(Opcode::lor);
+		int index2 = codeSeg.add(Opcode::jmp, 0);
+
+		codeSeg.setIntParam(index1, codeSeg.getSize());
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.setIntParam(index2, codeSeg.getSize());
+
 		break;
+	}
 	default:
 		throw ByxParser::ParseError("Bad operator.", node.row(), node.col());
 		break;
@@ -538,8 +586,9 @@ void FuncCodeGenVisitor::visit(WhileNode& node)
 	node.cond->visit(*this);
 	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
 	{
-		codeSeg.add(Opcode::dconst, 0.0);
-		codeSeg.add(Opcode::dne);
+		//codeSeg.add(Opcode::dconst, 0.0);
+		//codeSeg.add(Opcode::dne);
+		genDoubleLogicCode();
 	}
 
 	// 若条件为假，则跳转到循环结束（目标待定）

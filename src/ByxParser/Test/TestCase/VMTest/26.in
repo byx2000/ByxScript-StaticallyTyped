@@ -1,0 +1,101 @@
+int g1;
+int g2;
+int g3;
+int g4;
+int g5;
+int g6;
+int g7;
+int g8;
+
+function void main()
+{
+	int i = 1;
+	int s = 0;
+	while (i <= 100)
+	{	
+		if (i % 3 == 0 && i % 4 == 0)
+		{
+			s = s + i;
+		}
+		i = i + 1;
+	}
+	g1 = s;
+	
+	i = 1;
+	s = 0;
+	while (i < 100)
+	{
+		if (3.14 && i % 5 == 0)
+			s = s + i;
+		i = i + 1;
+	}
+	g2 = s;
+	
+	i = 1;
+	s = 0;
+	while (i < 100)
+	{
+		if (i % 5 == 0 && 3.14)
+			s = s + i;
+		i = i + 1;
+	}
+	g3 = s;
+	
+	i = 1;
+	s = 0;
+	while (i < 100)
+	{
+		if (1.57 && 1.57)
+			s = s + i;
+		i = i + 1;
+	}
+	g4 = s;
+	
+	i = 1;
+	s = 0;
+	while (i <= 500)
+	{
+		if (i % 3 == 0 || i % 7 == 0)
+		{
+			s = s + i;
+		}
+		i = i + 1;
+	}
+	g5 = s;
+	
+	i = 1;
+	s = 0;
+	while (i <= 200)
+	{
+		if (3.14 || i % 13 == 0)
+		{
+			s = s + i;
+		}
+		i = i + 1;
+	}
+	g6 = s;
+	
+	i = 1;
+	s = 0;
+	while (i <= 200)
+	{
+		if (i % 13 == 0 || 1.57)
+		{
+			s = s + i;
+		}
+		i = i + 1;
+	}
+	g7 = s;
+	
+	i = 1;
+	s = 0;
+	while (i <= 300)
+	{
+		if (3.14 || 0.0)
+		{
+			s = s + i;
+		}
+		i = i + 1;
+	}
+	g8 = s;
+}
