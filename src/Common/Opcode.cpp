@@ -25,6 +25,7 @@ static string Symbols[] =
 	"inot",
 	"igstore",
 	"igload",
+	"ineg",
 	
 	// 浮点数相关指令
 	"dconst",
@@ -43,6 +44,7 @@ static string Symbols[] =
 	"dne",
 	"dgstore",
 	"dgload",
+	"dneg",
 
 	// 其他指令
 	"nop",

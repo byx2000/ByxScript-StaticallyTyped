@@ -197,6 +197,12 @@ void ByxVM::exec()
 			operandStack.pushInt(val);
 			break;
 		}
+		case Opcode::ineg: // 取相反数
+		{
+			int val = operandStack.popInt();
+			operandStack.pushInt(-val);
+			break;
+		}
 
 		/// 浮点数相关指令 ///
 
@@ -332,6 +338,12 @@ void ByxVM::exec()
 			}
 			double val = globalVars[index].getDoubleVal();
 			operandStack.pushDouble(val);
+			break;
+		}
+		case Opcode::dneg: // 取相反数
+		{
+			double val = operandStack.popDouble();
+			operandStack.pushDouble(-val);
 			break;
 		}
 
