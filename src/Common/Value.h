@@ -12,6 +12,10 @@ public:
 	int getIntVal() const;
 	double getDoubleVal() const;
 	bool isZero() const;
+	bool lessThanZero() const;
+	bool lessEqualThanZero() const;
+	bool greaterEqualThanZero() const;
+	bool greaterThanZero() const;
 	std::string toString() const;
 
 	// “Ï≥£

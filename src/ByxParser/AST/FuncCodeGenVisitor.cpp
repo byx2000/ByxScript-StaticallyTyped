@@ -16,12 +16,6 @@ CodeSeg FuncCodeGenVisitor::getCode() const
 	return codeSeg;
 }
 
-void FuncCodeGenVisitor::genDoubleLogicCode()
-{
-	codeSeg.add(Opcode::dconst, 0.0);
-	codeSeg.add(Opcode::dne);
-}
-
 void FuncCodeGenVisitor::visit(FunctionDeclareNode& node)
 {
 	// 获取函数信息
@@ -267,69 +261,8 @@ void FuncCodeGenVisitor::visit(FunctionCallExprNode& node)
 
 void FuncCodeGenVisitor::visit(IfNode& node)
 {
-	/*FuncCodeGenVisitor v1(parser, info);
-	node.cond->visit(v1);
-	CodeSeg condCode = v1.getCode();
-
-	FuncCodeGenVisitor v2(parser, info);
-	node.tBranch->visit(v2);
-	CodeSeg tBranchCode = v2.getCode();
-
-	FuncCodeGenVisitor v3(parser, info);
-	node.fBranch->visit(v3);
-	CodeSeg fBranchCode = v3.getCode();
-
-	codeSeg.add(condCode);
-	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
-	{
-		codeSeg.add(Opcode::dconst, 0.0);
-		codeSeg.add(Opcode::dne);
-	}
-	codeSeg.add(Opcode::je, codeSeg.getSize() + tBranchCode.getSize() + 2);
-	codeSeg.add(tBranchCode);
-	codeSeg.add(Opcode::jmp, codeSeg.getSize() + fBranchCode.getSize() + 1);
-	codeSeg.add(fBranchCode);*/
-
-	/*ifNestedDepth++;
-	string label1 = string("false_start") + to_string(ifNestedDepth);
-	string label2 = string("if_end") + to_string(ifNestedDepth);
-
 	// 生成条件表达式代码
 	node.cond->visit(*this);
-	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
-	{
-		codeSeg.add(Opcode::dconst, 0.0);
-		codeSeg.add(Opcode::dne);
-	}
-
-	// 若条件为假，则跳转到false分支
-	codeSeg.addJumpLabel(Opcode::je, label1);
-
-	// 生成true分支代码
-	node.tBranch->visit(*this);
-
-	// 执行完true分支后，跳转到if语句结束
-	codeSeg.addJumpLabel(Opcode::jmp, label2);
-
-	// 设置false分支起始地址
-	codeSeg.setJumpLabel(label1, codeSeg.getSize());
-
-	//生成false分支代码
-	node.fBranch->visit(*this);
-
-	// 设置if语句结束地址
-	codeSeg.setJumpLabel(label2, codeSeg.getSize());
-
-	ifNestedDepth--;*/
-
-	// 生成条件表达式代码
-	node.cond->visit(*this);
-	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
-	{
-		//codeSeg.add(Opcode::dconst, 0.0);
-		//codeSeg.add(Opcode::dne);
-		genDoubleLogicCode();
-	}
 
 	// 若条件为假，则跳转到false分支（跳转目标待定）
 	int index1 = codeSeg.add(Opcode::je, 0);
@@ -466,49 +399,27 @@ void FuncCodeGenVisitor::visit(BinaryOpNode& node)
 	case BinaryOpNode::And:
 	{
 		node.lhs->visit(*this);
-		if (node.lhs->dataType == DataType::Double) // 特殊处理浮点数
-		{
-			genDoubleLogicCode();
-		}
 		int index1 = codeSeg.add(Opcode::je, 0);
 		codeSeg.add(Opcode::iconst, 1);
-
 		node.rhs->visit(*this);
-		if (node.rhs->dataType == DataType::Double) // 特殊处理浮点数
-		{
-			genDoubleLogicCode();
-		}
 		codeSeg.add(Opcode::land);
 		int index2 = codeSeg.add(Opcode::jmp, 0);
-
 		codeSeg.setIntParam(index1, codeSeg.getSize());
 		codeSeg.add(Opcode::iconst, 0);
 		codeSeg.setIntParam(index2, codeSeg.getSize());
-
 		break;
 	}
 	case BinaryOpNode::Or:
 	{
 		node.lhs->visit(*this);
-		if (node.lhs->dataType == DataType::Double) // 特殊处理浮点数
-		{
-			genDoubleLogicCode();
-		}
 		int index1 = codeSeg.add(Opcode::jne, 0);
 		codeSeg.add(Opcode::iconst, 0);
-
 		node.rhs->visit(*this);
-		if (node.rhs->dataType == DataType::Double) // 特殊处理浮点数
-		{
-			genDoubleLogicCode();
-		}
 		codeSeg.add(Opcode::lor);
 		int index2 = codeSeg.add(Opcode::jmp, 0);
-
 		codeSeg.setIntParam(index1, codeSeg.getSize());
 		codeSeg.add(Opcode::iconst, 1);
 		codeSeg.setIntParam(index2, codeSeg.getSize());
-
 		break;
 	}
 	default:
@@ -519,58 +430,6 @@ void FuncCodeGenVisitor::visit(BinaryOpNode& node)
 
 void FuncCodeGenVisitor::visit(WhileNode& node)
 {
-	/*FuncCodeGenVisitor v1(parser, info);
-	node.cond->visit(v1);
-	CodeSeg condCode = v1.getCode();
-
-	FuncCodeGenVisitor v2(parser, info);
-	node.body->visit(v2);
-	CodeSeg bodyCode = v2.getCode();
-
-	int addr = codeSeg.getSize();
-
-	codeSeg.add(condCode);
-	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
-	{
-		codeSeg.add(Opcode::dconst, 0.0);
-		codeSeg.add(Opcode::dne);
-	}
-	codeSeg.add(Opcode::je, codeSeg.getSize() + bodyCode.getSize() + 2);
-	codeSeg.add(bodyCode);
-	codeSeg.add(Opcode::jmp, addr);*/
-
-	/*whileNestedDepth++;
-
-	string label = string("while_") + to_string(whileNestedDepth);
-
-	// 保存条件判断起始地址
-	int addr = codeSeg.getSize();
-
-	// 生成条件表达式代码
-	node.cond->visit(*this);
-	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
-	{
-		codeSeg.add(Opcode::dconst, 0.0);
-		codeSeg.add(Opcode::dne);
-	}
-
-	// 若条件为假，则跳转到循环结束
-	codeSeg.addJumpLabel(Opcode::je, label);
-
-	// 生成循环体代码
-	node.body->visit(*this);
-
-	// 循环体执行完后，跳转回条件判断
-	codeSeg.add(Opcode::jmp, addr);
-
-	// 设置循环结束地址
-	codeSeg.setJumpLabel(label, codeSeg.getSize());
-
-	// 设置break语句跳转目标
-	codeSeg.setJumpLabel(string("break_") + to_string(whileNestedDepth), codeSeg.getSize());
-
-	whileNestedDepth--;*/
-
 	vector<int> oldBreakStmtIndex = breakStmtIndex;
 	breakStmtIndex.clear();
 	vector<int> oldContinueBreakStmtIndex = continueStmtIndex;
@@ -584,12 +443,6 @@ void FuncCodeGenVisitor::visit(WhileNode& node)
 
 	// 生成条件表达式代码
 	node.cond->visit(*this);
-	if (node.cond->dataType == DataType::Double) // 特殊处理浮点数
-	{
-		//codeSeg.add(Opcode::dconst, 0.0);
-		//codeSeg.add(Opcode::dne);
-		genDoubleLogicCode();
-	}
 
 	// 若条件为假，则跳转到循环结束（目标待定）
 	int index = codeSeg.add(Opcode::je, 0);

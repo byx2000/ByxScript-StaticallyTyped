@@ -21,8 +21,6 @@ private:
 	std::vector<int> continueStmtIndex;
 	bool inLoop;
 
-	void genDoubleLogicCode();
-
 	virtual void visit(FunctionDeclareNode& node) override;
 	virtual void visit(IntegerNode& node) override;
 	virtual void visit(DoubleNode& node) override;

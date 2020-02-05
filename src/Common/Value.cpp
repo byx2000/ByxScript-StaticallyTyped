@@ -69,7 +69,71 @@ bool Value::isZero() const
 	}
 	else
 	{
-		return false;
+		throw ReadUnknownDataType();
+	}
+}
+
+bool Value::lessThanZero() const
+{
+	if (type == DataType::Integer)
+	{
+		return iVal < 0;
+	}
+	else if (type == DataType::Double)
+	{
+		return dVal < 0.0;
+	}
+	else
+	{
+		throw ReadUnknownDataType();
+	}
+}
+
+bool Value::lessEqualThanZero() const
+{
+	if (type == DataType::Integer)
+	{
+		return iVal <= 0;
+	}
+	else if (type == DataType::Double)
+	{
+		return dVal <= 0.0;
+	}
+	else
+	{
+		throw ReadUnknownDataType();
+	}
+}
+
+bool Value::greaterEqualThanZero() const
+{
+	if (type == DataType::Integer)
+	{
+		return iVal >= 0;
+	}
+	else if (type == DataType::Double)
+	{
+		return dVal >= 0.0;
+	}
+	else
+	{
+		throw ReadUnknownDataType();
+	}
+}
+
+bool Value::greaterThanZero() const
+{
+	if (type == DataType::Integer)
+	{
+		return iVal > 0;
+	}
+	else if (type == DataType::Double)
+	{
+		return dVal > 0.0;
+	}
+	else
+	{
+		throw ReadUnknownDataType();
 	}
 }
 

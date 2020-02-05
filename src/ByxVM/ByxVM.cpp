@@ -373,8 +373,8 @@ void ByxVM::exec()
 		case Opcode::jl: // 小于0时跳转
 		{
 			int addr = inst.getIntParam();
-			int val = operandStack.popInt();
-			if (val < 0)
+			Value val = operandStack.pop();
+			if (val.lessThanZero())
 			{
 				code.setPC(addr);
 			}
@@ -383,8 +383,8 @@ void ByxVM::exec()
 		case Opcode::jle: // 小于等于0时跳转
 		{
 			int addr = inst.getIntParam();
-			int val = operandStack.popInt();
-			if (val <= 0)
+			Value val = operandStack.pop();
+			if (val.lessEqualThanZero())
 			{
 				code.setPC(addr);
 			}
@@ -393,8 +393,8 @@ void ByxVM::exec()
 		case Opcode::jg: // 大于0时跳转
 		{
 			int addr = inst.getIntParam();
-			int val = operandStack.popInt();
-			if (val > 0)
+			Value val = operandStack.pop();
+			if (val.greaterThanZero())
 			{
 				code.setPC(addr);
 			}
@@ -403,8 +403,8 @@ void ByxVM::exec()
 		case Opcode::jge: // 大于等于0时跳转
 		{
 			int addr = inst.getIntParam();
-			int val = operandStack.popInt();
-			if (val >= 0)
+			Value val = operandStack.pop();
+			if (val.greaterEqualThanZero())
 			{
 				code.setPC(addr);
 			}
@@ -413,8 +413,8 @@ void ByxVM::exec()
 		case Opcode::je: // 等于0时跳转
 		{
 			int addr = inst.getIntParam();
-			int val = operandStack.popInt();
-			if (val == 0)
+			Value val = operandStack.pop();
+			if (val.isZero())
 			{
 				code.setPC(addr);
 			}
@@ -423,8 +423,8 @@ void ByxVM::exec()
 		case Opcode::jne: // 不等于0时跳转
 		{
 			int addr = inst.getIntParam();
-			int val = operandStack.popInt();
-			if (val != 0)
+			Value val = operandStack.pop();
+			if (!val.isZero())
 			{
 				code.setPC(addr);
 			}
