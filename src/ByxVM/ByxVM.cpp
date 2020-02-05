@@ -491,7 +491,7 @@ void ByxVM::exec()
 
 	} 
 	// ≤∂ªÒValue“Ï≥£
-	catch (Value::ReadUnknownValueType)
+	catch (Value::ReadUnknownDataType)
 	{
 		throw ByxVMError("Read unknown value type.");
 	}

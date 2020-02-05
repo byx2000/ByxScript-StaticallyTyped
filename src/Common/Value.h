@@ -1,13 +1,6 @@
 #pragma once
 
-#include <string>
-
-enum class ValueType
-{
-	Integer,
-	Double,
-	Unknown,
-};
+#include "DataType.h"
 
 class Value
 {
@@ -15,16 +8,17 @@ public:
 	Value();
 	Value(int val);
 	Value(double val);
-	ValueType getValueType() const;
+	DataType getType() const;
 	int getIntVal() const;
 	double getDoubleVal() const;
+	bool isZero() const;
 	std::string toString() const;
 
 	// 异常
-	class ReadUnknownValueType {}; // 读取未知类型值
+	class ReadUnknownDataType {}; // 读取未知类型值
 
 private:
-	ValueType type;
+	DataType type;
 
 	union
 	{

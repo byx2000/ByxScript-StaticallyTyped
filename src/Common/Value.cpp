@@ -3,69 +3,85 @@
 using namespace std;
 
 Value::Value()
-	: iVal(0), type(ValueType::Unknown)
+	: iVal(0), type(DataType::Unknown)
 {
 
 }
 
 Value::Value(int val)
-	: iVal(val), type(ValueType::Integer)
+	: iVal(val), type(DataType::Integer)
 {
 	
 }
 
 Value::Value(double val)
-	: dVal(val), type(ValueType::Double)
+	: dVal(val), type(DataType::Double)
 {
 
 }
 
-ValueType Value::getValueType() const
+DataType Value::getType() const
 {
 	return type;
 }
 
 int Value::getIntVal() const
 {
-	if (type == ValueType::Integer)
+	if (type == DataType::Integer)
 	{
 		return iVal;
 	}
-	else if (type == ValueType::Double)
+	else if (type == DataType::Double)
 	{
 		return (int)dVal;
 	}
 	else
 	{
-		throw ReadUnknownValueType();
+		throw ReadUnknownDataType();
 	}
 }
 
 double Value::getDoubleVal() const
 {
-	if (type == ValueType::Integer)
+	if (type == DataType::Integer)
 	{
 		return (double)iVal;
 	}
-	else if (type == ValueType::Double)
+	else if (type == DataType::Double)
 	{
 		return dVal;
 	}
 	else
 	{
-		throw ReadUnknownValueType();
+		throw ReadUnknownDataType();
+	}
+}
+
+bool Value::isZero() const
+{
+	if (type == DataType::Integer)
+	{
+		return iVal == 0;
+	}
+	else if (type == DataType::Double)
+	{
+		return dVal == 0.0;
+	}
+	else
+	{
+		return false;
 	}
 }
 
 std::string Value::toString() const
 {
 	string s = "";
-	if (type == ValueType::Integer)
+	if (type == DataType::Integer)
 	{
 		s += "int\t";
 		s += to_string(iVal);
 	}
-	else if (type == ValueType::Double)
+	else if (type == DataType::Double)
 	{
 		s += "double\t";
 		s += to_string(dVal);
