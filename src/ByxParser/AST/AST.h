@@ -185,7 +185,7 @@ public:
 	std::shared_ptr<ASTNode> fBranch;
 };
 
-// 二元表达式
+// 二元操作符
 class BinaryOpNode : public Expression
 {
 public:
@@ -222,4 +222,16 @@ class ContinueNode : public ASTNode
 public:
 	ContinueNode(const Token& token);
 	virtual void visit(ASTVisitor& visitor) override;
+};
+
+// 一元操作符
+class UnaryOpNode : public Expression
+{
+public:
+	UnaryOpNode(int opType, std::shared_ptr<Expression> expr, const Token& token);
+	virtual void visit(ASTVisitor& visitor) override;
+
+	enum { Pos, Neg, Not };
+	int opType;
+	std::shared_ptr<Expression> expr;
 };

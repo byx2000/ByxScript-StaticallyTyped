@@ -304,3 +304,11 @@ void SymbolVisitor::visit(WhileNode& node)
 	node.body->visit(*this);
 	scopeStack.popScope();
 }
+
+void SymbolVisitor::visit(UnaryOpNode& node)
+{
+	node.expr->visit(*this);
+
+	// 记录表达式类型
+	node.dataType = node.expr->dataType;
+}

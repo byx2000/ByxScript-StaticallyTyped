@@ -23,4 +23,5 @@ public:
 	virtual void visit(WhileNode& node);
 	virtual void visit(BreakNode& node);
 	virtual void visit(ContinueNode& node);
+	virtual void visit(UnaryOpNode& node);
 };

@@ -35,4 +35,5 @@ private:
 	virtual void visit(IfNode& node) override;
 	virtual void visit(BinaryOpNode& node) override;
 	virtual void visit(WhileNode& node) override;
+	virtual void visit(UnaryOpNode& node) override;
 };

@@ -93,3 +93,8 @@ void ASTVisitor::visit(ContinueNode& node)
 {
 
 }
+
+void ASTVisitor::visit(UnaryOpNode& node)
+{
+
+}

@@ -180,3 +180,12 @@ void ToStringVisitor::visit(ContinueNode& node)
 {
 	str += "continue";
 }
+
+void ToStringVisitor::visit(UnaryOpNode& node)
+{
+	string op[] = { "+", "-", "!" };
+	str += op[node.opType];
+	str += "(";
+	node.expr->visit(*this);
+	str += ")";
+}

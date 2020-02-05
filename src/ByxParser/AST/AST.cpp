@@ -215,3 +215,14 @@ void ContinueNode::visit(ASTVisitor& visitor)
 {
 	visitor.visit(*this);
 }
+
+UnaryOpNode::UnaryOpNode(int opType, std::shared_ptr<Expression> expr, const Token& token)
+	: opType(opType), expr(expr)
+{
+	this->token = token;
+}
+
+void UnaryOpNode::visit(ASTVisitor& visitor)
+{
+	visitor.visit(*this);
+}
