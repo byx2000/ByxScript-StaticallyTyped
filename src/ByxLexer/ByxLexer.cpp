@@ -110,7 +110,7 @@ Token& ByxLexer::read(TokenType type)
     Token& token = next();
     if (token.type != type)
     {
-        throw ByxParser::ParseError(string("Token '") + token.val + "' unexpected.", token.row, token.col);
+        throw ByxParser::ParseError(string("Token '") + Token::GetTypeSymbol(type) + "' expected.", token.row, token.col);
     }
     return token;
 }

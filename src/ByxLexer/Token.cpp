@@ -49,6 +49,53 @@ static string typeDesc[] =
     "End"
 };
 
+static string typeSymbol[] =
+{
+    "integer",
+    "double",
+    "identifier",
+    "Keyword",
+    "+",
+    "++",
+    "+=",
+    "=",
+    "==",
+    "(",
+    ")",
+    "{",
+    "}",
+    "[",
+    "]",
+    ",",
+    ";",
+    "-",
+    "--",
+    "-=",
+    "*",
+    "*=",
+    "/",
+    "/=",
+    "%",
+    "%=",
+    "!",
+    "!=",
+    "<",
+    ">",
+    "<=",
+    ">=",
+    "&",
+    "&&",
+    "&=",
+    "|",
+    "||",
+    "|=",
+    "<<",
+    "<<=",
+    ">>",
+    ">>=",
+    "end"
+};
+
 Token::Token() : type(TokenType::End), val(""), row(0), col(0)
 {
 
@@ -67,4 +114,9 @@ std::string Token::toString() const
     s += val;
     s += ">";
     return s;
+}
+
+std::string Token::GetTypeSymbol(TokenType type)
+{
+    return typeSymbol[(int)type];
 }
