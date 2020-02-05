@@ -35,7 +35,7 @@ void ByxParserTest::Run()
 	cout << endl;
 
 	// ÐéÄâ»ú²âÊÔ
-	int numVMCase = 26;
+	int numVMCase = 27;
 	for (int i = 1; i <= numVMCase; ++i)
 	{
 		string path = "src/ByxParser/Test/TestCase/VMTest/";
@@ -45,7 +45,7 @@ void ByxParserTest::Run()
 	cout << endl;
 
 	watch.end();
-	cout << "ByxParser test passed! time: " << watch.duration() << endl;
+	cout << "ByxParser test passed! time: " << watch.duration() << "s" << endl;
 }
 
 void ByxParserTest::CheckCase(const string& in, const string& out)
