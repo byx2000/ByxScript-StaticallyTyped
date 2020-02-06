@@ -64,7 +64,7 @@ enum class Opcode
 	pop, // 弹出栈顶操作数
 	land, // 逻辑与
 	lor, // 逻辑或
-
+	lnot, // 逻辑非
 };
 
 std::string GetOpcodeSymbol(Opcode op);

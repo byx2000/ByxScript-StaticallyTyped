@@ -473,11 +473,17 @@ void ByxVM::exec()
 			operandStack.pushInt(!a.isZero() && !b.isZero());
 			break;
 		}
-		case Opcode::lor:
+		case Opcode::lor: // 逻辑或
 		{
 			Value b = operandStack.popInt();
 			Value a = operandStack.popInt();
 			operandStack.pushInt(!a.isZero() || !b.isZero());
+			break;
+		}
+		case Opcode::lnot: // 逻辑非
+		{
+			Value v = operandStack.pop();
+			operandStack.pushInt(v.isZero());
 			break;
 		}
 		default: // 未识别的指令
