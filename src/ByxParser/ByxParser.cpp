@@ -193,10 +193,16 @@ shared_ptr<ASTNode> ByxParser::parseStatement()
 			throw ParseError(string("Unexpected token: '") + token.val + "'", token.row, token.col);
 		}
 	}
-	// 语句块（新作用域）
+	// 语句块
 	else if (token.type == TokenType::OpenBrace)
 	{
 		return parseCodeBlock();
+	}
+	// 空语句
+	else if (token.type == TokenType::Semicolon)
+	{
+		lexer.next();
+		return make_shared<EmptyNode>();
 	}
 	// 变量赋值或函数调用
 	else if (token.type == TokenType::Ident)
