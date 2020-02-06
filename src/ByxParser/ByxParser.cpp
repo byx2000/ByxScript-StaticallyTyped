@@ -120,14 +120,16 @@ shared_ptr<ASTNode> ByxParser::parseProgram()
 			if (lexer.nextVal() == "int") // 整形全局变量声明
 			{
 				stmts.push_back(parseIntDeclare());
+				lexer.read(TokenType::Semicolon);
 			}
 			else if (lexer.nextVal() == "double") // 浮点型全局变量声明
 			{
 				stmts.push_back(parseDoubleDeclare());
+				lexer.read(TokenType::Semicolon);
 			}
 			else if (lexer.nextVal() == "function") // 函数声明
 			{
-				stmts.push_back(parseFunction());
+				stmts.push_back(parseFunctionDeclare());
 			}
 			else // 出错
 			{
@@ -151,17 +153,23 @@ shared_ptr<ASTNode> ByxParser::parseStatement()
 		// 整型变量声明
 		if (token.val == "int")
 		{
-			return parseIntDeclare();
+			shared_ptr<ASTNode> res = parseIntDeclare();
+			lexer.read(TokenType::Semicolon);
+			return res;
 		}
 		// 浮点型变量声明
 		else if (token.val == "double")
 		{
-			return parseDoubleDeclare();
+			shared_ptr<ASTNode> res = parseDoubleDeclare();
+			lexer.read(TokenType::Semicolon);
+			return res;
 		}
 		// 函数返回
 		else if (token.val == "return")
 		{
-			return parseReturn();
+			shared_ptr<ASTNode> res = parseReturn();
+			lexer.read(TokenType::Semicolon);
+			return res;
 		}
 		// if
 		else if (token.val == "if")
@@ -212,13 +220,17 @@ shared_ptr<ASTNode> ByxParser::parseStatement()
 		if (lexer.nextType() == TokenType::Assign)
 		{
 			lexer.back();
-			return parseVarAssign();
+			shared_ptr<ASTNode> res = parseVarAssign();
+			lexer.read(TokenType::Semicolon);
+			return res;
 		}
 		// 函数调用语句
 		else
 		{
 			lexer.back();
-			return parseFunctionCallStmt();
+			shared_ptr<ASTNode> res = parseFunctionCallStmt();
+			lexer.read(TokenType::Semicolon);
+			return res;
 		}
 	}
 	// 出错
@@ -228,7 +240,7 @@ shared_ptr<ASTNode> ByxParser::parseStatement()
 	}
 }
 
-shared_ptr<ASTNode> ByxParser::parseFunction()
+shared_ptr<ASTNode> ByxParser::parseFunctionDeclare()
 {
 	// 读取function关键字
 	Token t = lexer.next();
@@ -324,9 +336,6 @@ shared_ptr<ASTNode> ByxParser::parseIntDeclare()
 	{
 		expr = make_shared<IntegerNode>(0);
 	}
-	
-	// 读取分号
-	lexer.read(TokenType::Semicolon);
 
 	// 构造整型变量声明节点
 	return make_shared<IntDeclareNode>(name, expr, token);
@@ -342,9 +351,6 @@ shared_ptr<ASTNode> ByxParser::parseVarAssign()
 
 	// 读取表达式
 	shared_ptr<Expression> expr = parseExpr();
-
-	// 读取分号
-	lexer.read(TokenType::Semicolon);
 
 	// 构造赋值节点
 	return make_shared<VarAssignNode>(name, expr, token);
@@ -370,9 +376,6 @@ shared_ptr<ASTNode> ByxParser::parseDoubleDeclare()
 		expr = make_shared<DoubleNode>(0.0);
 	}
 
-	// 读取分号
-	lexer.read(TokenType::Semicolon);
-
 	// 构造整型变量声明节点
 	return make_shared<DoubleDeclareNode>(name, expr, token);
 }
@@ -386,12 +389,10 @@ shared_ptr<ASTNode> ByxParser::parseReturn()
 	if (lexer.nextType() != TokenType::Semicolon)
 	{
 		expr = parseExpr();
-		lexer.read(TokenType::Semicolon);
 		return make_shared<ReturnNode>(true, expr, token);
 	}
 	else
 	{
-		lexer.next();
 		return make_shared<ReturnNode>(false, expr, token);
 	}
 }
@@ -436,9 +437,6 @@ shared_ptr<ASTNode> ByxParser::parseFunctionCallStmt()
 		lexer.read(TokenType::Comma);
 	}
 	lexer.next();
-
-	// 读取分号
-	lexer.read(TokenType::Semicolon);
 
 	// 构造函数调用语句节点
 	return make_shared<FunctionCallStmtNode>(name, exprs, token);

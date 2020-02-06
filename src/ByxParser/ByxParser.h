@@ -55,7 +55,7 @@ private:
 
 	std::shared_ptr<ASTNode> parseProgram();
 	std::shared_ptr<ASTNode> parseStatement();
-	std::shared_ptr<ASTNode> parseFunction();
+	std::shared_ptr<ASTNode> parseFunctionDeclare();
 	std::shared_ptr<ASTNode> parseIntDeclare();
 	std::shared_ptr<ASTNode> parseVarAssign();
 	std::shared_ptr<ASTNode> parseDoubleDeclare();
