@@ -25,7 +25,7 @@ int main()
 	cout << endl;
 	try
 	{
-		ByxParser parser("function void main() { while(1); }");
+		ByxParser parser("function void main() { int s = 0; for (int i = 1; i <= 100; i = i + 1) s = s + i; }");
 		parser.parse();
 		cout << parser.getASTString() << endl;
 		cout << parser.getCode().toString() << endl;

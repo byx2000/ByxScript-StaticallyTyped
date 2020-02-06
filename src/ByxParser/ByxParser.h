@@ -46,6 +46,7 @@ private:
 	ByxLexer lexer;
 	std::shared_ptr<ASTNode> ast;
 	Code code;
+	bool parsingForHeader;
 
 	FunctionTable functionTable; // 函数表
 	CodeSeg initCode; // 初始化全局变量的代码
@@ -64,10 +65,13 @@ private:
 	std::shared_ptr<ASTNode> parseFunctionCallStmt();
 	std::shared_ptr<ASTNode> parseIf();
 	std::shared_ptr<ASTNode> parseWhile();
+	std::shared_ptr<ASTNode> parseFor();
 	std::shared_ptr<Expression> parseExpr();
 	std::shared_ptr<Expression> parseCmpExpr();
 	std::shared_ptr<Expression> parseArithExpr();
 	std::shared_ptr<Expression> parseTerm();
 	std::shared_ptr<Expression> parseFactor();
 	std::shared_ptr<Expression> parseFunctionCallExpr();
+
+	void readSemicolon();
 };

@@ -50,6 +50,7 @@ ByxParser::ByxParser(const std::string& input)
 {
 	ast = NULL;
 	globalSpace = 0;
+	parsingForHeader = false;
 }
 
 ByxParser& ByxParser::parse()
@@ -120,12 +121,10 @@ shared_ptr<ASTNode> ByxParser::parseProgram()
 			if (lexer.nextVal() == "int") // 整形全局变量声明
 			{
 				stmts.push_back(parseIntDeclare());
-				lexer.read(TokenType::Semicolon);
 			}
 			else if (lexer.nextVal() == "double") // 浮点型全局变量声明
 			{
 				stmts.push_back(parseDoubleDeclare());
-				lexer.read(TokenType::Semicolon);
 			}
 			else if (lexer.nextVal() == "function") // 函数声明
 			{
@@ -153,37 +152,51 @@ shared_ptr<ASTNode> ByxParser::parseStatement()
 		// 整型变量声明
 		if (token.val == "int")
 		{
-			shared_ptr<ASTNode> res = parseIntDeclare();
-			lexer.read(TokenType::Semicolon);
-			return res;
+			return parseIntDeclare();
 		}
 		// 浮点型变量声明
 		else if (token.val == "double")
 		{
-			shared_ptr<ASTNode> res = parseDoubleDeclare();
-			lexer.read(TokenType::Semicolon);
-			return res;
+			return parseDoubleDeclare();
 		}
 		// 函数返回
 		else if (token.val == "return")
 		{
-			shared_ptr<ASTNode> res = parseReturn();
-			lexer.read(TokenType::Semicolon);
-			return res;
+			if (parsingForHeader)
+			{
+				throw ByxParser::ParseError("Return statement cannot appear in for header.", token.row, token.col);
+			}
+
+			return parseReturn();
 		}
 		// if
 		else if (token.val == "if")
 		{
+			if (parsingForHeader)
+			{
+				throw ByxParser::ParseError("If statement cannot appear in for header.", token.row, token.col);
+			}
+
 			return parseIf();
 		}
 		// while
 		else if (token.val == "while")
 		{
+			if (parsingForHeader)
+			{
+				throw ByxParser::ParseError("While statement cannot appear in for header.", token.row, token.col);
+			}
+
 			return parseWhile();
 		}
 		// break
 		else if (token.val == "break")
 		{
+			if (parsingForHeader)
+			{
+				throw ByxParser::ParseError("Break statement cannot appear in for header.", token.row, token.col);
+			}
+
 			Token t = lexer.next();
 			lexer.read(TokenType::Semicolon);
 			return make_shared<BreakNode>(t);
@@ -191,9 +204,19 @@ shared_ptr<ASTNode> ByxParser::parseStatement()
 		// continue
 		else if (token.val == "continue")
 		{
+			if (parsingForHeader)
+			{
+				throw ByxParser::ParseError("Continue statement cannot appear in for header.", token.row, token.col);
+			}
+
 			Token t = lexer.next();
 			lexer.read(TokenType::Semicolon);
 			return make_shared<ContinueNode>(t);
+		}
+		// for
+		else if (token.val == "for")
+		{
+			return parseFor();
 		}
 		// 出错
 		else
@@ -220,17 +243,13 @@ shared_ptr<ASTNode> ByxParser::parseStatement()
 		if (lexer.nextType() == TokenType::Assign)
 		{
 			lexer.back();
-			shared_ptr<ASTNode> res = parseVarAssign();
-			lexer.read(TokenType::Semicolon);
-			return res;
+			return parseVarAssign();
 		}
 		// 函数调用语句
 		else
 		{
 			lexer.back();
-			shared_ptr<ASTNode> res = parseFunctionCallStmt();
-			lexer.read(TokenType::Semicolon);
-			return res;
+			return parseFunctionCallStmt();
 		}
 	}
 	// 出错
@@ -337,6 +356,9 @@ shared_ptr<ASTNode> ByxParser::parseIntDeclare()
 		expr = make_shared<IntegerNode>(0);
 	}
 
+	// 读取分号
+	readSemicolon();
+
 	// 构造整型变量声明节点
 	return make_shared<IntDeclareNode>(name, expr, token);
 }
@@ -351,6 +373,9 @@ shared_ptr<ASTNode> ByxParser::parseVarAssign()
 
 	// 读取表达式
 	shared_ptr<Expression> expr = parseExpr();
+
+	// 读取分号
+	readSemicolon();
 
 	// 构造赋值节点
 	return make_shared<VarAssignNode>(name, expr, token);
@@ -376,6 +401,9 @@ shared_ptr<ASTNode> ByxParser::parseDoubleDeclare()
 		expr = make_shared<DoubleNode>(0.0);
 	}
 
+	// 读取分号
+	readSemicolon();
+
 	// 构造整型变量声明节点
 	return make_shared<DoubleDeclareNode>(name, expr, token);
 }
@@ -386,13 +414,16 @@ shared_ptr<ASTNode> ByxParser::parseReturn()
 	Token token = lexer.next();
 
 	shared_ptr<Expression> expr = NULL;
+
 	if (lexer.nextType() != TokenType::Semicolon)
 	{
 		expr = parseExpr();
+		lexer.read(TokenType::Semicolon);
 		return make_shared<ReturnNode>(true, expr, token);
 	}
 	else
 	{
+		lexer.next();
 		return make_shared<ReturnNode>(false, expr, token);
 	}
 }
@@ -437,6 +468,9 @@ shared_ptr<ASTNode> ByxParser::parseFunctionCallStmt()
 		lexer.read(TokenType::Comma);
 	}
 	lexer.next();
+
+	// 读取分号
+	readSemicolon();
 
 	// 构造函数调用语句节点
 	return make_shared<FunctionCallStmtNode>(name, exprs, token);
@@ -490,6 +524,43 @@ std::shared_ptr<ASTNode> ByxParser::parseWhile()
 
 	// 构造while循环节点
 	return make_shared<WhileNode>(cond, body, token);
+}
+
+std::shared_ptr<ASTNode> ByxParser::parseFor()
+{
+	// 读取for关键字
+	Token token = lexer.next();
+
+	// 读取左括号
+	lexer.read(TokenType::OpenBracket);
+
+	parsingForHeader = true;
+
+	// 读取初始化语句
+	shared_ptr<ASTNode> init = parseStatement();
+	
+	// 读取分号
+	lexer.read(TokenType::Semicolon);
+
+	// 读取条件表达式
+	shared_ptr<Expression> cond = parseExpr();
+
+	// 读取分号
+	lexer.read(TokenType::Semicolon);
+
+	// 读取更新语句
+	shared_ptr<ASTNode> update = parseStatement();
+
+	parsingForHeader = false;
+
+	// 读取右括号
+	lexer.read(TokenType::CloseBracket);
+
+	// 读取循环体
+	shared_ptr<ASTNode> body = parseStatement();
+
+	// 构造for节点
+	return make_shared<ForNode>(init, cond, update, body, token);
 }
 
 shared_ptr<Expression> ByxParser::parseExpr()
@@ -661,4 +732,12 @@ shared_ptr<Expression> ByxParser::parseFunctionCallExpr()
 
 	// 构造函数调用表达式节点
 	return make_shared<FunctionCallExprNode>(name, exprs, token);
+}
+
+void ByxParser::readSemicolon()
+{
+	if (!parsingForHeader)
+	{
+		lexer.read(TokenType::Semicolon);
+	}
 }
