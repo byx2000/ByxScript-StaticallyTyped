@@ -98,3 +98,8 @@ void ASTVisitor::visit(UnaryOpNode& node)
 {
 
 }
+
+void ASTVisitor::visit(ForNode& node)
+{
+
+}

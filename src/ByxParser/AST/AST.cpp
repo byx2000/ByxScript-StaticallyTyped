@@ -226,3 +226,14 @@ void UnaryOpNode::visit(ASTVisitor& visitor)
 {
 	visitor.visit(*this);
 }
+
+ForNode::ForNode(std::shared_ptr<ASTNode> init, std::shared_ptr<Expression> cond, std::shared_ptr<ASTNode> update, std::shared_ptr<ASTNode> body, const Token& token)
+	: init(init), cond(cond), update(update), body(body)
+{
+	this->token = token;
+}
+
+void ForNode::visit(ASTVisitor& visitor)
+{
+	visitor.visit(*this);
+}

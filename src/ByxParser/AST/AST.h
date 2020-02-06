@@ -235,3 +235,16 @@ public:
 	int opType;
 	std::shared_ptr<Expression> expr;
 };
+
+// for—≠ª∑
+class ForNode : public ASTNode
+{
+public:
+	ForNode(std::shared_ptr<ASTNode> init, std::shared_ptr<Expression> cond, std::shared_ptr<ASTNode> update, std::shared_ptr<ASTNode> body, const Token& token);
+	virtual void visit(ASTVisitor& visitor) override;
+
+	std::shared_ptr<ASTNode> init;
+	std::shared_ptr<Expression> cond;
+	std::shared_ptr<ASTNode> update;
+	std::shared_ptr<ASTNode> body;
+};

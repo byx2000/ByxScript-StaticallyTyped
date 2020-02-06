@@ -312,3 +312,11 @@ void SymbolVisitor::visit(UnaryOpNode& node)
 	// 记录表达式类型
 	node.dataType = node.expr->dataType;
 }
+
+void SymbolVisitor::visit(ForNode& node)
+{
+	node.init->visit(*this);
+	node.cond->visit(*this);
+	node.update->visit(*this);
+	node.body->visit(*this);
+}

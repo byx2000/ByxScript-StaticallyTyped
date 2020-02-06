@@ -189,3 +189,16 @@ void ToStringVisitor::visit(UnaryOpNode& node)
 	node.expr->visit(*this);
 	str += ")";
 }
+
+void ToStringVisitor::visit(ForNode& node)
+{
+	str += "for(";
+	node.init->visit(*this);
+	str += ",";
+	node.cond->visit(*this);
+	str += ",";
+	node.update->visit(*this);
+	str += ",";
+	node.body->visit(*this);
+	str += ")";
+}
