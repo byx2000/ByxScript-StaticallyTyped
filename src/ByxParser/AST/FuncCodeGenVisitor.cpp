@@ -515,6 +515,9 @@ void FuncCodeGenVisitor::visit(UnaryOpNode& node)
 			codeSeg.add(Opcode::dneg);
 		}
 		break;
+	case UnaryOpNode::Not:
+		codeSeg.add(Opcode::lnot);
+		break;
 	default:
 		throw ByxParser::ParseError("Bad operator.", node.row(), node.col());
 		break;

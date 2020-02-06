@@ -1,0 +1,61 @@
+int g1 = !0;
+int g2 = !5;
+int g3 = !0.0;
+int g4 = !3.14;
+int g5 = !-0;
+int g6 = !-5;
+int g7 = !-0.0;
+int g8 = !-3.14;
+
+int g9;
+int g10;
+int g11;
+int g12;
+
+function void main()
+{
+	int i = 1;
+	int s = 0;
+	while (i <= 100)
+	{
+		if (!(i % 6 == 2))
+		{
+			s = s + i;
+		}
+		i = i + 1;
+	}
+	g9 = s;
+	
+	i = 23;
+	s = 0;
+	while (i < 454)
+	{
+		if (!(i % 6 == 0) && !(i % 7 == 3))
+		{
+			s = s + i;
+		}
+		i = i + 1;
+	}
+	g10 = s;
+	
+	i = 1;
+	s = 0;
+	while (i <= 200)
+	{
+		s = s + !!i;
+		i = i + 1;
+	}
+	g11 = s;
+	
+	i = 23;
+	s = 0;
+	while (i < 454)
+	{
+		if (!(i % 6 == 0) || !(i % 7 == 3))
+		{
+			s = s + i;
+		}
+		i = i + 1;
+	}
+	g12 = s;
+}

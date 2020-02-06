@@ -611,6 +611,10 @@ shared_ptr<Expression> ByxParser::parseFactor()
 	{
 		return make_shared<UnaryOpNode>(UnaryOpNode::Neg, parseFactor(), token);
 	}
+	else if (token.type == TokenType::Not) // 非运算
+	{
+		return make_shared<UnaryOpNode>(UnaryOpNode::Not, parseFactor(), token);
+	}
 	else if (token.type == TokenType::Ident) // 变量或函数调用
 	{
 		if (lexer.nextType() == TokenType::OpenBracket) // 函数调用
