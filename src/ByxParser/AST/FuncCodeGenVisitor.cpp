@@ -523,3 +523,56 @@ void FuncCodeGenVisitor::visit(UnaryOpNode& node)
 		break;
 	}
 }
+
+void FuncCodeGenVisitor::visit(ForNode& node)
+{
+	vector<int> oldBreakStmtIndex = breakStmtIndex;
+	breakStmtIndex.clear();
+	vector<int> oldContinueBreakStmtIndex = continueStmtIndex;
+	continueStmtIndex.clear();
+	bool oldInLoop = inLoop;
+	inLoop = true;
+
+	// 生成初始化代码
+	node.init->visit(*this);
+
+	// 记录条件判断起始地址
+	int addrCond = codeSeg.getSize();
+
+	// 生成条件判断代码
+	node.cond->visit(*this);
+
+	// 若条件为假，则跳转到循环结束
+	int index = codeSeg.add(Opcode::je, 0);
+
+	// 生成循环体代码
+	node.body->visit(*this);
+
+	// 记录更新代码起始地址
+	int addrUpdate = codeSeg.getSize();
+
+	// 生成更新代码
+	node.update->visit(*this);
+
+	// 跳转到条件判断
+	codeSeg.add(Opcode::jmp, addrCond);
+
+	// 回填跳转地址
+	codeSeg.setIntParam(index, codeSeg.getSize());
+
+	// 若有break语句，则设置break语句跳转目标
+	for (int i = 0; i < (int)breakStmtIndex.size(); ++i)
+	{
+		codeSeg.setIntParam(breakStmtIndex[i], codeSeg.getSize());
+	}
+	breakStmtIndex = oldBreakStmtIndex;
+
+	// 若有continue语句，则设置continue语句跳转目标
+	for (int i = 0; i < (int)continueStmtIndex.size(); ++i)
+	{
+		codeSeg.setIntParam(continueStmtIndex[i], addrUpdate);
+	}
+	continueStmtIndex = oldContinueBreakStmtIndex;
+
+	inLoop = oldInLoop;
+}

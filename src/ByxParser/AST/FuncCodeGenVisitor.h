@@ -38,4 +38,5 @@ private:
 	virtual void visit(BreakNode& node) override;
 	virtual void visit(ContinueNode& node) override;
 	virtual void visit(UnaryOpNode& node) override;
+	virtual void visit(ForNode& node) override;
 };

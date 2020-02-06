@@ -315,8 +315,10 @@ void SymbolVisitor::visit(UnaryOpNode& node)
 
 void SymbolVisitor::visit(ForNode& node)
 {
+	scopeStack.pushScope();
 	node.init->visit(*this);
 	node.cond->visit(*this);
 	node.update->visit(*this);
 	node.body->visit(*this);
+	scopeStack.popScope();
 }

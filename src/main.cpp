@@ -22,10 +22,10 @@ int main()
 	// ByxParserµ¥Ôª²âÊÔ
 	ByxParserTest::Run();
 
-	cout << endl;
+	/*cout << endl;
 	try
 	{
-		ByxParser parser("function void main() { int s = 0; for (int i = 1; i <= 100; i = i + 1) s = s + i; }");
+		ByxParser parser("function void main() { int s = 0; for (int i = 1; i <= 100; i = i + 1) { s = s + i; break; continue; } }");
 		parser.parse();
 		cout << parser.getASTString() << endl;
 		cout << parser.getCode().toString() << endl;
@@ -35,7 +35,7 @@ int main()
 	{
 		cout << err.getMsg() << endl;
 		cout << err.getRow() << " " << err.getCol() << endl;
-	}
+	}*/
 
 	return 0;
 }
