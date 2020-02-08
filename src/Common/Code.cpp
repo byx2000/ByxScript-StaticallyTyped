@@ -4,12 +4,6 @@
 
 using namespace std;
 
-Code::Code(const std::vector<Instruction>& insts)
-	: insts(insts), PC(0)
-{
-	
-}
-
 Code::Code(const CodeSeg& seg)
 {
 	insts = seg.getInsts();

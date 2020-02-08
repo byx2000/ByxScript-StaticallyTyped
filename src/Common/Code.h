@@ -8,8 +8,7 @@
 class Code
 {
 public:
-	Code(const std::vector<Instruction>& insts = std::vector<Instruction>());
-	Code(const CodeSeg& seg);
+	Code(const CodeSeg& seg = CodeSeg());
 	void add(Opcode op); // 添加无参数指令
 	void add(Opcode op, int p); // 添加整数参数指令
 	void add(Opcode op, double p); // 添加浮点数参数指令
