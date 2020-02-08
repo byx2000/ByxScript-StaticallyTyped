@@ -1,32 +1,32 @@
-#include "FuncCodeGenVisitor.h"
+#include "CodeGenVisitor.h"
 #include "../ByxParser.h"
 
 #include <iostream>
 
 using namespace std;
 
-FuncCodeGenVisitor::FuncCodeGenVisitor(ByxParser& parser, const std::string& curFuncName)
+CodeGenVisitor::CodeGenVisitor(ByxParser& parser, const std::string& curFuncName)
 	: parser(parser), curFuncName(curFuncName)
 {
 	inLoop = false;
 }
 
-CodeSeg FuncCodeGenVisitor::getCode() const
+CodeSeg CodeGenVisitor::getCode() const
 {
 	return codeSeg;
 }
 
-void FuncCodeGenVisitor::visit(IntegerNode& node)
+void CodeGenVisitor::visit(IntegerNode& node)
 {
 	codeSeg.add(Opcode::iconst, node.val);
 }
 
-void FuncCodeGenVisitor::visit(DoubleNode& node)
+void CodeGenVisitor::visit(DoubleNode& node)
 {
 	codeSeg.add(Opcode::dconst, node.val);
 }
 
-void FuncCodeGenVisitor::visit(IntDeclareNode& node)
+void CodeGenVisitor::visit(IntDeclareNode& node)
 {
 	node.expr->visit(*this);
 	if (node.symbol.isGlobal)
@@ -39,7 +39,7 @@ void FuncCodeGenVisitor::visit(IntDeclareNode& node)
 	}
 }
 
-void FuncCodeGenVisitor::visit(DoubleDeclareNode& node)
+void CodeGenVisitor::visit(DoubleDeclareNode& node)
 {
 	node.expr->visit(*this);
 	if (node.symbol.isGlobal)
@@ -52,7 +52,7 @@ void FuncCodeGenVisitor::visit(DoubleDeclareNode& node)
 	}
 }
 
-void FuncCodeGenVisitor::visit(CodeBlockNode& node)
+void CodeGenVisitor::visit(CodeBlockNode& node)
 {
 	for (int i = 0; i < (int)node.stmts.size(); ++i)
 	{
@@ -60,7 +60,7 @@ void FuncCodeGenVisitor::visit(CodeBlockNode& node)
 	}
 }
 
-void FuncCodeGenVisitor::visit(VarNode& node)
+void CodeGenVisitor::visit(VarNode& node)
 {
 	if (node.dataType == DataType::Integer)
 	{
@@ -86,7 +86,7 @@ void FuncCodeGenVisitor::visit(VarNode& node)
 	}
 }
 
-void FuncCodeGenVisitor::visit(VarAssignNode& node)
+void CodeGenVisitor::visit(VarAssignNode& node)
 {
 	// 生成赋值表达式代码
 	node.expr->visit(*this);
@@ -117,7 +117,7 @@ void FuncCodeGenVisitor::visit(VarAssignNode& node)
 	}
 }
 
-void FuncCodeGenVisitor::visit(ReturnNode& node)
+void CodeGenVisitor::visit(ReturnNode& node)
 {
 	if (node.hasExpr)
 	{
@@ -126,7 +126,7 @@ void FuncCodeGenVisitor::visit(ReturnNode& node)
 	codeSeg.add(Opcode::ret);
 }
 
-void FuncCodeGenVisitor::visit(FunctionCallStmtNode& node)
+void CodeGenVisitor::visit(FunctionCallStmtNode& node)
 {
 	// 函数未定义
 	if (parser.functionInfo.count(node.name) == 0)
@@ -157,7 +157,7 @@ void FuncCodeGenVisitor::visit(FunctionCallStmtNode& node)
 	}
 }
 
-void FuncCodeGenVisitor::visit(FunctionCallExprNode& node)
+void CodeGenVisitor::visit(FunctionCallExprNode& node)
 {
 	// 函数未定义
 	if (parser.functionInfo.count(node.name) == 0)
@@ -200,7 +200,7 @@ void FuncCodeGenVisitor::visit(FunctionCallExprNode& node)
 	}
 }
 
-void FuncCodeGenVisitor::visit(IfNode& node)
+void CodeGenVisitor::visit(IfNode& node)
 {
 	// 生成条件表达式代码
 	node.cond->visit(*this);
@@ -224,7 +224,7 @@ void FuncCodeGenVisitor::visit(IfNode& node)
 	codeSeg.setIntParam(index2, codeSeg.getSize());
 }
 
-void FuncCodeGenVisitor::visit(BinaryOpNode& node)
+void CodeGenVisitor::visit(BinaryOpNode& node)
 {
 	if (node.opType != BinaryOpNode::And && node.opType != BinaryOpNode::Or)
 	{
@@ -369,7 +369,7 @@ void FuncCodeGenVisitor::visit(BinaryOpNode& node)
 	}
 }
 
-void FuncCodeGenVisitor::visit(WhileNode& node)
+void CodeGenVisitor::visit(WhileNode& node)
 {
 	vector<int> oldBreakStmtIndex = breakStmtIndex;
 	breakStmtIndex.clear();
@@ -414,7 +414,7 @@ void FuncCodeGenVisitor::visit(WhileNode& node)
 	inLoop = oldInLoop;
 }
 
-void FuncCodeGenVisitor::visit(BreakNode& node)
+void CodeGenVisitor::visit(BreakNode& node)
 {
 	// 不在循环内
 	if (!inLoop)
@@ -426,7 +426,7 @@ void FuncCodeGenVisitor::visit(BreakNode& node)
 	breakStmtIndex.push_back(index);
 }
 
-void FuncCodeGenVisitor::visit(ContinueNode& node)
+void CodeGenVisitor::visit(ContinueNode& node)
 {
 	// 不在循环内
 	if (!inLoop)
@@ -438,7 +438,7 @@ void FuncCodeGenVisitor::visit(ContinueNode& node)
 	continueStmtIndex.push_back(index);
 }
 
-void FuncCodeGenVisitor::visit(UnaryOpNode& node)
+void CodeGenVisitor::visit(UnaryOpNode& node)
 {
 	node.expr->visit(*this);
 
@@ -465,7 +465,7 @@ void FuncCodeGenVisitor::visit(UnaryOpNode& node)
 	}
 }
 
-void FuncCodeGenVisitor::visit(ForNode& node)
+void CodeGenVisitor::visit(ForNode& node)
 {
 	vector<int> oldBreakStmtIndex = breakStmtIndex;
 	breakStmtIndex.clear();

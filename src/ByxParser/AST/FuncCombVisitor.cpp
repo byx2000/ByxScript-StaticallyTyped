@@ -1,5 +1,5 @@
 #include "FuncCombVisitor.h"
-#include "FuncCodeGenVisitor.h"
+#include "CodeGenVisitor.h"
 #include "../FunctionInfo.h"
 #include "../ByxParser.h"
 
@@ -56,7 +56,7 @@ void FuncCombVisitor::visit(FunctionDeclareNode& node)
 	}
 
 	// 生成函数体代码
-	FuncCodeGenVisitor visitor(parser, node.name);
+	CodeGenVisitor visitor(parser, node.name);
 	//node.visit(visitor);
 	
 	for (int i = 0; i < (int)node.body.size(); ++i)

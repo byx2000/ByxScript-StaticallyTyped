@@ -150,10 +150,10 @@
     <ClCompile Include="src\Common\Value.cpp">
       <Filter>源文件\Common</Filter>
     </ClCompile>
-    <ClCompile Include="src\ByxParser\AST\FuncCodeGenVisitor.cpp">
+    <ClCompile Include="src\ByxParser\AST\FuncCombVisitor.cpp">
       <Filter>源文件\ByxParser\AST</Filter>
     </ClCompile>
-    <ClCompile Include="src\ByxParser\AST\FuncCombVisitor.cpp">
+    <ClCompile Include="src\ByxParser\AST\CodeGenVisitor.cpp">
       <Filter>源文件\ByxParser\AST</Filter>
     </ClCompile>
   </ItemGroup>
@@ -242,10 +242,10 @@
     <ClInclude Include="src\Common\Value.h">
       <Filter>头文件\Common</Filter>
     </ClInclude>
-    <ClInclude Include="src\ByxParser\AST\FuncCodeGenVisitor.h">
+    <ClInclude Include="src\ByxParser\AST\FuncCombVisitor.h">
       <Filter>头文件\ByxParser\AST</Filter>
     </ClInclude>
-    <ClInclude Include="src\ByxParser\AST\FuncCombVisitor.h">
+    <ClInclude Include="src\ByxParser\AST\CodeGenVisitor.h">
       <Filter>头文件\ByxParser\AST</Filter>
     </ClInclude>
   </ItemGroup>

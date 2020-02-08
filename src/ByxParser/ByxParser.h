@@ -7,7 +7,7 @@
 #include "../Common/FunctionTable.h"
 #include "AST/SymbolVisitor.h"
 #include "FunctionInfo.h"
-#include "AST/FuncCodeGenVisitor.h"
+#include "AST/CodeGenVisitor.h"
 
 #include <memory>
 
@@ -16,7 +16,7 @@ class ByxParser
 	friend class CodeGenVisitor;
 	friend class GlobalVisitor;
 	friend class SymbolVisitor;
-	friend class FuncCodeGenVisitor;
+	friend class CodeGenVisitor;
 	friend class FuncCombVisitor;
 public:
 	ByxParser(const std::string& input);

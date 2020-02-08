@@ -6,10 +6,10 @@
 
 class ByxParser;
 
-class FuncCodeGenVisitor : public ASTVisitor
+class CodeGenVisitor : public ASTVisitor
 {
 public:
-	FuncCodeGenVisitor(ByxParser& parser, const std::string& curFuncName = "");
+	CodeGenVisitor(ByxParser& parser, const std::string& curFuncName = "");
 	CodeSeg getCode() const;
 
 private:
