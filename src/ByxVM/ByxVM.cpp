@@ -13,7 +13,7 @@ ByxVM::ByxVM(const Code& code, const FunctionTable& functionTable, int globalSpa
 void ByxVM::exec()
 {
 	// 为main函数创建栈帧，返回地址为-1
-	callStack.push(StackFrame(functionTable.getAllInfo(0), -1));
+	callStack.push(functionTable.getAllInfo(0), -1);
 
 	// 跳转到main函数
 	code.setPC(functionTable.getAddr(0));
@@ -434,7 +434,7 @@ void ByxVM::exec()
 		{
 			int funIndex = inst.getIntParam();
 			const FunctionTable::Entry& info = functionTable.getAllInfo(funIndex);
-			int retAddr = code.getPC(); callStack.push(StackFrame(info, retAddr));
+			int retAddr = code.getPC(); callStack.push(info, retAddr);
 			code.setPC(info.addr);
 
 			break;

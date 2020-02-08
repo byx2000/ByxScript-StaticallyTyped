@@ -2,48 +2,48 @@
 
 using namespace std;
 
-StackFrame::StackFrame(const FunctionTable::Entry& info, int retAddr)
+CallStack::Frame::Frame(const FunctionTable::Entry& info, int retAddr)
 	: info(info), retAddr(retAddr)
 {
 	// 设置变量表的大小
 	varTable.resize(info.space);
 }
 
-int StackFrame::getIntVar(int index) const
+int CallStack::Frame::getIntVar(int index) const
 {
 	checkIndex(index);
 	return varTable[index].getIntVal();
 }
 
-double StackFrame::getDoubleVar(int index) const
+double CallStack::Frame::getDoubleVar(int index) const
 {
 	checkIndex(index);
 	return varTable[index].getDoubleVal();
 }
 
-void StackFrame::setIntVar(int index, int val)
+void CallStack::Frame::setIntVar(int index, int val)
 {
 	checkIndex(index);
 	varTable[index] = Value(val);
 }
 
-void StackFrame::setDoubleVar(int index, double val)
+void CallStack::Frame::setDoubleVar(int index, double val)
 {
 	checkIndex(index);
 	varTable[index] = Value(val);
 }
 
-int StackFrame::getReturnAddr() const
+int CallStack::Frame::getReturnAddr() const
 {
 	return retAddr;
 }
 
-int StackFrame::getVarSpace() const
+int CallStack::Frame::getVarSpace() const
 {
 	return varTable.size();
 }
 
-std::string StackFrame::toString() const
+std::string CallStack::Frame::toString() const
 {
 	string s = "stack frame:\n\n";
 	s += "function info:\nName\tSpace\tAddress\n";
@@ -61,7 +61,7 @@ std::string StackFrame::toString() const
 	return s;
 }
 
-void StackFrame::checkIndex(int index) const
+void CallStack::Frame::checkIndex(int index) const
 {
 	if (index < 0 || index >= (int)varTable.size())
 	{
@@ -69,9 +69,9 @@ void StackFrame::checkIndex(int index) const
 	}
 }
 
-void CallStack::push(const StackFrame& stackFrame)
+void CallStack::push(const FunctionTable::Entry& info, int retAddr)
 {
-	calls.push(stackFrame);
+	calls.push(Frame(info, retAddr));
 }
 
 int CallStack::pop()
@@ -86,7 +86,7 @@ int CallStack::pop()
 	return retAddr;
 }
 
-StackFrame& CallStack::top()
+CallStack::Frame& CallStack::top()
 {
 	return calls.top();
 }

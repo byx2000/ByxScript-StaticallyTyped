@@ -6,6 +6,8 @@
 class FunctionTable
 {
 public:
+
+	// 函数表条目
 	class Entry
 	{
 	public:
