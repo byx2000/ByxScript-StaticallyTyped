@@ -9,10 +9,9 @@ class Code
 {
 public:
 	Code(const CodeSeg& seg = CodeSeg());
-	Instruction& getNextInst(); // 获取下一条指令
+	Instruction& next(); // 获取下一条指令
 	int getPC() const; // 获取程序计数器
 	void setPC(int addr); // 设置程序计数器
-	int getCount() const; // 获取指令条数
 	std::vector<Instruction> getInsts() const; // 获取所有指令
 
 	std::string toString() const;

@@ -23,7 +23,7 @@ void ByxVM::exec()
 
 	// ∞¥À≥–Ú÷¥––÷∏¡Ó
 	int cntFunction = functionTable.getCount();
-	Instruction& inst = code.getNextInst();
+	Instruction& inst = code.next();
 	Opcode op = inst.getOp();
 	while (op != Opcode::halt)
 	{
@@ -491,7 +491,7 @@ void ByxVM::exec()
 			break;
 		}
 
-		inst = code.getNextInst();
+		inst = code.next();
 		op = inst.getOp();
 	}
 

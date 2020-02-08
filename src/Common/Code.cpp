@@ -10,7 +10,7 @@ Code::Code(const CodeSeg& seg)
 	PC = 0;
 }
 
-Instruction& Code::getNextInst()
+Instruction& Code::next()
 {
 	static Instruction last(Opcode::halt);
 
@@ -35,11 +35,6 @@ void Code::setPC(int addr)
 		throw IllegalPCValue();
 	}
 	PC = addr;
-}
-
-int Code::getCount() const
-{
-	return insts.size();
 }
 
 std::vector<Instruction> Code::getInsts() const
