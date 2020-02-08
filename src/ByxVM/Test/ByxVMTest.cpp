@@ -1616,10 +1616,10 @@ void CodeTest::Run()
 
 void FunctionTableTest::Run()
 {
-	vector<FunctionEntry> table;
-	table.push_back(FunctionEntry(16, 0));
-	table.push_back(FunctionEntry(8, 17));
-	table.push_back(FunctionEntry(0, 44));
+	vector<FunctionTable::Entry> table;
+	table.push_back(FunctionTable::Entry(16, 0));
+	table.push_back(FunctionTable::Entry(8, 17));
+	table.push_back(FunctionTable::Entry(0, 44));
 	FunctionTable funTable(table);
 
 	ASSERT(funTable.getCount() == 3);
@@ -1648,7 +1648,7 @@ void FunctionTableTest::Run()
 
 void StackFrameTest::Run()
 {
-	FunctionEntry info(8, 17);
+	FunctionTable::Entry info(8, 17);
 	StackFrame frame(info, 3);
 	frame.setIntVar(3, 100);
 	frame.setDoubleVar(5, 3.14);
@@ -1674,8 +1674,8 @@ void StackFrameTest::Run()
 
 void CallStackTest::Run()
 {
-	FunctionEntry f1(16, 0);
-	FunctionEntry f2(8, 17);
+	FunctionTable::Entry f1(16, 0);
+	FunctionTable::Entry f2(8, 17);
 	
 	StackFrame sf1(f1, -1);
 	sf1.setDoubleVar(12, 3.14);

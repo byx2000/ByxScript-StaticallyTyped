@@ -3,24 +3,24 @@
 #include <string>
 #include <vector>
 
-class FunctionEntry
-{
-public:
-	FunctionEntry(int space, int addr);
-	std::string toString() const;
-
-	int space; // 函数所用的空间大小
-	int addr; // 函数起始地址
-};
-
 class FunctionTable
 {
 public:
-	FunctionTable(const std::vector<FunctionEntry>& table = std::vector<FunctionEntry>());
+	class Entry
+	{
+	public:
+		Entry(int space, int addr);
+		std::string toString() const;
+
+		int space; // 函数所用的空间大小
+		int addr; // 函数起始地址
+	};
+
+	FunctionTable(const std::vector<Entry>& table = std::vector<Entry>());
 	void add(int space, int addr); // 添加函数
 	int getSpace(int index) const; // 获取函数所用的空间大小
 	int getAddr(int index) const; // 获取函数的起始地址
-	const FunctionEntry& getAllInfo(int index) const; // 获取所有信息
+	const Entry& getAllInfo(int index) const; // 获取所有信息
 	int getCount() const; // 获取函数个数
 
 	void setAddr(int index, int addr); // 设置函数地址
@@ -32,6 +32,6 @@ public:
 	class FunctionIndexOutOfBoundary {}; // 函数下标越界
 
 private:
-	std::vector<FunctionEntry> table; // 函数信息表
+	std::vector<Entry> table; // 函数信息表
 	void checkIndex(int index) const; // 检查函数下标
 };

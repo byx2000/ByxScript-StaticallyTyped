@@ -8,7 +8,7 @@
 class StackFrame
 {
 public:
-	StackFrame(const FunctionEntry& info, int retAddr);
+	StackFrame(const FunctionTable::Entry& info, int retAddr);
 	int getIntVar(int index) const; // 获取整数变量
 	double getDoubleVar(int index) const; // 获取浮点数变量
 	void setIntVar(int index, int val); // 设置整数变量
@@ -19,7 +19,7 @@ public:
 	std::string toString() const;
 
 private:
-	const FunctionEntry& info; // 函数信息
+	const FunctionTable::Entry& info; // 函数信息
 	std::vector<Value> varTable; // 变量表
 	int retAddr; // 返回地址
 

@@ -2,13 +2,13 @@
 
 using namespace std;
 
-FunctionEntry::FunctionEntry(int space, int addr)
+FunctionTable::Entry::Entry(int space, int addr)
 	: space(space), addr(addr)
 {
 
 }
 
-std::string FunctionEntry::toString() const
+std::string FunctionTable::Entry::toString() const
 {
 	string s;
 	s += to_string(space);
@@ -17,7 +17,7 @@ std::string FunctionEntry::toString() const
 	return s;
 }
 
-FunctionTable::FunctionTable(const std::vector<FunctionEntry>& table)
+FunctionTable::FunctionTable(const std::vector<Entry>& table)
 	: table(table)
 {
 
@@ -25,7 +25,7 @@ FunctionTable::FunctionTable(const std::vector<FunctionEntry>& table)
 
 void FunctionTable::add(int space, int addr)
 {
-	table.push_back(FunctionEntry(space, addr));
+	table.push_back(Entry(space, addr));
 }
 
 int FunctionTable::getSpace(int index) const
@@ -40,7 +40,7 @@ int FunctionTable::getAddr(int index) const
 	return table[index].addr;
 }
 
-const FunctionEntry& FunctionTable::getAllInfo(int index) const
+const FunctionTable::Entry& FunctionTable::getAllInfo(int index) const
 {
 	checkIndex(index);
 	return table[index];

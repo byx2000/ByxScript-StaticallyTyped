@@ -433,7 +433,7 @@ void ByxVM::exec()
 		case Opcode::call: // º¯Êýµ÷ÓÃ
 		{
 			int funIndex = inst.getIntParam();
-			const FunctionEntry& info = functionTable.getAllInfo(funIndex);
+			const FunctionTable::Entry& info = functionTable.getAllInfo(funIndex);
 			int retAddr = code.getPC(); callStack.push(StackFrame(info, retAddr));
 			code.setPC(info.addr);
 

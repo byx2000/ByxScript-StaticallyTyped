@@ -2,7 +2,7 @@
 
 using namespace std;
 
-StackFrame::StackFrame(const FunctionEntry& info, int retAddr)
+StackFrame::StackFrame(const FunctionTable::Entry& info, int retAddr)
 	: info(info), retAddr(retAddr)
 {
 	// 设置变量表的大小
