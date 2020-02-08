@@ -34,9 +34,39 @@ void FuncCombVisitor::visit(FunctionDeclareNode& node)
 	// 设置函数起始地址
 	parser.functionTable.setAddr(info.index, codeSeg.getSize());
 
+	// 为main函数添加全局变量初始化代码
+	if (node.name == "main")
+	{
+		codeSeg.add(parser.initCode);
+	}
+
+	// 生成参数读取指令
+	int cnt = 0;
+	for (int i = 0; i < (int)node.paramName.size(); ++i)
+	{
+		if (node.paramType[i] == DataType::Integer)
+		{
+			codeSeg.add(Opcode::istore, cnt);
+		}
+		else if (node.paramType[i] == DataType::Double)
+		{
+			codeSeg.add(Opcode::dstore, cnt);
+		}
+		cnt++;
+	}
+
 	// 生成函数体代码
-	FuncCodeGenVisitor visitor(parser);
-	node.visit(visitor);
+	FuncCodeGenVisitor visitor(parser, node.name);
+	//node.visit(visitor);
+	
+	for (int i = 0; i < (int)node.body.size(); ++i)
+	{
+		node.body[i]->visit(visitor);
+	}
+
 	CodeSeg seg = visitor.getCode();
 	codeSeg.add(seg);
+
+	// 添加ret指令（该处可能会生成重复的ret指令）
+	codeSeg.add(Opcode::ret);
 }

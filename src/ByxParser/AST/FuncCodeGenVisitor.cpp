@@ -5,8 +5,8 @@
 
 using namespace std;
 
-FuncCodeGenVisitor::FuncCodeGenVisitor(ByxParser& parser, const FunctionInfo& info)
-	: parser(parser), info(info)
+FuncCodeGenVisitor::FuncCodeGenVisitor(ByxParser& parser, const std::string& curFuncName)
+	: parser(parser), curFuncName(curFuncName)
 {
 	inLoop = false;
 }
@@ -14,43 +14,6 @@ FuncCodeGenVisitor::FuncCodeGenVisitor(ByxParser& parser, const FunctionInfo& in
 CodeSeg FuncCodeGenVisitor::getCode() const
 {
 	return codeSeg;
-}
-
-void FuncCodeGenVisitor::visit(FunctionDeclareNode& node)
-{
-	// 获取函数信息
-	info = parser.functionInfo[node.name];
-	funcName = node.name;
-
-	// 为main函数添加全局变量初始化代码
-	if (node.name == "main")
-	{
-		codeSeg.add(parser.initCode);
-	}
-
-	// 生成参数读取指令
-	int cnt = 0;
-	for (int i = 0; i < (int)node.paramName.size(); ++i)
-	{
-		if (node.paramType[i] == DataType::Integer)
-		{
-			codeSeg.add(Opcode::istore, cnt);
-		}
-		else if (node.paramType[i] == DataType::Double)
-		{
-			codeSeg.add(Opcode::dstore, cnt);
-		}
-		cnt++;
-	}
-
-	// 生成函数体代码
-	for (int i = 0; i < (int)node.body.size(); ++i)
-	{
-		node.body[i]->visit(*this);
-	}
-
-	// 添加ret指令（该处可能会生成重复的ret指令）
-	codeSeg.add(Opcode::ret);
 }
 
 void FuncCodeGenVisitor::visit(IntegerNode& node)
@@ -156,33 +119,11 @@ void FuncCodeGenVisitor::visit(VarAssignNode& node)
 
 void FuncCodeGenVisitor::visit(ReturnNode& node)
 {
-	// 获取函数返回值信息
-	DataType retType = info.retType;
-
-	// 生成代码
-	if (retType == DataType::Void)
+	if (node.hasExpr)
 	{
-		if (node.hasExpr) // 返回值类型不匹配
-		{
-			throw ByxParser::ParseError(string("Function '") + funcName + "' cannot return value.", node.row(), node.col());
-		}
-		else
-		{
-			codeSeg.add(Opcode::ret);
-		}
+		node.expr->visit(*this);
 	}
-	else
-	{
-		if (!node.hasExpr) // 返回值类型不匹配
-		{
-			throw ByxParser::ParseError(string("Function '") + funcName + "'must return a value.", node.row(), node.col());
-		}
-		else
-		{
-			node.expr->visit(*this);
-			codeSeg.add(Opcode::ret);
-		}
-	}
+	codeSeg.add(Opcode::ret);
 }
 
 void FuncCodeGenVisitor::visit(FunctionCallStmtNode& node)
