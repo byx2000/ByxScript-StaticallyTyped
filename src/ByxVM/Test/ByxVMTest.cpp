@@ -14,16 +14,17 @@ void ByxVMTest::Run()
 
 	// 整数存取
 	{
-		Code code;
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::iconst, 200);
-		code.add(Opcode::iconst, 300);
-		code.add(Opcode::inc);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::iconst, 200);
+		codeSeg.add(Opcode::iconst, 300);
+		codeSeg.add(Opcode::inc);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -38,14 +39,15 @@ void ByxVMTest::Run()
 
 	// 浮点数存取
 	{
-		Code code;
-		code.add(Opcode::dconst, 1.5);
-		code.add(Opcode::dconst, 2.2);
-		code.add(Opcode::dstore, 0);
-		code.add(Opcode::dconst, 3.7);
-		code.add(Opcode::dconst, 4.6);
-		code.add(Opcode::dstore, 1);
-		code.add(Opcode::dload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::dconst, 1.5);
+		codeSeg.add(Opcode::dconst, 2.2);
+		codeSeg.add(Opcode::dstore, 0);
+		codeSeg.add(Opcode::dconst, 3.7);
+		codeSeg.add(Opcode::dconst, 4.6);
+		codeSeg.add(Opcode::dstore, 1);
+		codeSeg.add(Opcode::dload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(2, 0);
@@ -61,23 +63,24 @@ void ByxVMTest::Run()
 
 	// 整数和浮点数混合存取
 	{
-		Code code;
-		code.add(Opcode::dconst, 3.14);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 37);
-		code.add(Opcode::dstore, 1);
-		code.add(Opcode::dconst, 0.2375);
-		code.add(Opcode::dstore, 2);
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::istore, 3);
-		code.add(Opcode::iconst, 249);
-		code.add(Opcode::istore, 4);
-		code.add(Opcode::dload, 4);
-		code.add(Opcode::dstore, 5);
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::dload, 1);
-		code.add(Opcode::iload, 3);
-		code.add(Opcode::dload, 5);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::dconst, 3.14);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 37);
+		codeSeg.add(Opcode::dstore, 1);
+		codeSeg.add(Opcode::dconst, 0.2375);
+		codeSeg.add(Opcode::dstore, 2);
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::istore, 3);
+		codeSeg.add(Opcode::iconst, 249);
+		codeSeg.add(Opcode::istore, 4);
+		codeSeg.add(Opcode::dload, 4);
+		codeSeg.add(Opcode::dstore, 5);
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::dload, 1);
+		codeSeg.add(Opcode::iload, 3);
+		codeSeg.add(Opcode::dload, 5);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(6, 0);
@@ -94,16 +97,17 @@ void ByxVMTest::Run()
 
 	// 整数四则运算
 	{
-		Code code;
-		code.add(Opcode::iconst, 2);
-		code.add(Opcode::iconst, 3);
-		code.add(Opcode::iadd);
-		code.add(Opcode::iconst, 6);
-		code.add(Opcode::imul);
-		code.add(Opcode::iconst, 3);
-		code.add(Opcode::idiv);
-		code.add(Opcode::iconst, 7);
-		code.add(Opcode::isub);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 2);
+		codeSeg.add(Opcode::iconst, 3);
+		codeSeg.add(Opcode::iadd);
+		codeSeg.add(Opcode::iconst, 6);
+		codeSeg.add(Opcode::imul);
+		codeSeg.add(Opcode::iconst, 3);
+		codeSeg.add(Opcode::idiv);
+		codeSeg.add(Opcode::iconst, 7);
+		codeSeg.add(Opcode::isub);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -117,16 +121,17 @@ void ByxVMTest::Run()
 
 	// 浮点数四则运算
 	{
-		Code code;
-		code.add(Opcode::dconst, 2.75);
-		code.add(Opcode::dconst, 3.6);
-		code.add(Opcode::dconst, 9.1);
-		code.add(Opcode::dmul);
-		code.add(Opcode::dadd);
-		code.add(Opcode::dconst, 6.5);
-		code.add(Opcode::ddiv);
-		code.add(Opcode::dconst, 3.8);
-		code.add(Opcode::dsub);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::dconst, 2.75);
+		codeSeg.add(Opcode::dconst, 3.6);
+		codeSeg.add(Opcode::dconst, 9.1);
+		codeSeg.add(Opcode::dmul);
+		codeSeg.add(Opcode::dadd);
+		codeSeg.add(Opcode::dconst, 6.5);
+		codeSeg.add(Opcode::ddiv);
+		codeSeg.add(Opcode::dconst, 3.8);
+		codeSeg.add(Opcode::dsub);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -140,27 +145,28 @@ void ByxVMTest::Run()
 
 	// 整数和浮点数混合四则运算
 	{
-		Code code;
-		code.add(Opcode::iconst, 6);
-		code.add(Opcode::dconst, 2.3);
-		code.add(Opcode::idiv);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 6);
-		code.add(Opcode::dconst, 2.3);
-		code.add(Opcode::ddiv);
-		code.add(Opcode::dstore, 1);
-		code.add(Opcode::iconst, 2);
-		code.add(Opcode::iconst, 3);
-		code.add(Opcode::idiv);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iconst, 2);
-		code.add(Opcode::iconst, 3);
-		code.add(Opcode::ddiv);
-		code.add(Opcode::dstore, 3);
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::dload, 1);
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::dload, 3);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 6);
+		codeSeg.add(Opcode::dconst, 2.3);
+		codeSeg.add(Opcode::idiv);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 6);
+		codeSeg.add(Opcode::dconst, 2.3);
+		codeSeg.add(Opcode::ddiv);
+		codeSeg.add(Opcode::dstore, 1);
+		codeSeg.add(Opcode::iconst, 2);
+		codeSeg.add(Opcode::iconst, 3);
+		codeSeg.add(Opcode::idiv);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iconst, 2);
+		codeSeg.add(Opcode::iconst, 3);
+		codeSeg.add(Opcode::ddiv);
+		codeSeg.add(Opcode::dstore, 3);
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::dload, 1);
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::dload, 3);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(4, 0);
@@ -177,10 +183,11 @@ void ByxVMTest::Run()
 
 	// 整数除零
 	{
-		Code code;
-		code.add(Opcode::iconst, 3);
-		code.add(Opcode::iconst, 0);
-		code.add(Opcode::idiv);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 3);
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.add(Opcode::idiv);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -192,10 +199,11 @@ void ByxVMTest::Run()
 
 	// 浮点数除零
 	{
-		Code code;
-		code.add(Opcode::dconst, 3.14);
-		code.add(Opcode::dconst, 0.0);
-		code.add(Opcode::ddiv);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::dconst, 3.14);
+		codeSeg.add(Opcode::dconst, 0.0);
+		codeSeg.add(Opcode::ddiv);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -207,22 +215,23 @@ void ByxVMTest::Run()
 
 	// icmp 整数比较
 	{
-		Code code;
-		code.add(Opcode::iconst, -1);
-		code.add(Opcode::iconst, 30);
-		code.add(Opcode::icmp);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 25);
-		code.add(Opcode::iconst, 25);
-		code.add(Opcode::icmp);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::iconst, 8);
-		code.add(Opcode::icmp);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 2);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, -1);
+		codeSeg.add(Opcode::iconst, 30);
+		codeSeg.add(Opcode::icmp);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 25);
+		codeSeg.add(Opcode::iconst, 25);
+		codeSeg.add(Opcode::icmp);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::iconst, 8);
+		codeSeg.add(Opcode::icmp);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 2);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -238,22 +247,23 @@ void ByxVMTest::Run()
 
 	// dcmp 浮点数比较
 	{
-		Code code;
-		code.add(Opcode::dconst, 3.14);
-		code.add(Opcode::dconst, 3.15);
-		code.add(Opcode::dcmp);
-		code.add(Opcode::dstore, 0);
-		code.add(Opcode::dconst, 23.75);
-		code.add(Opcode::dconst, 23.75);
-		code.add(Opcode::dcmp);
-		code.add(Opcode::dstore, 1);
-		code.add(Opcode::dconst, 23423.435);
-		code.add(Opcode::dconst, 4.68);
-		code.add(Opcode::dcmp);
-		code.add(Opcode::dstore, 2);
-		code.add(Opcode::dload, 0);
-		code.add(Opcode::dload, 1);
-		code.add(Opcode::dload, 2);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::dconst, 3.14);
+		codeSeg.add(Opcode::dconst, 3.15);
+		codeSeg.add(Opcode::dcmp);
+		codeSeg.add(Opcode::dstore, 0);
+		codeSeg.add(Opcode::dconst, 23.75);
+		codeSeg.add(Opcode::dconst, 23.75);
+		codeSeg.add(Opcode::dcmp);
+		codeSeg.add(Opcode::dstore, 1);
+		codeSeg.add(Opcode::dconst, 23423.435);
+		codeSeg.add(Opcode::dconst, 4.68);
+		codeSeg.add(Opcode::dcmp);
+		codeSeg.add(Opcode::dstore, 2);
+		codeSeg.add(Opcode::dload, 0);
+		codeSeg.add(Opcode::dload, 1);
+		codeSeg.add(Opcode::dload, 2);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -269,22 +279,23 @@ void ByxVMTest::Run()
 
 	// 整数与浮点数混合比较
 	{
-		Code code;
-		code.add(Opcode::iconst, 3);
-		code.add(Opcode::dconst, 3.14);
-		code.add(Opcode::icmp);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 3);
-		code.add(Opcode::dconst, 3.14);
-		code.add(Opcode::dcmp);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::dconst, 3.14);
-		code.add(Opcode::iconst, 3);
-		code.add(Opcode::dcmp);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 2);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 3);
+		codeSeg.add(Opcode::dconst, 3.14);
+		codeSeg.add(Opcode::icmp);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 3);
+		codeSeg.add(Opcode::dconst, 3.14);
+		codeSeg.add(Opcode::dcmp);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::dconst, 3.14);
+		codeSeg.add(Opcode::iconst, 3);
+		codeSeg.add(Opcode::dcmp);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 2);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -300,22 +311,23 @@ void ByxVMTest::Run()
 
 	// ig
 	{
-		Code code;
-		code.add(Opcode::iconst, 13);
-		code.add(Opcode::iconst, 27);
-		code.add(Opcode::ig);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 50);
-		code.add(Opcode::iconst, 50);
-		code.add(Opcode::ig);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 79);
-		code.add(Opcode::iconst, 6);
-		code.add(Opcode::ig);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 13);
+		codeSeg.add(Opcode::iconst, 27);
+		codeSeg.add(Opcode::ig);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 50);
+		codeSeg.add(Opcode::iconst, 50);
+		codeSeg.add(Opcode::ig);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 79);
+		codeSeg.add(Opcode::iconst, 6);
+		codeSeg.add(Opcode::ig);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -331,22 +343,23 @@ void ByxVMTest::Run()
 
 	// ige
 	{
-		Code code;
-		code.add(Opcode::iconst, 13);
-		code.add(Opcode::iconst, 27);
-		code.add(Opcode::ige);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 50);
-		code.add(Opcode::iconst, 50);
-		code.add(Opcode::ige);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 79);
-		code.add(Opcode::iconst, 6);
-		code.add(Opcode::ige);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 13);
+		codeSeg.add(Opcode::iconst, 27);
+		codeSeg.add(Opcode::ige);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 50);
+		codeSeg.add(Opcode::iconst, 50);
+		codeSeg.add(Opcode::ige);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 79);
+		codeSeg.add(Opcode::iconst, 6);
+		codeSeg.add(Opcode::ige);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -362,22 +375,23 @@ void ByxVMTest::Run()
 
 	// il
 	{
-		Code code;
-		code.add(Opcode::iconst, 13);
-		code.add(Opcode::iconst, 27);
-		code.add(Opcode::il);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 50);
-		code.add(Opcode::iconst, 50);
-		code.add(Opcode::il);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 79);
-		code.add(Opcode::iconst, 6);
-		code.add(Opcode::il);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 13);
+		codeSeg.add(Opcode::iconst, 27);
+		codeSeg.add(Opcode::il);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 50);
+		codeSeg.add(Opcode::iconst, 50);
+		codeSeg.add(Opcode::il);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 79);
+		codeSeg.add(Opcode::iconst, 6);
+		codeSeg.add(Opcode::il);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -393,22 +407,23 @@ void ByxVMTest::Run()
 
 	// ile
 	{
-		Code code;
-		code.add(Opcode::iconst, 13);
-		code.add(Opcode::iconst, 27);
-		code.add(Opcode::ile);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 50);
-		code.add(Opcode::iconst, 50);
-		code.add(Opcode::ile);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 79);
-		code.add(Opcode::iconst, 6);
-		code.add(Opcode::ile);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 13);
+		codeSeg.add(Opcode::iconst, 27);
+		codeSeg.add(Opcode::ile);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 50);
+		codeSeg.add(Opcode::iconst, 50);
+		codeSeg.add(Opcode::ile);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 79);
+		codeSeg.add(Opcode::iconst, 6);
+		codeSeg.add(Opcode::ile);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -424,22 +439,23 @@ void ByxVMTest::Run()
 
 	// ie
 	{
-		Code code;
-		code.add(Opcode::iconst, 13);
-		code.add(Opcode::iconst, 27);
-		code.add(Opcode::ie);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 50);
-		code.add(Opcode::iconst, 50);
-		code.add(Opcode::ie);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 79);
-		code.add(Opcode::iconst, 6);
-		code.add(Opcode::ie);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 13);
+		codeSeg.add(Opcode::iconst, 27);
+		codeSeg.add(Opcode::ie);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 50);
+		codeSeg.add(Opcode::iconst, 50);
+		codeSeg.add(Opcode::ie);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 79);
+		codeSeg.add(Opcode::iconst, 6);
+		codeSeg.add(Opcode::ie);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -455,22 +471,23 @@ void ByxVMTest::Run()
 
 	// ine
 	{
-		Code code;
-		code.add(Opcode::iconst, 13);
-		code.add(Opcode::iconst, 27);
-		code.add(Opcode::ine);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 50);
-		code.add(Opcode::iconst, 50);
-		code.add(Opcode::ine);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 79);
-		code.add(Opcode::iconst, 6);
-		code.add(Opcode::ine);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 13);
+		codeSeg.add(Opcode::iconst, 27);
+		codeSeg.add(Opcode::ine);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 50);
+		codeSeg.add(Opcode::iconst, 50);
+		codeSeg.add(Opcode::ine);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 79);
+		codeSeg.add(Opcode::iconst, 6);
+		codeSeg.add(Opcode::ine);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -486,10 +503,11 @@ void ByxVMTest::Run()
 
 	// iand
 	{
-		Code code;
-		code.add(Opcode::iconst, 2725);
-		code.add(Opcode::iconst, 66358);
-		code.add(Opcode::iand);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 2725);
+		codeSeg.add(Opcode::iconst, 66358);
+		codeSeg.add(Opcode::iand);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -503,10 +521,11 @@ void ByxVMTest::Run()
 
 	// ior
 	{
-		Code code;
-		code.add(Opcode::iconst, 2725);
-		code.add(Opcode::iconst, 66358);
-		code.add(Opcode::ior);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 2725);
+		codeSeg.add(Opcode::iconst, 66358);
+		codeSeg.add(Opcode::ior);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -520,9 +539,10 @@ void ByxVMTest::Run()
 
 	// inot
 	{
-		Code code;
-		code.add(Opcode::iconst, 2725);
-		code.add(Opcode::inot);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 2725);
+		codeSeg.add(Opcode::inot);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -536,22 +556,23 @@ void ByxVMTest::Run()
 
 	// dg
 	{
-		Code code;
-		code.add(Opcode::dconst, 1.6);
-		code.add(Opcode::dconst, 27.34);
-		code.add(Opcode::dg);
-		code.add(Opcode::dstore, 0);
-		code.add(Opcode::dconst, 332.454);
-		code.add(Opcode::dconst, 332.454);
-		code.add(Opcode::dg);
-		code.add(Opcode::dstore, 1);
-		code.add(Opcode::dconst, 0.778);
-		code.add(Opcode::dconst, 0.726);
-		code.add(Opcode::dg);
-		code.add(Opcode::dstore, 2);
-		code.add(Opcode::dload, 2);
-		code.add(Opcode::dload, 1);
-		code.add(Opcode::dload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::dconst, 1.6);
+		codeSeg.add(Opcode::dconst, 27.34);
+		codeSeg.add(Opcode::dg);
+		codeSeg.add(Opcode::dstore, 0);
+		codeSeg.add(Opcode::dconst, 332.454);
+		codeSeg.add(Opcode::dconst, 332.454);
+		codeSeg.add(Opcode::dg);
+		codeSeg.add(Opcode::dstore, 1);
+		codeSeg.add(Opcode::dconst, 0.778);
+		codeSeg.add(Opcode::dconst, 0.726);
+		codeSeg.add(Opcode::dg);
+		codeSeg.add(Opcode::dstore, 2);
+		codeSeg.add(Opcode::dload, 2);
+		codeSeg.add(Opcode::dload, 1);
+		codeSeg.add(Opcode::dload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -567,22 +588,23 @@ void ByxVMTest::Run()
 
 	// dge
 	{
-		Code code;
-		code.add(Opcode::dconst, 1.6);
-		code.add(Opcode::dconst, 27.34);
-		code.add(Opcode::dge);
-		code.add(Opcode::dstore, 0);
-		code.add(Opcode::dconst, 332.454);
-		code.add(Opcode::dconst, 332.454);
-		code.add(Opcode::dge);
-		code.add(Opcode::dstore, 1);
-		code.add(Opcode::dconst, 0.778);
-		code.add(Opcode::dconst, 0.726);
-		code.add(Opcode::dge);
-		code.add(Opcode::dstore, 2);
-		code.add(Opcode::dload, 2);
-		code.add(Opcode::dload, 1);
-		code.add(Opcode::dload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::dconst, 1.6);
+		codeSeg.add(Opcode::dconst, 27.34);
+		codeSeg.add(Opcode::dge);
+		codeSeg.add(Opcode::dstore, 0);
+		codeSeg.add(Opcode::dconst, 332.454);
+		codeSeg.add(Opcode::dconst, 332.454);
+		codeSeg.add(Opcode::dge);
+		codeSeg.add(Opcode::dstore, 1);
+		codeSeg.add(Opcode::dconst, 0.778);
+		codeSeg.add(Opcode::dconst, 0.726);
+		codeSeg.add(Opcode::dge);
+		codeSeg.add(Opcode::dstore, 2);
+		codeSeg.add(Opcode::dload, 2);
+		codeSeg.add(Opcode::dload, 1);
+		codeSeg.add(Opcode::dload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -598,22 +620,23 @@ void ByxVMTest::Run()
 
 	// dl
 	{
-		Code code;
-		code.add(Opcode::dconst, 1.6);
-		code.add(Opcode::dconst, 27.34);
-		code.add(Opcode::dl);
-		code.add(Opcode::dstore, 0);
-		code.add(Opcode::dconst, 332.454);
-		code.add(Opcode::dconst, 332.454);
-		code.add(Opcode::dl);
-		code.add(Opcode::dstore, 1);
-		code.add(Opcode::dconst, 0.778);
-		code.add(Opcode::dconst, 0.726);
-		code.add(Opcode::dl);
-		code.add(Opcode::dstore, 2);
-		code.add(Opcode::dload, 2);
-		code.add(Opcode::dload, 1);
-		code.add(Opcode::dload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::dconst, 1.6);
+		codeSeg.add(Opcode::dconst, 27.34);
+		codeSeg.add(Opcode::dl);
+		codeSeg.add(Opcode::dstore, 0);
+		codeSeg.add(Opcode::dconst, 332.454);
+		codeSeg.add(Opcode::dconst, 332.454);
+		codeSeg.add(Opcode::dl);
+		codeSeg.add(Opcode::dstore, 1);
+		codeSeg.add(Opcode::dconst, 0.778);
+		codeSeg.add(Opcode::dconst, 0.726);
+		codeSeg.add(Opcode::dl);
+		codeSeg.add(Opcode::dstore, 2);
+		codeSeg.add(Opcode::dload, 2);
+		codeSeg.add(Opcode::dload, 1);
+		codeSeg.add(Opcode::dload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -629,22 +652,23 @@ void ByxVMTest::Run()
 
 	// dle
 	{
-		Code code;
-		code.add(Opcode::dconst, 1.6);
-		code.add(Opcode::dconst, 27.34);
-		code.add(Opcode::dle);
-		code.add(Opcode::dstore, 0);
-		code.add(Opcode::dconst, 332.454);
-		code.add(Opcode::dconst, 332.454);
-		code.add(Opcode::dle);
-		code.add(Opcode::dstore, 1);
-		code.add(Opcode::dconst, 0.778);
-		code.add(Opcode::dconst, 0.726);
-		code.add(Opcode::dle);
-		code.add(Opcode::dstore, 2);
-		code.add(Opcode::dload, 2);
-		code.add(Opcode::dload, 1);
-		code.add(Opcode::dload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::dconst, 1.6);
+		codeSeg.add(Opcode::dconst, 27.34);
+		codeSeg.add(Opcode::dle);
+		codeSeg.add(Opcode::dstore, 0);
+		codeSeg.add(Opcode::dconst, 332.454);
+		codeSeg.add(Opcode::dconst, 332.454);
+		codeSeg.add(Opcode::dle);
+		codeSeg.add(Opcode::dstore, 1);
+		codeSeg.add(Opcode::dconst, 0.778);
+		codeSeg.add(Opcode::dconst, 0.726);
+		codeSeg.add(Opcode::dle);
+		codeSeg.add(Opcode::dstore, 2);
+		codeSeg.add(Opcode::dload, 2);
+		codeSeg.add(Opcode::dload, 1);
+		codeSeg.add(Opcode::dload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -660,22 +684,23 @@ void ByxVMTest::Run()
 
 	// de
 	{
-		Code code;
-		code.add(Opcode::dconst, 1.6);
-		code.add(Opcode::dconst, 27.34);
-		code.add(Opcode::de);
-		code.add(Opcode::dstore, 0);
-		code.add(Opcode::dconst, 332.454);
-		code.add(Opcode::dconst, 332.454);
-		code.add(Opcode::de);
-		code.add(Opcode::dstore, 1);
-		code.add(Opcode::dconst, 0.778);
-		code.add(Opcode::dconst, 0.726);
-		code.add(Opcode::de);
-		code.add(Opcode::dstore, 2);
-		code.add(Opcode::dload, 2);
-		code.add(Opcode::dload, 1);
-		code.add(Opcode::dload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::dconst, 1.6);
+		codeSeg.add(Opcode::dconst, 27.34);
+		codeSeg.add(Opcode::de);
+		codeSeg.add(Opcode::dstore, 0);
+		codeSeg.add(Opcode::dconst, 332.454);
+		codeSeg.add(Opcode::dconst, 332.454);
+		codeSeg.add(Opcode::de);
+		codeSeg.add(Opcode::dstore, 1);
+		codeSeg.add(Opcode::dconst, 0.778);
+		codeSeg.add(Opcode::dconst, 0.726);
+		codeSeg.add(Opcode::de);
+		codeSeg.add(Opcode::dstore, 2);
+		codeSeg.add(Opcode::dload, 2);
+		codeSeg.add(Opcode::dload, 1);
+		codeSeg.add(Opcode::dload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -691,22 +716,23 @@ void ByxVMTest::Run()
 
 	// dne
 	{
-		Code code;
-		code.add(Opcode::dconst, 1.6);
-		code.add(Opcode::dconst, 27.34);
-		code.add(Opcode::dne);
-		code.add(Opcode::dstore, 0);
-		code.add(Opcode::dconst, 332.454);
-		code.add(Opcode::dconst, 332.454);
-		code.add(Opcode::dne);
-		code.add(Opcode::dstore, 1);
-		code.add(Opcode::dconst, 0.778);
-		code.add(Opcode::dconst, 0.726);
-		code.add(Opcode::dne);
-		code.add(Opcode::dstore, 2);
-		code.add(Opcode::dload, 2);
-		code.add(Opcode::dload, 1);
-		code.add(Opcode::dload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::dconst, 1.6);
+		codeSeg.add(Opcode::dconst, 27.34);
+		codeSeg.add(Opcode::dne);
+		codeSeg.add(Opcode::dstore, 0);
+		codeSeg.add(Opcode::dconst, 332.454);
+		codeSeg.add(Opcode::dconst, 332.454);
+		codeSeg.add(Opcode::dne);
+		codeSeg.add(Opcode::dstore, 1);
+		codeSeg.add(Opcode::dconst, 0.778);
+		codeSeg.add(Opcode::dconst, 0.726);
+		codeSeg.add(Opcode::dne);
+		codeSeg.add(Opcode::dstore, 2);
+		codeSeg.add(Opcode::dload, 2);
+		codeSeg.add(Opcode::dload, 1);
+		codeSeg.add(Opcode::dload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -722,13 +748,14 @@ void ByxVMTest::Run()
 
 	// jmp
 	{
-		Code code;
-		code.add(Opcode::iconst, 2);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::jmp, 5);
-		code.add(Opcode::iconst, 3);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 2);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::jmp, 5);
+		codeSeg.add(Opcode::iconst, 3);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(1, 0);
@@ -742,31 +769,32 @@ void ByxVMTest::Run()
 
 	// jl
 	{
-		Code code;
-		code.add(Opcode::iconst, -1); // 0
-		code.add(Opcode::jl, 5);
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::jmp, 7);
-		code.add(Opcode::iconst, 200);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 0); // 7
-		code.add(Opcode::jl, 12);
-		code.add(Opcode::iconst, 300);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::jmp, 14);
-		code.add(Opcode::iconst, 400);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 1); // 14
-		code.add(Opcode::jl, 19);
-		code.add(Opcode::iconst, 500);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::jmp, 21);
-		code.add(Opcode::iconst, 600);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 0); // 21
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 2);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, -1); // 0
+		codeSeg.add(Opcode::jl, 5);
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::jmp, 7);
+		codeSeg.add(Opcode::iconst, 200);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 0); // 7
+		codeSeg.add(Opcode::jl, 12);
+		codeSeg.add(Opcode::iconst, 300);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::jmp, 14);
+		codeSeg.add(Opcode::iconst, 400);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 1); // 14
+		codeSeg.add(Opcode::jl, 19);
+		codeSeg.add(Opcode::iconst, 500);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::jmp, 21);
+		codeSeg.add(Opcode::iconst, 600);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 0); // 21
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 2);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -782,31 +810,32 @@ void ByxVMTest::Run()
 
 	// jle
 	{
-		Code code;
-		code.add(Opcode::iconst, -1); // 0
-		code.add(Opcode::jle, 5);
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::jmp, 7);
-		code.add(Opcode::iconst, 200);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 0); // 7
-		code.add(Opcode::jle, 12);
-		code.add(Opcode::iconst, 300);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::jmp, 14);
-		code.add(Opcode::iconst, 400);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 1); // 14
-		code.add(Opcode::jle, 19);
-		code.add(Opcode::iconst, 500);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::jmp, 21);
-		code.add(Opcode::iconst, 600);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 0); // 21
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 2);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, -1); // 0
+		codeSeg.add(Opcode::jle, 5);
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::jmp, 7);
+		codeSeg.add(Opcode::iconst, 200);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 0); // 7
+		codeSeg.add(Opcode::jle, 12);
+		codeSeg.add(Opcode::iconst, 300);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::jmp, 14);
+		codeSeg.add(Opcode::iconst, 400);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 1); // 14
+		codeSeg.add(Opcode::jle, 19);
+		codeSeg.add(Opcode::iconst, 500);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::jmp, 21);
+		codeSeg.add(Opcode::iconst, 600);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 0); // 21
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 2);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -822,31 +851,32 @@ void ByxVMTest::Run()
 
 	// jg
 	{
-		Code code;
-		code.add(Opcode::iconst, -1); // 0
-		code.add(Opcode::jg, 5);
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::jmp, 7);
-		code.add(Opcode::iconst, 200);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 0); // 7
-		code.add(Opcode::jg, 12);
-		code.add(Opcode::iconst, 300);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::jmp, 14);
-		code.add(Opcode::iconst, 400);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 1); // 14
-		code.add(Opcode::jg, 19);
-		code.add(Opcode::iconst, 500);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::jmp, 21);
-		code.add(Opcode::iconst, 600);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 0); // 21
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 2);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, -1); // 0
+		codeSeg.add(Opcode::jg, 5);
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::jmp, 7);
+		codeSeg.add(Opcode::iconst, 200);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 0); // 7
+		codeSeg.add(Opcode::jg, 12);
+		codeSeg.add(Opcode::iconst, 300);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::jmp, 14);
+		codeSeg.add(Opcode::iconst, 400);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 1); // 14
+		codeSeg.add(Opcode::jg, 19);
+		codeSeg.add(Opcode::iconst, 500);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::jmp, 21);
+		codeSeg.add(Opcode::iconst, 600);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 0); // 21
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 2);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -862,31 +892,32 @@ void ByxVMTest::Run()
 
 	// jge
 	{
-		Code code;
-		code.add(Opcode::iconst, -1); // 0
-		code.add(Opcode::jge, 5);
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::jmp, 7);
-		code.add(Opcode::iconst, 200);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 0); // 7
-		code.add(Opcode::jge, 12);
-		code.add(Opcode::iconst, 300);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::jmp, 14);
-		code.add(Opcode::iconst, 400);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 1); // 14
-		code.add(Opcode::jge, 19);
-		code.add(Opcode::iconst, 500);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::jmp, 21);
-		code.add(Opcode::iconst, 600);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 0); // 21
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 2);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, -1); // 0
+		codeSeg.add(Opcode::jge, 5);
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::jmp, 7);
+		codeSeg.add(Opcode::iconst, 200);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 0); // 7
+		codeSeg.add(Opcode::jge, 12);
+		codeSeg.add(Opcode::iconst, 300);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::jmp, 14);
+		codeSeg.add(Opcode::iconst, 400);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 1); // 14
+		codeSeg.add(Opcode::jge, 19);
+		codeSeg.add(Opcode::iconst, 500);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::jmp, 21);
+		codeSeg.add(Opcode::iconst, 600);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 0); // 21
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 2);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -902,31 +933,32 @@ void ByxVMTest::Run()
 
 	// je
 	{
-		Code code;
-		code.add(Opcode::iconst, -1); // 0
-		code.add(Opcode::je, 5);
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::jmp, 7);
-		code.add(Opcode::iconst, 200);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 0); // 7
-		code.add(Opcode::je, 12);
-		code.add(Opcode::iconst, 300);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::jmp, 14);
-		code.add(Opcode::iconst, 400);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 1); // 14
-		code.add(Opcode::je, 19);
-		code.add(Opcode::iconst, 500);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::jmp, 21);
-		code.add(Opcode::iconst, 600);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 0); // 21
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 2);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, -1); // 0
+		codeSeg.add(Opcode::je, 5);
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::jmp, 7);
+		codeSeg.add(Opcode::iconst, 200);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 0); // 7
+		codeSeg.add(Opcode::je, 12);
+		codeSeg.add(Opcode::iconst, 300);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::jmp, 14);
+		codeSeg.add(Opcode::iconst, 400);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 1); // 14
+		codeSeg.add(Opcode::je, 19);
+		codeSeg.add(Opcode::iconst, 500);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::jmp, 21);
+		codeSeg.add(Opcode::iconst, 600);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 0); // 21
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 2);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -942,31 +974,32 @@ void ByxVMTest::Run()
 
 	// jne
 	{
-		Code code;
-		code.add(Opcode::iconst, -1); // 0
-		code.add(Opcode::jne, 5);
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::jmp, 7);
-		code.add(Opcode::iconst, 200);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 0); // 7
-		code.add(Opcode::jne, 12);
-		code.add(Opcode::iconst, 300);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::jmp, 14);
-		code.add(Opcode::iconst, 400);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 1); // 14
-		code.add(Opcode::jne, 19);
-		code.add(Opcode::iconst, 500);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::jmp, 21);
-		code.add(Opcode::iconst, 600);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iload, 0); // 21
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 2);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, -1); // 0
+		codeSeg.add(Opcode::jne, 5);
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::jmp, 7);
+		codeSeg.add(Opcode::iconst, 200);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 0); // 7
+		codeSeg.add(Opcode::jne, 12);
+		codeSeg.add(Opcode::iconst, 300);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::jmp, 14);
+		codeSeg.add(Opcode::iconst, 400);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 1); // 14
+		codeSeg.add(Opcode::jne, 19);
+		codeSeg.add(Opcode::iconst, 500);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::jmp, 21);
+		codeSeg.add(Opcode::iconst, 600);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iload, 0); // 21
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 2);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(3, 0);
@@ -982,24 +1015,25 @@ void ByxVMTest::Run()
 
 	// 循环测试
 	{
-		Code code;
-		code.add(Opcode::iconst, 0);
-		code.add(Opcode::istore, 0); // s = 0
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::istore, 1); // i = 1
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::icmp); 
-		code.add(Opcode::jg, 16); // i > 100 ?
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iadd);
-		code.add(Opcode::istore, 0); // s = s + i
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::inc);
-		code.add(Opcode::istore, 1); // i++
-		code.add(Opcode::jmp, 4);
-		code.add(Opcode::iload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.add(Opcode::istore, 0); // s = 0
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::istore, 1); // i = 1
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::icmp); 
+		codeSeg.add(Opcode::jg, 16); // i > 100 ?
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iadd);
+		codeSeg.add(Opcode::istore, 0); // s = s + i
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::inc);
+		codeSeg.add(Opcode::istore, 1); // i++
+		codeSeg.add(Opcode::jmp, 4);
+		codeSeg.add(Opcode::iload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(2, 0);
@@ -1013,15 +1047,16 @@ void ByxVMTest::Run()
 
 	// 函数调用1
 	{
-		Code code;
-		code.add(Opcode::iconst, 25); // function main
-		code.add(Opcode::call, 1); // foo(25)
-		code.add(Opcode::ret);
-		code.add(Opcode::istore, 0); // function foo
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::imul);
-		code.add(Opcode::ret);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 25); // function main
+		codeSeg.add(Opcode::call, 1); // foo(25)
+		codeSeg.add(Opcode::ret);
+		codeSeg.add(Opcode::istore, 0); // function foo
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::imul);
+		codeSeg.add(Opcode::ret);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -1036,31 +1071,32 @@ void ByxVMTest::Run()
 
 	// 函数调用2
 	{
-		Code code;
-		code.add(Opcode::istore, 0); // int sum(int n)
-		code.add(Opcode::iconst, 0);
-		code.add(Opcode::istore, 1); // int s = 0
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::istore, 2); // int i = 1
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::icmp);
-		code.add(Opcode::jg, 17); // i > n?
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::iadd);
-		code.add(Opcode::istore, 1); // s += i
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::inc);
-		code.add(Opcode::istore, 2); // i++
-		code.add(Opcode::jmp, 5);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::ret); // return s
-		code.add(Opcode::iconst, 100); // void main()
-		code.add(Opcode::call, 1); // sum(100);
-		code.add(Opcode::iconst, 2378);
-		code.add(Opcode::call, 1); // sum(1000);
-		code.add(Opcode::ret); // return
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::istore, 0); // int sum(int n)
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.add(Opcode::istore, 1); // int s = 0
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::istore, 2); // int i = 1
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::icmp);
+		codeSeg.add(Opcode::jg, 17); // i > n?
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::iadd);
+		codeSeg.add(Opcode::istore, 1); // s += i
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::inc);
+		codeSeg.add(Opcode::istore, 2); // i++
+		codeSeg.add(Opcode::jmp, 5);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::ret); // return s
+		codeSeg.add(Opcode::iconst, 100); // void main()
+		codeSeg.add(Opcode::call, 1); // sum(100);
+		codeSeg.add(Opcode::iconst, 2378);
+		codeSeg.add(Opcode::call, 1); // sum(1000);
+		codeSeg.add(Opcode::ret); // return
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 19);
@@ -1076,31 +1112,32 @@ void ByxVMTest::Run()
 
 	// 函数调用3
 	{
-		Code code;
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::istore, 1); // int pow(int a, int b)
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::istore, 2); // r = 1
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::istore, 3); // i = 1
-		code.add(Opcode::iload, 3);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::ile); // i <= b?
-		code.add(Opcode::je, 18);
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::imul);
-		code.add(Opcode::istore, 2); // r *= a
-		code.add(Opcode::iload, 3);
-		code.add(Opcode::inc);
-		code.add(Opcode::istore, 3); // i++
-		code.add(Opcode::jmp, 6);
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::ret); // return r
-		code.add(Opcode::iconst, 6); // void main()
-		code.add(Opcode::iconst, 17);
-		code.add(Opcode::call, 1); // pow(17, 6)
-		code.add(Opcode::ret);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::istore, 1); // int pow(int a, int b)
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::istore, 2); // r = 1
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::istore, 3); // i = 1
+		codeSeg.add(Opcode::iload, 3);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::ile); // i <= b?
+		codeSeg.add(Opcode::je, 18);
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::imul);
+		codeSeg.add(Opcode::istore, 2); // r *= a
+		codeSeg.add(Opcode::iload, 3);
+		codeSeg.add(Opcode::inc);
+		codeSeg.add(Opcode::istore, 3); // i++
+		codeSeg.add(Opcode::jmp, 6);
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::ret); // return r
+		codeSeg.add(Opcode::iconst, 6); // void main()
+		codeSeg.add(Opcode::iconst, 17);
+		codeSeg.add(Opcode::call, 1); // pow(17, 6)
+		codeSeg.add(Opcode::ret);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 20);
@@ -1115,28 +1152,29 @@ void ByxVMTest::Run()
 
 	// 函数调用4
 	{
-		Code code;
-		code.add(Opcode::istore, 0); // int fac(int n)
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 0);
-		code.add(Opcode::ie); // n == 0 ?
-		code.add(Opcode::jne, 6);
-		code.add(Opcode::jmp, 8);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::ret); // return 1
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::isub);
-		code.add(Opcode::call, 1); // fac(n - 1)
-		code.add(Opcode::imul);
-		code.add(Opcode::ret); // return n * fac(n - 1)
-		code.add(Opcode::iconst, 5); // void main()
-		code.add(Opcode::call, 1); // fac(5)
-		code.add(Opcode::iconst, 10);
-		code.add(Opcode::call, 1); // fac(10)
-		code.add(Opcode::iadd); // fac(5) + fac(10)
-		code.add(Opcode::ret);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::istore, 0); // int fac(int n)
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.add(Opcode::ie); // n == 0 ?
+		codeSeg.add(Opcode::jne, 6);
+		codeSeg.add(Opcode::jmp, 8);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::ret); // return 1
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::isub);
+		codeSeg.add(Opcode::call, 1); // fac(n - 1)
+		codeSeg.add(Opcode::imul);
+		codeSeg.add(Opcode::ret); // return n * fac(n - 1)
+		codeSeg.add(Opcode::iconst, 5); // void main()
+		codeSeg.add(Opcode::call, 1); // fac(5)
+		codeSeg.add(Opcode::iconst, 10);
+		codeSeg.add(Opcode::call, 1); // fac(10)
+		codeSeg.add(Opcode::iadd); // fac(5) + fac(10)
+		codeSeg.add(Opcode::ret);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 15);
@@ -1151,35 +1189,36 @@ void ByxVMTest::Run()
 
 	// 函数调用5
 	{
-		Code code;
-		code.add(Opcode::iconst, 20); // void main()
-		code.add(Opcode::call, 1); // fib(20)
-		code.add(Opcode::iconst, 23);
-		code.add(Opcode::call, 1); // fib(23)
-		code.add(Opcode::iadd); // fib(20) + fib(23)
-		code.add(Opcode::ret);
-		code.add(Opcode::istore, 0); // int fib(int n)
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::ie); // n == 1 ?
-		code.add(Opcode::jne, 16);
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 2);
-		code.add(Opcode::ie); // n == 2 ?
-		code.add(Opcode::jne, 16);
-		code.add(Opcode::jmp, 18);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::ret); // return 1
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::isub);
-		code.add(Opcode::call, 1); // fib(n - 1)
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 2);
-		code.add(Opcode::isub);
-		code.add(Opcode::call, 1); // fib(n - 2)
-		code.add(Opcode::iadd);
-		code.add(Opcode::ret); // return fib(n - 1) + fib(n - 2)
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 20); // void main()
+		codeSeg.add(Opcode::call, 1); // fib(20)
+		codeSeg.add(Opcode::iconst, 23);
+		codeSeg.add(Opcode::call, 1); // fib(23)
+		codeSeg.add(Opcode::iadd); // fib(20) + fib(23)
+		codeSeg.add(Opcode::ret);
+		codeSeg.add(Opcode::istore, 0); // int fib(int n)
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::ie); // n == 1 ?
+		codeSeg.add(Opcode::jne, 16);
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 2);
+		codeSeg.add(Opcode::ie); // n == 2 ?
+		codeSeg.add(Opcode::jne, 16);
+		codeSeg.add(Opcode::jmp, 18);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::ret); // return 1
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::isub);
+		codeSeg.add(Opcode::call, 1); // fib(n - 1)
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 2);
+		codeSeg.add(Opcode::isub);
+		codeSeg.add(Opcode::call, 1); // fib(n - 2)
+		codeSeg.add(Opcode::iadd);
+		codeSeg.add(Opcode::ret); // return fib(n - 1) + fib(n - 2)
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -1194,35 +1233,36 @@ void ByxVMTest::Run()
 
 	// 异常测试1
 	{
-		Code code;
-		code.add(Opcode::iconst, 20); // void main()
-		code.add(Opcode::call, 1); // fib(20)
-		code.add(Opcode::iconst, 23);
-		code.add(Opcode::call, 1); // fib(23)
-		code.add(Opcode::iadd); // fib(20) + fib(23)
-		code.add(Opcode::ret);
-		code.add(Opcode::istore, 0); // int fib(int n)
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::ie); // n == 1 ?
-		code.add(Opcode::jne, 16);
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 2);
-		code.add(Opcode::ie); // n == 2 ?
-		code.add(Opcode::jne, 16);
-		code.add(Opcode::jmp, 18);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::ret); // return 1
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::isub);
-		code.add(Opcode::call, 1); // fib(n - 1)
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 2);
-		code.add(Opcode::isub);
-		code.add(Opcode::call, 1); // fib(n - 2)
-		code.add(Opcode::iadd);
-		code.add(Opcode::ret); // return fib(n - 1) + fib(n - 2)
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 20); // void main()
+		codeSeg.add(Opcode::call, 1); // fib(20)
+		codeSeg.add(Opcode::iconst, 23);
+		codeSeg.add(Opcode::call, 1); // fib(23)
+		codeSeg.add(Opcode::iadd); // fib(20) + fib(23)
+		codeSeg.add(Opcode::ret);
+		codeSeg.add(Opcode::istore, 0); // int fib(int n)
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::ie); // n == 1 ?
+		codeSeg.add(Opcode::jne, 16);
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 2);
+		codeSeg.add(Opcode::ie); // n == 2 ?
+		codeSeg.add(Opcode::jne, 16);
+		codeSeg.add(Opcode::jmp, 18);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::ret); // return 1
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::isub);
+		codeSeg.add(Opcode::call, 1); // fib(n - 1)
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 2);
+		codeSeg.add(Opcode::isub);
+		codeSeg.add(Opcode::call, 1); // fib(n - 2)
+		codeSeg.add(Opcode::iadd);
+		codeSeg.add(Opcode::ret); // return fib(n - 1) + fib(n - 2)
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -1234,35 +1274,36 @@ void ByxVMTest::Run()
 
 	// 异常测试2
 	{
-		Code code;
-		code.add(Opcode::iconst, 20); // void main()
-		code.add(Opcode::call, 2); // fib(20)
-		code.add(Opcode::iconst, 23);
-		code.add(Opcode::call, 1); // fib(23)
-		code.add(Opcode::iadd); // fib(20) + fib(23)
-		code.add(Opcode::ret);
-		code.add(Opcode::istore, 0); // int fib(int n)
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::ie); // n == 1 ?
-		code.add(Opcode::jne, 16);
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 2);
-		code.add(Opcode::ie); // n == 2 ?
-		code.add(Opcode::jne, 16);
-		code.add(Opcode::jmp, 18);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::ret); // return 1
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::isub);
-		code.add(Opcode::call, 1); // fib(n - 1)
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 2);
-		code.add(Opcode::isub);
-		code.add(Opcode::call, 1); // fib(n - 2)
-		code.add(Opcode::iadd);
-		code.add(Opcode::ret); // return fib(n - 1) + fib(n - 2)
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 20); // void main()
+		codeSeg.add(Opcode::call, 2); // fib(20)
+		codeSeg.add(Opcode::iconst, 23);
+		codeSeg.add(Opcode::call, 1); // fib(23)
+		codeSeg.add(Opcode::iadd); // fib(20) + fib(23)
+		codeSeg.add(Opcode::ret);
+		codeSeg.add(Opcode::istore, 0); // int fib(int n)
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::ie); // n == 1 ?
+		codeSeg.add(Opcode::jne, 16);
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 2);
+		codeSeg.add(Opcode::ie); // n == 2 ?
+		codeSeg.add(Opcode::jne, 16);
+		codeSeg.add(Opcode::jmp, 18);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::ret); // return 1
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::isub);
+		codeSeg.add(Opcode::call, 1); // fib(n - 1)
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 2);
+		codeSeg.add(Opcode::isub);
+		codeSeg.add(Opcode::call, 1); // fib(n - 2)
+		codeSeg.add(Opcode::iadd);
+		codeSeg.add(Opcode::ret); // return fib(n - 1) + fib(n - 2)
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -1274,36 +1315,37 @@ void ByxVMTest::Run()
 
 	// 异常测试3
 	{
-		Code code;
-		code.add(Opcode::iconst, 20); // void main()
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::call, 1); // fib(20)
-		code.add(Opcode::iconst, 23);
-		code.add(Opcode::call, 1); // fib(23)
-		code.add(Opcode::iadd); // fib(20) + fib(23)
-		code.add(Opcode::ret);
-		code.add(Opcode::istore, 0); // int fib(int n)
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::ie); // n == 1 ?
-		code.add(Opcode::jne, 16);
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 2);
-		code.add(Opcode::ie); // n == 2 ?
-		code.add(Opcode::jne, 16);
-		code.add(Opcode::jmp, 18);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::ret); // return 1
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::isub);
-		code.add(Opcode::call, 1); // fib(n - 1)
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iconst, 2);
-		code.add(Opcode::isub);
-		code.add(Opcode::call, 1); // fib(n - 2)
-		code.add(Opcode::iadd);
-		code.add(Opcode::ret); // return fib(n - 1) + fib(n - 2)
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 20); // void main()
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::call, 1); // fib(20)
+		codeSeg.add(Opcode::iconst, 23);
+		codeSeg.add(Opcode::call, 1); // fib(23)
+		codeSeg.add(Opcode::iadd); // fib(20) + fib(23)
+		codeSeg.add(Opcode::ret);
+		codeSeg.add(Opcode::istore, 0); // int fib(int n)
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::ie); // n == 1 ?
+		codeSeg.add(Opcode::jne, 16);
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 2);
+		codeSeg.add(Opcode::ie); // n == 2 ?
+		codeSeg.add(Opcode::jne, 16);
+		codeSeg.add(Opcode::jmp, 18);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::ret); // return 1
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::isub);
+		codeSeg.add(Opcode::call, 1); // fib(n - 1)
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iconst, 2);
+		codeSeg.add(Opcode::isub);
+		codeSeg.add(Opcode::call, 1); // fib(n - 2)
+		codeSeg.add(Opcode::iadd);
+		codeSeg.add(Opcode::ret); // return fib(n - 1) + fib(n - 2)
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(1, 0);
@@ -1315,22 +1357,23 @@ void ByxVMTest::Run()
 
 	// 全局变量测试
 	{
-		Code code;
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::igstore, 0);
-		code.add(Opcode::dconst, 3.14);
-		code.add(Opcode::dgstore, 1);
-		code.add(Opcode::igload, 0);
-		code.add(Opcode::iconst, 10);
-		code.add(Opcode::iadd);
-		code.add(Opcode::igstore, 0);
-		code.add(Opcode::dgload, 1);
-		code.add(Opcode::dconst, 2.0);
-		code.add(Opcode::dmul);
-		code.add(Opcode::dgstore, 1);
-		code.add(Opcode::igload, 0);
-		code.add(Opcode::dgload, 1);
-		code.add(Opcode::ret);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::igstore, 0);
+		codeSeg.add(Opcode::dconst, 3.14);
+		codeSeg.add(Opcode::dgstore, 1);
+		codeSeg.add(Opcode::igload, 0);
+		codeSeg.add(Opcode::iconst, 10);
+		codeSeg.add(Opcode::iadd);
+		codeSeg.add(Opcode::igstore, 0);
+		codeSeg.add(Opcode::dgload, 1);
+		codeSeg.add(Opcode::dconst, 2.0);
+		codeSeg.add(Opcode::dmul);
+		codeSeg.add(Opcode::dgstore, 1);
+		codeSeg.add(Opcode::igload, 0);
+		codeSeg.add(Opcode::dgload, 1);
+		codeSeg.add(Opcode::ret);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -1345,22 +1388,23 @@ void ByxVMTest::Run()
 
 	// 异常测试4
 	{
-		Code code;
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::igstore, 0);
-		code.add(Opcode::dconst, 3.14);
-		code.add(Opcode::dgstore, 1);
-		code.add(Opcode::igload, 0);
-		code.add(Opcode::iconst, 10);
-		code.add(Opcode::iadd);
-		code.add(Opcode::igstore, 0);
-		code.add(Opcode::dgload, 1);
-		code.add(Opcode::dconst, 2.0);
-		code.add(Opcode::dmul);
-		code.add(Opcode::dgstore, 1);
-		code.add(Opcode::igload, 0);
-		code.add(Opcode::dgload, 1);
-		code.add(Opcode::ret);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::igstore, 0);
+		codeSeg.add(Opcode::dconst, 3.14);
+		codeSeg.add(Opcode::dgstore, 1);
+		codeSeg.add(Opcode::igload, 0);
+		codeSeg.add(Opcode::iconst, 10);
+		codeSeg.add(Opcode::iadd);
+		codeSeg.add(Opcode::igstore, 0);
+		codeSeg.add(Opcode::dgload, 1);
+		codeSeg.add(Opcode::dconst, 2.0);
+		codeSeg.add(Opcode::dmul);
+		codeSeg.add(Opcode::dgstore, 1);
+		codeSeg.add(Opcode::igload, 0);
+		codeSeg.add(Opcode::dgload, 1);
+		codeSeg.add(Opcode::ret);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -1372,22 +1416,23 @@ void ByxVMTest::Run()
 
 	// 异常测试5
 	{
-		Code code;
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::igstore, 0);
-		code.add(Opcode::dconst, 3.14);
-		code.add(Opcode::dgstore, 1);
-		code.add(Opcode::igload, 0);
-		code.add(Opcode::iconst, 10);
-		code.add(Opcode::iadd);
-		code.add(Opcode::igstore, 0);
-		code.add(Opcode::dgload, 1);
-		code.add(Opcode::dconst, 2.0);
-		code.add(Opcode::dmul);
-		code.add(Opcode::dgstore, 1);
-		code.add(Opcode::igload, 0);
-		code.add(Opcode::dgload, 1);
-		code.add(Opcode::ret);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::igstore, 0);
+		codeSeg.add(Opcode::dconst, 3.14);
+		codeSeg.add(Opcode::dgstore, 1);
+		codeSeg.add(Opcode::igload, 0);
+		codeSeg.add(Opcode::iconst, 10);
+		codeSeg.add(Opcode::iadd);
+		codeSeg.add(Opcode::igstore, 0);
+		codeSeg.add(Opcode::dgload, 1);
+		codeSeg.add(Opcode::dconst, 2.0);
+		codeSeg.add(Opcode::dmul);
+		codeSeg.add(Opcode::dgstore, 1);
+		codeSeg.add(Opcode::igload, 0);
+		codeSeg.add(Opcode::dgload, 1);
+		codeSeg.add(Opcode::ret);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -1399,23 +1444,24 @@ void ByxVMTest::Run()
 
 	// toi tod
 	{
-		Code code;
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::toi);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::dconst, 3.14);
-		code.add(Opcode::toi);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::tod);
-		code.add(Opcode::dstore, 2);
-		code.add(Opcode::dconst, 3.14);
-		code.add(Opcode::tod);
-		code.add(Opcode::dstore, 3);
-		code.add(Opcode::dload, 3);
-		code.add(Opcode::dload, 2);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::toi);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::dconst, 3.14);
+		codeSeg.add(Opcode::toi);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::tod);
+		codeSeg.add(Opcode::dstore, 2);
+		codeSeg.add(Opcode::dconst, 3.14);
+		codeSeg.add(Opcode::tod);
+		codeSeg.add(Opcode::dstore, 3);
+		codeSeg.add(Opcode::dload, 3);
+		codeSeg.add(Opcode::dload, 2);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(4, 0);
@@ -1432,11 +1478,12 @@ void ByxVMTest::Run()
 
 	// pop
 	{
-		Code code;
-		code.add(Opcode::iconst, 100);
-		code.add(Opcode::iconst, 200);
-		code.add(Opcode::dconst, 3.14);
-		code.add(Opcode::pop);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 100);
+		codeSeg.add(Opcode::iconst, 200);
+		codeSeg.add(Opcode::dconst, 3.14);
+		codeSeg.add(Opcode::pop);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -1452,17 +1499,18 @@ void ByxVMTest::Run()
 
 	// rem
 	{
-		Code code;
-		code.add(Opcode::iconst, 3);
-		code.add(Opcode::iconst, 10);
-		code.add(Opcode::rem);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 10);
-		code.add(Opcode::iconst, 3);
-		code.add(Opcode::rem);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iload, 0);
-		code.add(Opcode::iload, 1);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 3);
+		codeSeg.add(Opcode::iconst, 10);
+		codeSeg.add(Opcode::rem);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 10);
+		codeSeg.add(Opcode::iconst, 3);
+		codeSeg.add(Opcode::rem);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iload, 0);
+		codeSeg.add(Opcode::iload, 1);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(2, 0);
@@ -1477,10 +1525,11 @@ void ByxVMTest::Run()
 
 	// rem异常
 	{
-		Code code;
-		code.add(Opcode::iconst, 3);
-		code.add(Opcode::iconst, 0);
-		code.add(Opcode::rem);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 3);
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.add(Opcode::rem);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(0, 0);
@@ -1491,27 +1540,28 @@ void ByxVMTest::Run()
 
 	// land
 	{
-		Code code;
-		code.add(Opcode::iconst, 0);
-		code.add(Opcode::iconst, 0);
-		code.add(Opcode::land);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::iconst, 0);
-		code.add(Opcode::land);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::iconst, 0);
-		code.add(Opcode::land);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::land);
-		code.add(Opcode::istore, 3);
-		code.add(Opcode::iload, 3);
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.add(Opcode::land);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.add(Opcode::land);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.add(Opcode::land);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::land);
+		codeSeg.add(Opcode::istore, 3);
+		codeSeg.add(Opcode::iload, 3);
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(4, 0);
@@ -1528,27 +1578,28 @@ void ByxVMTest::Run()
 
 	// lor
 	{
-		Code code;
-		code.add(Opcode::iconst, 0);
-		code.add(Opcode::iconst, 0);
-		code.add(Opcode::lor);
-		code.add(Opcode::istore, 0);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::iconst, 0);
-		code.add(Opcode::lor);
-		code.add(Opcode::istore, 1);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::iconst, 0);
-		code.add(Opcode::lor);
-		code.add(Opcode::istore, 2);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::iconst, 1);
-		code.add(Opcode::lor);
-		code.add(Opcode::istore, 3);
-		code.add(Opcode::iload, 3);
-		code.add(Opcode::iload, 2);
-		code.add(Opcode::iload, 1);
-		code.add(Opcode::iload, 0);
+		CodeSeg codeSeg;
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.add(Opcode::lor);
+		codeSeg.add(Opcode::istore, 0);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.add(Opcode::lor);
+		codeSeg.add(Opcode::istore, 1);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::iconst, 0);
+		codeSeg.add(Opcode::lor);
+		codeSeg.add(Opcode::istore, 2);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::iconst, 1);
+		codeSeg.add(Opcode::lor);
+		codeSeg.add(Opcode::istore, 3);
+		codeSeg.add(Opcode::iload, 3);
+		codeSeg.add(Opcode::iload, 2);
+		codeSeg.add(Opcode::iload, 1);
+		codeSeg.add(Opcode::iload, 0);
+		Code code(codeSeg);
 
 		FunctionTable table;
 		table.add(4, 0);

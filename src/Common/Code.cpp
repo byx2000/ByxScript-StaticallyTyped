@@ -10,26 +10,6 @@ Code::Code(const CodeSeg& seg)
 	PC = 0;
 }
 
-void Code::add(Opcode op)
-{
-	insts.push_back(Instruction(op));
-}
-
-void Code::add(Opcode op, int p)
-{
-	insts.push_back(Instruction(op, p));
-}
-
-void Code::add(Opcode op, double p)
-{
-	insts.push_back(Instruction(op, p));
-}
-
-void Code::add(const Instruction& inst)
-{
-	insts.push_back(inst);
-}
-
 Instruction& Code::getNextInst()
 {
 	static Instruction last(Opcode::halt);
