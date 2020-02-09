@@ -5,15 +5,65 @@
 
 using namespace std;
 
-CodeGenVisitor::CodeGenVisitor(ByxParser& parser, const std::string& curFuncName)
-	: parser(parser), curFuncName(curFuncName)
+CodeGenVisitor::CodeGenVisitor(ByxParser& parser)
+	: inGlobal(inGlobal), parser(parser)
 {
+	inGlobal = false;
 	inLoop = false;
 }
 
 CodeSeg CodeGenVisitor::getCode() const
 {
 	return codeSeg;
+}
+
+void CodeGenVisitor::visit(ProgramNode& node)
+{
+	for (int i = 0; i < (int)node.stmts.size(); ++i)
+	{
+		inGlobal = true;
+		node.stmts[i]->visit(*this);
+	}
+}
+
+void CodeGenVisitor::visit(FunctionDeclareNode& node)
+{
+	// 获取函数信息
+	FunctionInfo info = parser.functionInfo[node.name];
+
+	// 设置函数起始地址
+	parser.functionTable.setAddr(info.index, codeSeg.getSize());
+
+	// 为main函数添加全局变量初始化代码
+	if (node.name == "main")
+	{
+		codeSeg.add(parser.initCode);
+	}
+
+	// 生成参数读取指令
+	int cnt = 0;
+	for (int i = 0; i < (int)node.paramName.size(); ++i)
+	{
+		if (node.paramType[i] == DataType::Integer)
+		{
+			codeSeg.add(Opcode::istore, cnt);
+		}
+		else if (node.paramType[i] == DataType::Double)
+		{
+			codeSeg.add(Opcode::dstore, cnt);
+		}
+		cnt++;
+	}
+
+	// 生成函数体代码
+	inGlobal = false;
+	for (int i = 0; i < (int)node.body.size(); ++i)
+	{
+		node.body[i]->visit(*this);
+	}
+
+	// 添加ret指令
+	codeSeg.add(Opcode::ret);
 }
 
 void CodeGenVisitor::visit(IntegerNode& node)
@@ -28,6 +78,11 @@ void CodeGenVisitor::visit(DoubleNode& node)
 
 void CodeGenVisitor::visit(IntDeclareNode& node)
 {
+	if (inGlobal)
+	{
+		return;
+	}
+
 	node.expr->visit(*this);
 	if (node.symbol.isGlobal)
 	{
@@ -41,6 +96,11 @@ void CodeGenVisitor::visit(IntDeclareNode& node)
 
 void CodeGenVisitor::visit(DoubleDeclareNode& node)
 {
+	if (inGlobal)
+	{
+		return;
+	}
+
 	node.expr->visit(*this);
 	if (node.symbol.isGlobal)
 	{

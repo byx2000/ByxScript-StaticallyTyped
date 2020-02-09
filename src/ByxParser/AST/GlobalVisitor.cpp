@@ -34,11 +34,6 @@ void GlobalVisitor::visit(IntDeclareNode& node)
 
 void GlobalVisitor::visit(DoubleDeclareNode& node)
 {	
-	/*CodeGenVisitor visitor(parser);
-	node.visit(visitor);
-	CodeSeg seg = visitor.getCodeSeg();
-	initCode.add(seg);*/
-
 	CodeGenVisitor visitor(parser);
 	node.visit(visitor);
 	CodeSeg seg = visitor.getCode();

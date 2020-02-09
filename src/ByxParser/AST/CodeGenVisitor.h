@@ -9,17 +9,20 @@ class ByxParser;
 class CodeGenVisitor : public ASTVisitor
 {
 public:
-	CodeGenVisitor(ByxParser& parser, const std::string& curFuncName = "");
+	CodeGenVisitor(ByxParser& parser);
 	CodeSeg getCode() const;
 
 private:
 	ByxParser& parser;
-	std::string curFuncName;
 	CodeSeg codeSeg;
+
+	bool inGlobal;
 	std::vector<int> breakStmtIndex;
 	std::vector<int> continueStmtIndex;
 	bool inLoop;
 
+	virtual void visit(ProgramNode& node) override;
+	virtual void visit(FunctionDeclareNode& node) override;
 	virtual void visit(IntegerNode& node) override;
 	virtual void visit(DoubleNode& node) override;
 	virtual void visit(IntDeclareNode& node) override;

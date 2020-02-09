@@ -148,7 +148,6 @@
     <ClCompile Include="src\ByxParser\AST\AST.cpp" />
     <ClCompile Include="src\ByxParser\AST\ASTVisitor.cpp" />
     <ClCompile Include="src\ByxParser\AST\CodeGenVisitor.cpp" />
-    <ClCompile Include="src\ByxParser\AST\FuncCombVisitor.cpp" />
     <ClCompile Include="src\ByxParser\AST\GlobalVisitor.cpp" />
     <ClCompile Include="src\ByxParser\AST\SymbolVisitor.cpp" />
     <ClCompile Include="src\ByxParser\AST\ToStringVisitor.cpp" />
@@ -181,7 +180,6 @@
     <ClInclude Include="src\ByxParser\AST\AST.h" />
     <ClInclude Include="src\ByxParser\AST\ASTVisitor.h" />
     <ClInclude Include="src\ByxParser\AST\CodeGenVisitor.h" />
-    <ClInclude Include="src\ByxParser\AST\FuncCombVisitor.h" />
     <ClInclude Include="src\ByxParser\AST\GlobalVisitor.h" />
     <ClInclude Include="src\ByxParser\AST\SymbolVisitor.h" />
     <ClInclude Include="src\ByxParser\AST\ToStringVisitor.h" />
