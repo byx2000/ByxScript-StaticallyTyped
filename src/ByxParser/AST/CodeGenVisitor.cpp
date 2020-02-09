@@ -37,7 +37,7 @@ void CodeGenVisitor::visit(FunctionDeclareNode& node)
 	// 为main函数添加全局变量初始化代码
 	if (node.name == "main")
 	{
-		codeSeg.add(parser.initCode);
+		codeSeg.add(parser.globalCode);
 	}
 
 	// 生成参数读取指令

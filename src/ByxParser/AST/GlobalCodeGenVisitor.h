@@ -8,17 +8,17 @@
 
 class ByxParser;
 
-class GlobalVisitor : public ASTVisitor
+class GlobalCodeGenVisitor : public ASTVisitor
 {
 public:
-	GlobalVisitor(ByxParser& parser);
-	CodeSeg getInitCode();
+	GlobalCodeGenVisitor(ByxParser& parser);
+	CodeSeg getGlobalCode();
 
 private:	
 	ByxParser& parser;
 	int funcIndex;
 	int varIndex;
-	CodeSeg initCode;
+	CodeSeg globalCode;
 
 	virtual void visit(ProgramNode& node) override;
 	virtual void visit(IntDeclareNode& node) override;

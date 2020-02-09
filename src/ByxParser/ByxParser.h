@@ -14,7 +14,7 @@
 class ByxParser
 {
 	friend class CodeGenVisitor;
-	friend class GlobalVisitor;
+	friend class GlobalCodeGenVisitor;
 	friend class SymbolVisitor;
 	friend class CodeGenVisitor;
 	friend class FuncCombVisitor;
@@ -49,7 +49,7 @@ private:
 	bool parsingForHeader;
 
 	FunctionTable functionTable; // 函数表
-	CodeSeg initCode; // 初始化全局变量的代码
+	CodeSeg globalCode; // 初始化全局变量的代码
 	std::map<std::string, FunctionInfo> functionInfo; // 函数信息
 
 	int globalSpace; // 全局变量空间大小

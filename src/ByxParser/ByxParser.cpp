@@ -1,7 +1,6 @@
 #include "ByxParser.h"
-#include "AST/GlobalVisitor.h"
+#include "AST/GlobalCodeGenVisitor.h"
 #include "AST/ToStringVisitor.h"
-//#include "AST/FuncCombVisitor.h"
 
 #include <sstream>
 #include <iostream>
@@ -69,9 +68,9 @@ ByxParser& ByxParser::parse()
 	functionInfo = symbolVisitor.getFunctionInfo();
 
 	// 第二遍遍历：生成全局初始化代码
-	GlobalVisitor globalVisitor(*this);
+	GlobalCodeGenVisitor globalVisitor(*this);
 	ast->visit(globalVisitor);
-	initCode = globalVisitor.getInitCode();
+	globalCode = globalVisitor.getGlobalCode();
 
 	// 第三遍遍历：生成所有代码
 	/*FuncCombVisitor funcCombVisitor(*this);

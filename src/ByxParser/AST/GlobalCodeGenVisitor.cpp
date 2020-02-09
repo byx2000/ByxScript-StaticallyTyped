@@ -1,22 +1,22 @@
-#include "GlobalVisitor.h"
+#include "GlobalCodeGenVisitor.h"
 #include "../ByxParser.h"
 #include "CodeGenVisitor.h"
 
 using namespace std;
 
-GlobalVisitor::GlobalVisitor(ByxParser& parser)
+GlobalCodeGenVisitor::GlobalCodeGenVisitor(ByxParser& parser)
 	: parser(parser)
 {
 	funcIndex = 1;
 	varIndex = 0;
 }
 
-CodeSeg GlobalVisitor::getInitCode()
+CodeSeg GlobalCodeGenVisitor::getGlobalCode()
 {
-	return initCode;
+	return globalCode;
 }
 
-void GlobalVisitor::visit(ProgramNode& node)
+void GlobalCodeGenVisitor::visit(ProgramNode& node)
 {
 	for (int i = 0; i < (int)node.stmts.size(); ++i)
 	{
@@ -24,18 +24,18 @@ void GlobalVisitor::visit(ProgramNode& node)
 	}
 }
 
-void GlobalVisitor::visit(IntDeclareNode& node)
+void GlobalCodeGenVisitor::visit(IntDeclareNode& node)
 {
 	CodeGenVisitor visitor(parser);
 	node.visit(visitor);
 	CodeSeg seg = visitor.getCode();
-	initCode.add(seg);
+	globalCode.add(seg);
 }
 
-void GlobalVisitor::visit(DoubleDeclareNode& node)
+void GlobalCodeGenVisitor::visit(DoubleDeclareNode& node)
 {	
 	CodeGenVisitor visitor(parser);
 	node.visit(visitor);
 	CodeSeg seg = visitor.getCode();
-	initCode.add(seg);
+	globalCode.add(seg);
 }
