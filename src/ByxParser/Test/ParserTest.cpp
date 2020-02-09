@@ -14,21 +14,11 @@ void ByxParserTest::Run()
 	StopWatch watch;
 	watch.begin();
 
-	// 代码生成测试
-	int numCases = 23;
-	for (int i = 1; i <= numCases; ++i)
-	{
-		string path = "src/ByxParser/Test/TestCase/CodeGenTest/";
-		CheckCase(path + to_string(i) + ".in", path + to_string(i) + ".out");
-		cout << i << " ";
-	}
-	cout << endl;
-
-	// 代码生成异常测试
+	// 异常测试
 	int numErrorCase = 37;
 	for (int i = 1; i <= numErrorCase; ++i)
 	{
-		string path = "src/ByxParser/Test/TestCase/CodeGenTest/Error/";
+		string path = "src/ByxParser/Test/TestCase/Error/";
 		CheckErrorCase(path + to_string(i) + ".in");
 		cout << i << " ";
 	}
@@ -38,7 +28,7 @@ void ByxParserTest::Run()
 	int numVMCase = 30;
 	for (int i = 1; i <= numVMCase; ++i)
 	{
-		string path = "src/ByxParser/Test/TestCase/VMTest/";
+		string path = "src/ByxParser/Test/TestCase/VM/";
 		CheckVMCase(path + to_string(i) + ".in", path + to_string(i) + ".out");
 		cout << i << " ";
 	}
@@ -46,96 +36,6 @@ void ByxParserTest::Run()
 
 	watch.end();
 	cout << "ByxParser test passed! time: " << watch.duration() << "s" << endl;
-}
-
-void ByxParserTest::CheckCase(const string& in, const string& out)
-{
-	string program = FileToString(in);
-	ifstream fin(out);
-	if (!fin)
-	{
-		cout << "Open file failed: " << out << endl;
-		exit(0);
-	}
-
-	ByxParser parser(program);
-
-	try
-	{
-		parser.parse();
-	}
-	catch (ByxParser::ParseError err)
-	{
-		cout << "Parser test failed at file: " << in << endl;
-		cout << err.getMsg() << endl;
-		cout << "row: " << err.getRow() << endl;
-		cout << "col: " << err.getCol() << endl;
-		exit(0);
-	}
-
-	FunctionTable table = parser.getFunctionTable();
-	Code code = parser.getCode();
-
-	//cout << code.toString() << endl;
-	//cout << table.toString() << endl;
-
-	// 验证函数表
-
-	int numFunctions;
-	fin >> numFunctions;
-	if (numFunctions != table.getCount())
-	{
-		cout << "Parser test failed at file " << in << endl;
-		cout << numFunctions << " " << table.getCount() << endl;
-		exit(0);
-	}
-
-	for (int i = 0; i < numFunctions; ++i)
-	{
-		int space, addr;
-		fin >> space >> addr;
-		if (!(table.getSpace(i) == space && table.getAddr(i) == addr))
-		{
-			cout << "Parser test failed at file " << in << endl;
-			cout << "Function info inconsistent." << endl;
-			cout << space << " " << addr << endl;
-			cout << table.getSpace(i) << " " << table.getAddr(i) << endl;
-			exit(0);
-		}
-	}
-
-	// 验证全局变量空间
-	int globalSpace;
-	fin >> globalSpace;
-	if (globalSpace != parser.getGlobalSpace())
-	{
-		cout << "Parser test failed at file " << in << endl;
-		cout << "Global space inconsistent." << endl;
-		exit(0);
-	}
-
-	// 验证生成代码
-	vector<Instruction> insts = code.getInsts();
-	string str;
-	for (int i = 0; i < (int)insts.size(); ++i)
-	{
-		str += insts[i].toString();
-		str += " ";
-	}
-
-	stringstream ss(str);
-	string s;
-	while (ss >> s)
-	{
-		string s1;
-		fin >> s1;
-		if (s != s1)
-		{
-			cout << "Parser test failed at file " << in << endl;
-			cout << s << " " << s1 << endl;
-			exit(0);
-		}
-	}
 }
 
 void ByxParserTest::CheckErrorCase(const std::string& in)

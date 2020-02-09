@@ -73,11 +73,6 @@ ByxParser& ByxParser::parse()
 	globalCode = globalVisitor.getGlobalCode();
 
 	// 第三遍遍历：生成所有代码
-	/*FuncCombVisitor funcCombVisitor(*this);
-	ast->visit(funcCombVisitor);
-	CodeSeg codeSeg = funcCombVisitor.getCode();
-	code = Code(codeSeg);*/
-
 	CodeGenVisitor codeGenVisitor(*this);
 	ast->visit(codeGenVisitor);
 	code = Code(codeGenVisitor.getCode());
