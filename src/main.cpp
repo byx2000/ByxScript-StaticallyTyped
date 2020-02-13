@@ -22,7 +22,7 @@ int main()
 	// ByxParserµ¥Ôª²âÊÔ
 	ByxParserTest::Run();
 
-	cout << endl;
+	/*cout << endl;
 	try
 	{
 		ByxParser parser("int g = 100; function void main() { int i = 0; }");
@@ -35,7 +35,7 @@ int main()
 	{
 		cout << err.getMsg() << endl;
 		cout << err.getRow() << " " << err.getCol() << endl;
-	}
+	}*/
 
 	return 0;
 }
